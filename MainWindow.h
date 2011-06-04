@@ -24,7 +24,12 @@ public:
 
 private:
   GtkWidget *window;
+  GtkWidget *map; // frame na mapię
+  GtkWidget *tree; //frame na drzewo
+  GtkWidget *paned; //GTKPande
+
   GtkWidget *button;
+  GtkWidget *button2;
   std::string programtitle;
 
   static gboolean delete_event(GtkWidget *widget, GdkEvent *event, gpointer data);

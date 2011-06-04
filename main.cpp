@@ -15,6 +15,7 @@ int main(int argc, char **argv)
   gui->run();
 
   delete gui;
+
   /*tree = 0;
   //std::cout << *tree << "\n";
   Analiser a1("test");//, a2("test2"), a3("test3"), a4("test4");

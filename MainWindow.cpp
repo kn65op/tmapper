@@ -32,17 +32,27 @@ void MainWindow::init(int argc, char** argv)
 void MainWindow::build()
 {
   window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+  paned = gtk_paned_new(GTK_ORIENTATION_HORIZONTAL);
+  map = gtk_frame_new(NULL);
+  tree = gtk_frame_new(NULL);
 
   g_signal_connect(G_OBJECT(window), "delete_event", G_CALLBACK(delete_event), this);
   g_signal_connect(G_OBJECT(window), "destroy", G_CALLBACK(destroy), this);
 
-  gtk_window_set_title(GTK_WINDOW(window), "MainWindow");
-  gtk_widget_set_size_request(window, 170, 50);
+  gtk_window_set_title(GTK_WINDOW(window), "TMapper");
+  gtk_widget_set_size_request(window, 300, 300);
   gtk_container_set_border_width(GTK_CONTAINER(window), 10);
 
-  button = gtk_button_new_with_label("PressMy");
-  g_signal_connect(G_OBJECT(button), "clicked", G_CALLBACK(buttonclicked), this);
-  gtk_container_add(GTK_CONTAINER(window), button);
+  gtk_frame_set_shadow_type(GTK_FRAME(map), GTK_SHADOW_IN); //tworzenie ramek
+  gtk_frame_set_shadow_type(GTK_FRAME(tree), GTK_SHADOW_IN);
+
+  gtk_paned_pack1(GTK_PANED(paned), map, TRUE, FALSE);
+  gtk_paned_pack2(GTK_PANED(paned), tree, TRUE, FALSE);
+  gtk_widget_set_size_request(map, 500, 700);
+  gtk_widget_set_size_request(tree, 200, 700);/**/
+
+  gtk_container_add(GTK_CONTAINER(window), paned);
+
 }
 
 void MainWindow::run()
@@ -63,9 +73,5 @@ void MainWindow::destroy(GtkWidget *widget, gpointer data)
 
 void MainWindow::buttonclicked(GtkWidget *widget, gpointer data)
 {
-  MainWindow *mygui = static_cast<MainWindow*> (data);
 
-  cout << gtk_button_get_label(GTK_BUTTON(mygui->button)) << endl;
-  mygui->programtitle = gtk_window_get_title(GTK_WINDOW(mygui->window));
-  cout << "Nazwa twojego programu to: " << mygui->programtitle << endl;
 }
