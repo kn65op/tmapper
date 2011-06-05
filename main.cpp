@@ -8,7 +8,7 @@
 
 int main(int argc, char **argv)
 {
-  MainWindow *gui = new MainWindow;
+  MainWindow *gui = new MainWindow(argc, argv);
 
   gui->init(argc,argv);
   gui->build();

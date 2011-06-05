@@ -11,7 +11,7 @@ LEXFLAGS =
 YACCFLAGS = -d
 
 #pliki pomocznicze *.o
-O_FILES = skaner.o analiser.o KML.o node.o main.o parser.o Document.o Placemark.o Folder.o Name.o Style.o Description.o textnode.o boolnode.o Visibility.o Point.o LineString.o LinearRing.o Polygon.o Multigeometry.o StyleURL.o Coordinates.o OuterBoundaryIs.o InnerBoundaryIs.o IconStyle.o LabelStyle.o LineStyle.o PolyStyle.o Color.o Scale.o Heading.o Icon.o Hotspot.o Href.o Width.o Fill.o Outline.o numbernode.o MainWindow.o
+O_FILES = skaner.o analiser.o KML.o node.o main.o parser.o Document.o Placemark.o Folder.o Name.o Style.o Description.o textnode.o boolnode.o Visibility.o Point.o LineString.o LinearRing.o Polygon.o Multigeometry.o StyleURL.o Coordinates.o OuterBoundaryIs.o InnerBoundaryIs.o IconStyle.o LabelStyle.o LineStyle.o PolyStyle.o Color.o Scale.o Heading.o Icon.o Hotspot.o Href.o Width.o Fill.o Outline.o numbernode.o MainWindow.o TreeWindow.o
 
 #reguły
 
@@ -141,6 +141,9 @@ Outline.o: Outline.cpp Outline.h
 
 MainWindow.o: MainWindow.cpp MainWindow.h
 	$(CC) $(CCFLAGS_C) $(CCFLAGS_L) -o MainWindow.o MainWindow.cpp
+
+TreeWindow.o: TreeWindow.cpp TreeWindow.h
+	$(CC) $(CCFLAGS_C) $(CCFLAGS_L) -o TreeWindow.o TreeWindow.cpp
 
 clean:
 	rm skaner.cpp parser.cpp parser.hpp $(O_FILES)

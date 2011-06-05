@@ -12,25 +12,34 @@
 #include <cairo/cairo.h>
 #include <string>
 
+class MainWindow;
+
+#include "TreeWindow.h"
+
 class MainWindow
 {
 public:
-  MainWindow();
+  MainWindow(int argc, char **argv);
   MainWindow(const MainWindow& orig);
   virtual ~MainWindow();
   void init(int, char**);
   void build();
   void run();
 
+  GtkWidget* getWindow() const
+  {
+    return window;
+  }
+
+
 private:
   GtkWidget *window;
-  GtkWidget *map; // frame na mapię
-  GtkWidget *tree; //frame na drzewo
-  GtkWidget *paned; //GTKPande
+  GtkWidget *window2;
+  GtkWindowGroup * wg;
+  TreeWindow * tree;
+  std::string programtitle;
 
   GtkWidget *button;
-  GtkWidget *button2;
-  std::string programtitle;
 
   static gboolean delete_event(GtkWidget *widget, GdkEvent *event, gpointer data);
   static void destroy(GtkWidget *widget, gpointer data);
