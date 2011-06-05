@@ -24,12 +24,6 @@ public:
   void build();
   void run();
 
-  GtkWidget* getWindow() const
-  {
-    return map;
-  }
-
-
 private:
   GtkWidget *map;
   GtkWidget *tree;

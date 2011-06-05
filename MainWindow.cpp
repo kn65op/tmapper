@@ -48,6 +48,10 @@ void MainWindow::build()
   g_signal_connect(G_OBJECT(button),"clicked",G_CALLBACK(buttonclicked),this);
   gtk_container_add(GTK_CONTAINER(map),button);//*/
 
+  button = gtk_button_new_with_label("Narysuj coś");
+  g_signal_connect(G_OBJECT(button),"clicked",G_CALLBACK(buttonclicked),this);
+  gtk_container_add(GTK_CONTAINER(head),button);//*/
+
   gtk_window_set_title(GTK_WINDOW(tree), "TMapper2");
   gtk_widget_set_size_request(tree, 300, 800);
   gtk_container_set_border_width(GTK_CONTAINER(tree), 10);
@@ -79,5 +83,5 @@ void MainWindow::destroy(GtkWidget *widget, gpointer data)
 
 void MainWindow::buttonclicked(GtkWidget *widget, gpointer data)
 {
-  std::cout << "LOL\n";
+  
 }
