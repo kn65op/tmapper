@@ -49,8 +49,8 @@ void MainWindow::build()
   gtk_container_add(GTK_CONTAINER(map),button);//*/
 
   button = gtk_button_new_with_label("Narysuj coś");
-  g_signal_connect(G_OBJECT(button),"clicked",G_CALLBACK(buttonclicked),this);
-  gtk_container_add(GTK_CONTAINER(head),button);//*/
+  g_signal_connect(G_OBJECT(button), "clicked", G_CALLBACK(buttonclicked), this);
+  gtk_container_add(GTK_CONTAINER(tree), button); //*/
 
   gtk_window_set_title(GTK_WINDOW(tree), "TMapper2");
   gtk_widget_set_size_request(tree, 300, 800);
@@ -83,5 +83,10 @@ void MainWindow::destroy(GtkWidget *widget, gpointer data)
 
 void MainWindow::buttonclicked(GtkWidget *widget, gpointer data)
 {
-  
+  MainWindow *mw = static_cast<MainWindow*>(data);
+
+  cairo_t *cr = gdk_cairo_create(mw->getMap()->get_window());
+  cairo_set_source_rgb(cr, 0, 0, 255);
+  cairo_rectangle (cr, 0.25, 0.25, 0.5, 0.5);
+  cairo_fill (cr);
 }

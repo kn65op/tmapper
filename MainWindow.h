@@ -24,6 +24,10 @@ public:
   void build();
   void run();
 
+
+GtkWidget* getMap() const { return map;}
+
+
 private:
   GtkWidget *map;
   GtkWidget *tree;
