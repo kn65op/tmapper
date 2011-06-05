@@ -14,8 +14,6 @@
 
 class MainWindow;
 
-#include "TreeWindow.h"
-
 class MainWindow
 {
 public:
@@ -28,18 +26,18 @@ public:
 
   GtkWidget* getWindow() const
   {
-    return window;
+    return map;
   }
 
 
 private:
-  GtkWidget *window;
-  GtkWidget *window2;
+  GtkWidget *map;
+  GtkWidget *tree;
   GtkWindowGroup * wg;
-  TreeWindow * tree;
   std::string programtitle;
 
   GtkWidget *button;
+  GtkWidget *button2;
 
   static gboolean delete_event(GtkWidget *widget, GdkEvent *event, gpointer data);
   static void destroy(GtkWidget *widget, gpointer data);
