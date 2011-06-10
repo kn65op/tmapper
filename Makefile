@@ -5,8 +5,8 @@ CC = g++
 
 #flagi
 
-CCFLAGS_C = -c
-CCFLAGS_L = `pkg-config --cflags --libs gtk+-3.0`
+CCFLAGS_C = -c -g
+CCFLAGS_L = `pkg-config --cflags --libs gtk+-2.0` -g
 LEXFLAGS = 
 YACCFLAGS = -d
 
