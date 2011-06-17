@@ -35,14 +35,16 @@ void MainWindow::init(int argc, char** argv)
 void MainWindow::build()
 {
   map = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-  tree = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+  //tree = gtk_window_new(GTK_WINDOW_TOPLEVEL);
   vbox = gtk_vbox_new(GTK_ORIENTATION_VERTICAL, 5);
   hbox = gtk_hbox_new(GTK_ORIENTATION_HORIZONTAL, 5);
-  menu = gtk_menu_new();
+  menu = gtk_menu_bar_new();
 
   g_signal_connect(G_OBJECT(map), "delete_event", G_CALLBACK(delete_event), this);
   g_signal_connect(G_OBJECT(map), "destroy", G_CALLBACK(destroy), this);
 
+
+  /*okno*/
   gtk_window_set_title(GTK_WINDOW(map), "Mapa");
   gtk_widget_set_size_request(map, 700, 800);
   gtk_container_set_border_width(GTK_CONTAINER(map), 10); //*/
@@ -62,10 +64,11 @@ void MainWindow::build()
   g_signal_connect(G_OBJECT(button),"clicked",G_CALLBACK(buttonclicked),this);
   gtk_container_add(GTK_CONTAINER(map),button);//*/
 
-  gtk_window_set_title(GTK_WINDOW(tree), "Drzewo");
+  /*gtk_window_set_title(GTK_WINDOW(tree), "Drzewo");
   gtk_widget_set_size_request(tree, 300, 800);
-  gtk_container_set_border_width(GTK_CONTAINER(tree), 10);
+  gtk_container_set_border_width(GTK_CONTAINER(tree), 10);//*/
 
+  /*przycisk*/
   button = gtk_button_new_with_label("Narysuj coś");
   g_signal_connect(G_OBJECT(button), "clicked", G_CALLBACK(buttonclicked), this);
   gtk_widget_set_size_request(button, 30, 30);
@@ -81,27 +84,35 @@ void MainWindow::build()
           GDK_BUTTON_PRESS_MASK |
           GDK_BUTTON_RELEASE_MASK);
 
-  //boxowanie
-  gtk_box_pack_start(GTK_BOX(vbox), menu, FALSE, FALSE, 0);
-  gtk_box_pack_end(GTK_BOX(vbox), hbox, FALSE, FALSE, 0);
+  /**  menu*/
+  gtk_widget_set_size_request(menu, 800, 20);
 
-  gtk_box_pack_start(GTK_BOX(hbox), button, FALSE, FALSE, 0);
-  gtk_box_pack_end(GTK_BOX(hbox), canvas, FALSE, FALSE, 0);
+  //boxowanie
+
+  gtk_box_set_homogeneous(GTK_BOX(vbox), FALSE);
+  gtk_box_set_homogeneous(GTK_BOX(hbox), FALSE);
+
+  gtk_box_pack_start(GTK_BOX(vbox), menu, FALSE, FALSE, 0);
+  gtk_box_pack_end(GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
+
+  gtk_box_pack_start(GTK_BOX(hbox), canvas, TRUE, TRUE, 0);
+  gtk_box_pack_end(GTK_BOX(hbox), button, FALSE, FALSE, 0);
+  
 
   gtk_container_add(GTK_CONTAINER(map), vbox);
 
   gtk_window_set_modal(GTK_WINDOW(map), FALSE);
-  gtk_window_set_modal(GTK_WINDOW(tree), FALSE);
+  //gtk_window_set_modal(GTK_WINDOW(tree), FALSE);
 
-  wg = gtk_window_group_new();
-  gtk_window_group_add_window(wg, GTK_WINDOW(tree));
-  gtk_window_group_add_window(wg, GTK_WINDOW(map));
+  //wg = gtk_window_group_new();
+  //gtk_window_group_add_window(wg, GTK_WINDOW(tree));
+  //gtk_window_group_add_window(wg, GTK_WINDOW(map));
 }
 
 void MainWindow::run()
 {
   gtk_widget_show_all(map);
-  gtk_widget_show_all(tree);
+  //gtk_widget_show_all(tree);
   gtk_main();
 }
 
