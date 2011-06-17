@@ -12,6 +12,8 @@
 #include <cairo/cairo.h>
 #include <string>
 
+#include "KML.h"
+
 class MainWindow;
 
 class MainWindow
@@ -24,16 +26,18 @@ public:
   void build();
   void run();
 
-  GtkWidget* getMap() const
+  /*GtkWidget* getMap() const
   {
     return map;
-  }
+  }//*/
+
+
 
 
 private:
+  /*zmienne gtk*/
   GtkWidget *map;
   GtkWidget *tree;
-  GtkWidget *menu;
   GtkWidget *vbox; // box na menu i resztę
   GtkWidget *hbox; // box na rzeczy w mapie
   GtkWindowGroup * wg;
@@ -42,11 +46,19 @@ private:
   GtkWidget *canvas;
   GtkWidget *button;
 
+  /*menu:*/
+  GtkWidget *menu;
+  GtkWidget *file_menu;
+
+  /*funkcje gtk*/
   static gboolean delete_event(GtkWidget *widget, GdkEvent *event, gpointer data);
   static void destroy(GtkWidget *widget, gpointer data);
   static void buttonclicked(GtkWidget *widget, gpointer data);
 
   static void paint(GtkWidget *widget, GdkEventExpose *eev, gpointer data);
+
+  /*zmienne do do map*/
+  KML *kml;
 };
 
 #endif	/* MAINWINDOW_H */

@@ -38,8 +38,7 @@ void MainWindow::build()
   //tree = gtk_window_new(GTK_WINDOW_TOPLEVEL);
   vbox = gtk_vbox_new(GTK_ORIENTATION_VERTICAL, 5);
   hbox = gtk_hbox_new(GTK_ORIENTATION_HORIZONTAL, 5);
-  menu = gtk_menu_bar_new();
-
+  
   g_signal_connect(G_OBJECT(map), "delete_event", G_CALLBACK(delete_event), this);
   g_signal_connect(G_OBJECT(map), "destroy", G_CALLBACK(destroy), this);
 
@@ -85,7 +84,12 @@ void MainWindow::build()
           GDK_BUTTON_RELEASE_MASK);
 
   /**  menu*/
+  menu = gtk_menu_bar_new();
   gtk_widget_set_size_request(menu, 800, 20);
+
+  file_menu = gtk_menu_item_new_with_label("Plik");
+
+  gtk_menu_shell_append(GTK_MENU_SHELL(menu), file_menu);
 
   //boxowanie
 
