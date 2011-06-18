@@ -10,6 +10,8 @@
 
 #include <string>
 
+#include "KML.h"
+
 extern int yyparse();
 extern FILE * yyin;
 
@@ -17,12 +19,35 @@ class Analiser
 {
 public:
   Analiser(std::string);
+  Analiser();
   Analiser(const Analiser& orig);
   virtual ~Analiser();
   void Analise(void);
+
+  std::string GetFilename() const
+  {
+    return filename;
+  }
+
+  void SetFilename(std::string filename)
+  {
+    this->filename = filename;
+  }
+
+  KML* GetKml() const
+  {
+    return kml;
+  }
+
+  void SetKml(KML* kml)
+  {
+    this->kml = kml;
+  }
+
+
 private:
   std::string filename;
-
+  KML *kml;
 };
 
 #endif	/* ANALISER_H */

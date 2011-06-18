@@ -13,6 +13,7 @@
 #include <string>
 
 #include "KML.h"
+#include "Analiser.h"
 
 class MainWindow;
 
@@ -32,6 +33,24 @@ public:
   }//*/
 
 
+  KML* getKML() const
+  {
+    return kml;
+  }
+
+  void setKML(KML* kml)
+  {
+    this->kml = kml;
+  }
+  Analiser getAnaliser() const
+  {
+    return analiser;
+  }
+
+  void setAnaliser(Analiser analiser)
+  {
+    this->analiser = analiser;
+  }
 
 
 private:
@@ -64,11 +83,13 @@ private:
   static void destroy(GtkWidget *widget, gpointer data);
   static void buttonclicked(GtkWidget *widget, gpointer data);
   static void showInfo(GtkWidget *widget, gpointer data);
+  static void openFile(GtkWidget *widget, gpointer data);
 
   static void paint(GtkWidget *widget, GdkEventExpose *eev, gpointer data);
 
   /*zmienne do do map*/
   KML *kml;
+  Analiser analiser;
 };
 
 #endif	/* MAINWINDOW_H */

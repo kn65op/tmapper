@@ -10,17 +10,20 @@
 #include <gtk-2.0/gtk/gtk.h>
 #include <cairo/cairo.h>
 #include <iostream>
+
+#include "KML.h"
 //#include <gtkmm-2.4/gtkmm/main.h>
 
 using namespace std;
 
 MainWindow::MainWindow(int argc, char **argv)
 {
-
+  kml = 0;
 }
 
 MainWindow::MainWindow(const MainWindow& orig)
 {
+
 }
 
 MainWindow::~MainWindow()
@@ -58,7 +61,7 @@ void MainWindow::build()
 
   /* connect our drawing method to the "expose" signal
    */
-  g_signal_connect(G_OBJECT(canvas), "expose-event", G_CALLBACK(paint), NULL /*< here we can pass a pointer to a custom data structure */);
+  g_signal_connect(G_OBJECT(canvas), "expose-event", G_CALLBACK(paint), this);
 
   /*button = gtk_button_new_with_label("PressMy");
   g_signal_connect(G_OBJECT(button),"clicked",G_CALLBACK(buttonclicked),this);
@@ -102,7 +105,8 @@ void MainWindow::build()
   sep = gtk_separator_menu_item_new();
 
   g_signal_connect(G_OBJECT(quit), "activate", G_CALLBACK(gtk_main_quit), NULL); //łączymy opcje z przyciksami
-  g_signal_connect(G_OBJECT(about), "activate", G_CALLBACK(showInfo), NULL); //łączymy opcje z przyciksami
+  g_signal_connect(G_OBJECT(about), "activate", G_CALLBACK(showInfo), NULL);
+  g_signal_connect(G_OBJECT(open), "activate", G_CALLBACK(openFile), this);
 
   gtk_menu_item_set_submenu(GTK_MENU_ITEM(file), file_menu); // łączymy kategorie z nazwami
   gtk_menu_item_set_submenu(GTK_MENU_ITEM(help), help_menu);
@@ -211,48 +215,56 @@ void MainWindow::paint(GtkWidget* widget, GdkEventExpose* eev, gpointer data)
 {
 
   /* clear background */
-  cairo_t *cr = gdk_cairo_create(widget->window);
+  MainWindow *mw = static_cast<MainWindow*> (data);
+
+  std::cout << "LOL\n";
+
+  cairo_t *cr = gdk_cairo_create(mw->canvas->window);
+
   cairo_set_source_rgb(cr, 1, 1, 1);
   cairo_paint(cr);
 
-
-  cairo_select_font_face(cr, "Sans", CAIRO_FONT_SLANT_NORMAL,
-          CAIRO_FONT_WEIGHT_BOLD);
-
-  /* enclosing in a save/restore pair since we alter the
-   * font size
-   */
-  cairo_save(cr);
-  cairo_set_font_size(cr, 40);
-  cairo_move_to(cr, 40, 60);
-  cairo_set_source_rgb(cr, 0, 0, 0);
-  cairo_show_text(cr, "Hello World");
-  cairo_restore(cr);
-
-  cairo_set_source_rgb(cr, 1, 0, 0);
-  cairo_set_font_size(cr, 20);
-  cairo_move_to(cr, 50, 100);
-  cairo_show_text(cr, "greetings from gtk and cairo");
-
-  cairo_set_source_rgb(cr, 0, 0, 1);
-
-  cairo_move_to(cr, 0, 150);
-  for (int i = 0; i < 100 / 10; i++)
+  if (mw->getKML()) //można narysować
   {
-    cairo_rel_line_to(cr, 5, 10);
-    cairo_rel_line_to(cr, 5, -10);
+
   }
-  cairo_stroke(cr);
 
   cairo_destroy(cr);
-  std::cout << "Paint\n";
 }
 
 void MainWindow::showInfo(GtkWidget *widget, gpointer data)
 {
-  std::cout << "INFO\n";
-  GtkWidget *infow = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-  gtk_window_set_title(GTK_WINDOW(infow), "Informacje o programie");
-  gtk_widget_show_all(infow);
+  GtkWidget *info = gtk_about_dialog_new();
+  gtk_about_dialog_set_name(GTK_ABOUT_DIALOG(info), "TMapper");
+  gtk_about_dialog_set_program_name(GTK_ABOUT_DIALOG(info), "TMapper");
+  gtk_about_dialog_set_version(GTK_ABOUT_DIALOG(info), "0.0.5");
+  gtk_about_dialog_set_copyright(GTK_ABOUT_DIALOG(info), "(c) Tomasz Drzewiecki");
+  gtk_about_dialog_set_comments(GTK_ABOUT_DIALOG(info), "TMapper to program do podglądu i edycji map zapisanych w KML.\n"
+          "Program zrealizowany jako program zaliczeniowy na przedmiot \"Języki formalne i kompilatory\",\nprowadzący:\tdr. inż. Jacek Piwowarczyk,\n"
+          "Informatyka stosowana,\nIII rok");
+  gtk_about_dialog_set_website(GTK_ABOUT_DIALOG(info), "https://sourceforge.net/projects/tmapper/");
+  //gtk_about_dialog_set_logo(GTK_ABOUT_DIALOG(info), pixbuf); //TODO dołożyć log
+  //g_object_unref(pixbuf), pixbuf = NULL;
+  gtk_dialog_run(GTK_DIALOG(info));
+  gtk_widget_destroy(info);
   //gtk_main();
+}
+
+void MainWindow::openFile(GtkWidget* widget, gpointer data)
+{
+  MainWindow *mw = static_cast<MainWindow*> (data);
+  GtkWidget *chooser = gtk_file_chooser_dialog_new ("Otwórz plik",
+				      GTK_WINDOW(mw->map),
+				      GTK_FILE_CHOOSER_ACTION_OPEN,
+				      GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+				      GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT,
+				      NULL);
+  if (gtk_dialog_run (GTK_DIALOG (chooser)) == GTK_RESPONSE_ACCEPT)
+  {
+    char *filename;
+    filename = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (chooser));
+    mw->getAnaliser().SetFilename(string(filename));
+    g_free (filename);
+  }
+gtk_widget_destroy (chooser);
 }

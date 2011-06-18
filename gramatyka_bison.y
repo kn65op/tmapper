@@ -114,6 +114,10 @@ input: kml_start kml kml_end
 
 kml_start: TAG_OPEN KML_SYM options TAG_CLOSE
 {
+  if (tree)
+  {
+    delete tree;
+  }
   tree = new KML($3);
   last_element = tree
 }

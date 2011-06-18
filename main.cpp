@@ -3,7 +3,6 @@
 
 #include "Analiser.h"
 #include "MainWindow.h"
-#include "tree.h"
 #include "KML.h"
 
 int main(int argc, char **argv)
