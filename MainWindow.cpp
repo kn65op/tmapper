@@ -10,6 +10,7 @@
 #include <gtk-2.0/gtk/gtk.h>
 #include <cairo/cairo.h>
 #include <iostream>
+//#include <gtkmm-2.4/gtkmm/main.h>
 
 using namespace std;
 
@@ -38,7 +39,7 @@ void MainWindow::build()
   //tree = gtk_window_new(GTK_WINDOW_TOPLEVEL);
   vbox = gtk_vbox_new(GTK_ORIENTATION_VERTICAL, 5);
   hbox = gtk_hbox_new(GTK_ORIENTATION_HORIZONTAL, 5);
-  
+
   g_signal_connect(G_OBJECT(map), "delete_event", G_CALLBACK(delete_event), this);
   g_signal_connect(G_OBJECT(map), "destroy", G_CALLBACK(destroy), this);
 
@@ -84,12 +85,37 @@ void MainWindow::build()
           GDK_BUTTON_RELEASE_MASK);
 
   /**  menu*/
-  menu = gtk_menu_bar_new();
+  menu = gtk_menu_bar_new(); // tworzymy menubar
   gtk_widget_set_size_request(menu, 800, 20);
 
-  file_menu = gtk_menu_item_new_with_label("Plik");
+  file_menu = gtk_menu_new(); //tworzymy kategorie
+  help_menu = gtk_menu_new();
 
-  gtk_menu_shell_append(GTK_MENU_SHELL(menu), file_menu);
+  file = gtk_menu_item_new_with_mnemonic("_Plik"); // tworzymy nazwy kategorii
+  help = gtk_menu_item_new_with_mnemonic("P_omoc");
+
+  open = gtk_image_menu_item_new_from_stock(GTK_STOCK_OPEN, NULL); //tworzymy opcje menu
+  newf = gtk_image_menu_item_new_from_stock(GTK_STOCK_NEW, NULL);
+  save = gtk_image_menu_item_new_from_stock(GTK_STOCK_SAVE, NULL);
+  quit = gtk_image_menu_item_new_from_stock(GTK_STOCK_QUIT, NULL);
+  about = gtk_image_menu_item_new_from_stock(GTK_STOCK_ABOUT, NULL);
+  sep = gtk_separator_menu_item_new();
+
+  g_signal_connect(G_OBJECT(quit), "activate", G_CALLBACK(gtk_main_quit), NULL); //łączymy opcje z przyciksami
+  g_signal_connect(G_OBJECT(about), "activate", G_CALLBACK(showInfo), NULL); //łączymy opcje z przyciksami
+
+  gtk_menu_item_set_submenu(GTK_MENU_ITEM(file), file_menu); // łączymy kategorie z nazwami
+  gtk_menu_item_set_submenu(GTK_MENU_ITEM(help), help_menu);
+
+  gtk_menu_shell_append(GTK_MENU_SHELL(file_menu), newf); // łączymy kategorie z opcjami
+  gtk_menu_shell_append(GTK_MENU_SHELL(file_menu), open);
+  gtk_menu_shell_append(GTK_MENU_SHELL(file_menu), save);
+  gtk_menu_shell_append(GTK_MENU_SHELL(file_menu), sep);
+  gtk_menu_shell_append(GTK_MENU_SHELL(file_menu), quit);
+  gtk_menu_shell_append(GTK_MENU_SHELL(help_menu), about);
+
+  gtk_menu_shell_append(GTK_MENU_SHELL(menu), file); //łaczymy kategorie z menu
+  gtk_menu_shell_append(GTK_MENU_SHELL(menu), help);
 
   //boxowanie
 
@@ -101,7 +127,7 @@ void MainWindow::build()
 
   gtk_box_pack_start(GTK_BOX(hbox), canvas, TRUE, TRUE, 0);
   gtk_box_pack_end(GTK_BOX(hbox), button, FALSE, FALSE, 0);
-  
+
 
   gtk_container_add(GTK_CONTAINER(map), vbox);
 
@@ -220,4 +246,13 @@ void MainWindow::paint(GtkWidget* widget, GdkEventExpose* eev, gpointer data)
 
   cairo_destroy(cr);
   std::cout << "Paint\n";
+}
+
+void MainWindow::showInfo(GtkWidget *widget, gpointer data)
+{
+  std::cout << "INFO\n";
+  GtkWidget *infow = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+  gtk_window_set_title(GTK_WINDOW(infow), "Informacje o programie");
+  gtk_widget_show_all(infow);
+  //gtk_main();
 }

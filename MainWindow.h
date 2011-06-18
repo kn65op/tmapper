@@ -49,11 +49,21 @@ private:
   /*menu:*/
   GtkWidget *menu;
   GtkWidget *file_menu;
+  GtkWidget *help_menu;
+  GtkWidget *file;
+  GtkWidget *help;
+  GtkWidget *newf;
+  GtkWidget *open;
+  GtkWidget *save;
+  GtkWidget *quit;
+  GtkWidget *about;
+  GtkWidget *sep;
 
   /*funkcje gtk*/
   static gboolean delete_event(GtkWidget *widget, GdkEvent *event, gpointer data);
   static void destroy(GtkWidget *widget, gpointer data);
   static void buttonclicked(GtkWidget *widget, gpointer data);
+  static void showInfo(GtkWidget *widget, gpointer data);
 
   static void paint(GtkWidget *widget, GdkEventExpose *eev, gpointer data);
 
