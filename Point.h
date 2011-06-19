@@ -20,7 +20,7 @@ public:
   Point(const Point& orig);
   virtual ~Point();
 
-  void draw(cairo_t *cr, int max_x, int min_x, int max_y, int min_y);
+  void draw(cairo_t* cr, double a_x, double b_x, double a_y, double b_y);;
 
 private:
   void init();

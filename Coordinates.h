@@ -23,7 +23,15 @@ public:
 
   void addCoordinate(std::string *x, std::string *y, std::string *z);
   void saveToFile(std::string file, int level);
-  void findHW(int max_x, int min_x, int max_y, int min_y);
+  void findHW(double& max_x, double& min_x, double& max_y, double& min_y);
+
+  int getSize() const;
+
+  double* getCoordinates(int i) const
+  {
+    return coordinates[i];
+  }
+
 private:
   std::vector<double*> coordinates;
 

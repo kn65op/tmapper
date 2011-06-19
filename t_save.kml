@@ -1,0 +1,252 @@
+<KML id="zgh">
+	<Document id="asd">
+		<name>~GE13F.kmz</name>
+
+		<Style id="sn_campground4">
+			<IconStyle>
+				<scale>1</scale>
+
+				<Icon>
+					<href>http://maps.google.com/mapfiles/kml/shapes/campground.png</href>
+</Icon>
+<hotSpot x="0" y="0" xunits="fraction" yunits="fraction"/></IconStyle>
+</Style>
+
+		<Folder>
+			<name>Byłem tam.</name>
+
+			<visibility>0</visibility>
+
+			<description>Byłem tam osobiście.
+Samodzielnie wyszukane i dodane przeze mnie.</description>
+
+			<Placemark id="default_starting_location">
+				<name>Olkusz</name>
+
+				<visibility>0</visibility>
+
+				<description>Mój dom.</description>
+
+				<styleURL>#msn_homegardenbusiness1</styleURL>
+
+				<Point>
+					<coordinates></coordinates>
+</Point>
+</Placemark>
+
+			<Placemark>
+				<name>Tu pomieszkuje Ania</name>
+
+				<visibility>0</visibility>
+
+				<description>W Katowicach, na potrzeby studiowania.</description>
+
+				<styleURL>#msn_homegardenbusiness</styleURL>
+
+				<Point>
+					<coordinates></coordinates>
+</Point>
+</Placemark>
+
+			<Placemark>
+				<name>Śnieżnica</name>
+
+				<visibility>0</visibility>
+
+				<description>Stok, na którym byliśmy w pewnien mroźny (-15) piątek na desce.
+Kasina Wielka.</description>
+
+				<styleURL>#msn_snowflake_simple3</styleURL>
+
+				<Point>
+					<coordinates></coordinates>
+</Point>
+</Placemark>
+
+			<Placemark>
+				<name>Kraków - mieszkanie</name>
+
+				<visibility>0</visibility>
+
+				<description>Tu mieszkamy z Tomkiem studiując w Krakowie.</description>
+
+				<styleURL>#msn_arrow0</styleURL>
+
+				<Point>
+					<coordinates></coordinates>
+</Point>
+</Placemark>
+
+			<Placemark>
+				<name>Kamping Polari</name>
+
+				<visibility>0</visibility>
+
+				<description>Byliśmy tam z 7 razy.
+Teraz to straszna drożyzna, bo się kurort zrobił.</description>
+
+				<styleURL>#msn_campground00</styleURL>
+
+				<Point>
+					<coordinates></coordinates>
+</Point>
+</Placemark>
+
+			<Placemark>
+				<name>Pani S, Zuberec</name>
+
+				<visibility>0</visibility>
+
+				<description>Tu byliśmy też kilka razy, na nartach.</description>
+
+				<styleURL>#msn_ranger_station</styleURL>
+
+				<Point>
+					<coordinates></coordinates>
+</Point>
+</Placemark>
+
+			<Placemark>
+				<name>Kamping Tunarica</name>
+
+				<visibility>0</visibility>
+
+				<description>Kamping w Chorwacji.</description>
+
+				<styleURL>#msn_campground1</styleURL>
+
+				<Point>
+					<coordinates></coordinates>
+</Point>
+</Placemark>
+
+			<Placemark>
+				<name>Kamping w Rzymie</name>
+
+				<visibility>0</visibility>
+
+				<description>Na tym kampingu nocowaliśmy przez 5 nocy pobytu we Włoszech w wakacje 2009.</description>
+
+				<styleURL>#msn_campground0</styleURL>
+
+				<Point>
+					<coordinates></coordinates>
+</Point>
+</Placemark>
+
+			<Placemark>
+				<name>Kamping w Sarospataku</name>
+
+				<visibility>0</visibility>
+
+				<description>Byliśmy tu przez 2 tygodnie, nie ma morza, ale są baseny. Wiem, że to nie to samo, ale cóż zrobić.</description>
+
+				<styleURL>#msn_campground2</styleURL>
+
+				<Point>
+					<coordinates></coordinates>
+</Point>
+</Placemark>
+
+			<Placemark>
+				<name>Polska Misja Katolicka</name>
+
+				<visibility>0</visibility>
+
+				<description>Tu spaliśmy 5 nocy, gdy na wakacjach byliśmy Paryżu.</description>
+
+				<styleURL>#msn_campground4</styleURL>
+
+				<Point>
+					<coordinates></coordinates>
+</Point>
+</Placemark>
+
+			<Placemark>
+				<name>Kamping Posejdon</name>
+
+				<visibility>0</visibility>
+
+				<description>Kamping, na którym nocowaliśmy przed tydzień, w Grecji.</description>
+
+				<styleURL>#msn_campground3</styleURL>
+
+				<Point>
+					<coordinates></coordinates>
+</Point>
+</Placemark>
+
+			<Placemark>
+				<name>Kamping pod Olimpem.</name>
+
+				<visibility>0</visibility>
+
+				<description>Drugi tydzień pobytu w Grecji.
+Lokalizacja przyblizona, bo nie jestem pewnien czy to dokładnie tu, ale miasto się zgadza.</description>
+
+				<styleURL>#msn_campground</styleURL>
+
+				<Point>
+					<coordinates></coordinates>
+</Point>
+</Placemark>
+
+			<Placemark>
+				<name>Kamping Paestum</name>
+
+				<visibility>0</visibility>
+
+				<description>Tam spędzimy tydzień wakacji we Włoszech.</description>
+
+				<styleURL>#msn_campground5</styleURL>
+
+				<Point>
+					<coordinates></coordinates>
+</Point>
+</Placemark>
+
+			<Placemark>
+				<name>Lodowiec Hintertux najniższa stacja</name>
+
+				<visibility>0</visibility>
+
+				<description>Tu jest najniższa stacja wyciągu, na którym będziemy jeździć na nastach/desce.</description>
+
+				<styleURL>#msn_snowflake_simple30</styleURL>
+
+				<Point>
+					<coordinates></coordinates>
+</Point>
+</Placemark>
+
+			<Placemark>
+				<name>Lodowiec Hintertux najwyższa stacja</name>
+
+				<visibility>0</visibility>
+
+				<description>Najwyższy punkt na który można wyjechać wyciągami na lodowcu Hintertux. 3200m npm.
+Być może tam wyjadę z deską i zjadę z całej góry, czyli do wysokości 2000m npm.</description>
+
+				<styleURL>#msn_snowflake_simple11</styleURL>
+
+				<Point>
+					<coordinates></coordinates>
+</Point>
+</Placemark>
+
+			<Placemark>
+				<name>Lodowiec Hintertux - Parking</name>
+
+				<visibility>0</visibility>
+
+				<description>Stąd co prawda jest wyciąg na lodowiec, ale można juz tu nie zjechać, z powodu braku śniegu (w kwietniu).</description>
+
+				<styleURL>#msn_snowflake_simple1</styleURL>
+
+				<Point>
+					<coordinates></coordinates>
+</Point>
+</Placemark>
+</Folder>
+</Document>
+</KML>

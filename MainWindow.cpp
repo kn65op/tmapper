@@ -5,12 +5,16 @@
  * Created on 4 czerwiec 2011, 22:28
  */
 
+#define MENU_SIZE 20
+#define TREE_SIZE 30
+
 #include "MainWindow.h"
 
 #include <gtk-2.0/gtk/gtk.h>
 #include <gtk-2.0/gdk/gdkkeysyms.h>
 #include <cairo/cairo.h>
 #include <iostream>
+#include <float.h>
 
 #include "KML.h"
 //#include <gtkmm-2.4/gtkmm/main.h>
@@ -78,7 +82,7 @@ void MainWindow::build()
   /*przycisk*/
   button = gtk_button_new_with_label("Narysuj coś");
   g_signal_connect(G_OBJECT(button), "clicked", G_CALLBACK(buttonclicked), this);
-  gtk_widget_set_size_request(button, 30, 30);
+  gtk_widget_set_size_request(button, TREE_SIZE, TREE_SIZE);
   //  gtk_container_add(GTK_CONTAINER(map), button); //*/
 
 
@@ -93,7 +97,7 @@ void MainWindow::build()
 
   /**  menu*/
   menu = gtk_menu_bar_new(); // tworzymy menubar
-  gtk_widget_set_size_request(menu, 800, 20);
+  gtk_widget_set_size_request(menu, 800, MENU_SIZE);
 
   file_menu = gtk_menu_new(); //tworzymy kategorie
   help_menu = gtk_menu_new();
@@ -311,11 +315,20 @@ void MainWindow::drawKML(cairo_t *cr)
     return;
   }
 
-  int min_x, max_x, min_y, max_y, width, height;
+  double a_x, b_x, a_y, b_y;
+  double min_x, max_x, min_y, max_y;
+  int width, height;
+  min_x = min_y = DBL_MAX;
+  max_x = max_y = -DBL_MAX;
 
-  analiser->GetKML()->findHW(min_x, max_x, min_y, max_y);
+  analiser->GetKML()->findHW(max_x, min_x, max_y, min_y);
+  gtk_window_get_size(GTK_WINDOW(map), &width, &height);
 
-  
-  analiser->GetKML()->draw(cr, max_x, min_x, max_y, min_y);
+  a_x = (width-TREE_SIZE)/(max_x - min_x);
+  b_x = min_x;
+  a_y = (height-MENU_SIZE)/(max_y - min_y);
+  b_y = min_y;
+
+  analiser->GetKML()->draw(cr, a_x, b_x, a_y, b_y);
 
 }

@@ -67,7 +67,7 @@ void Coordinates::saveToFile(std::string file, int level)
   of.close();
 }
 
-void Coordinates::findHW(int max_x, int min_x, int max_y, int min_y)
+void Coordinates::findHW(double& max_x, double& min_x, double& max_y, double& min_y)
 {
   vector<double*>::iterator it, end;
   end = coordinates.end();
@@ -90,4 +90,9 @@ void Coordinates::findHW(int max_x, int min_x, int max_y, int min_y)
       min_y = (*it)[1];
     }
   }
+}
+
+int Coordinates::getSize() const
+{
+  return coordinates.size();
 }
