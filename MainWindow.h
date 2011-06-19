@@ -94,6 +94,9 @@ private:
   /*zmienne do do map*/
   //KML *kml;
   Analiser *analiser;
+  
+  /* Funkcje inne*/
+  void drawKML(cairo_t cr);
 };
 
 #endif	/* MAINWINDOW_H */

@@ -100,7 +100,7 @@ void node::saveToFile(std::string file, int level)
     (*it)->saveToFile(file, level+1);
   }
   of.open(file.c_str(), std::ios::app);
-  for (int i=0; i<level; i++) of << "\t";;
+  for (int i=0; i<level; i++) of << "";;
   of << "</" << name << ">\n";
   of.close();
 }
