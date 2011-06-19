@@ -1,0 +1,438 @@
+<kml id="zgh">
+<Document id="asd">
+	<name>abc</name>
+	<name>~GE13F.kmz</name>
+	<Style id="sh_snowflake_simple2">
+		<IconStyle>
+			<scale>1.4</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/shapes/snowflake_simple.png</href>
+			</Icon>
+			<hotSpot x="0.5" y="0" xunits="fraction" yunits="fraction"/>
+		</IconStyle>
+	</Style>
+	<Style id="sn_campground2">
+		<IconStyle>
+			<scale>1.2</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/shapes/campground.png</href>
+			</Icon>
+			<hotSpot x="0.5" y="0" xunits="fraction" yunits="fraction"/>
+		</IconStyle>
+	</Style>
+	<Style id="sh_homegardenbusiness0">
+		<IconStyle>
+			<scale>1.4</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/shapes/homegardenbusiness.png</href>
+			</Icon>
+			<hotSpot x="0.5" y="0" xunits="fraction" yunits="fraction"/>
+		</IconStyle>
+	</Style>
+	<Style id="sn_ranger_station">
+		<IconStyle>
+			<scale>1.2</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/shapes/ranger_station.png</href>
+			</Icon>
+			<hotSpot x="0.5" y="0" xunits="fraction" yunits="fraction"/>
+		</IconStyle>
+	</Style>
+	<Style id="sh_campground2">
+		<IconStyle>
+			<scale>1.4</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/shapes/campground.png</href>
+			</Icon>
+			<hotSpot x="0.5" y="0" xunits="fraction" yunits="fraction"/>
+		</IconStyle>
+	</Style>
+	<Style id="sh_campground3">
+		<IconStyle>
+			<scale>1.4</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/shapes/campground.png</href>
+			</Icon>
+			<hotSpot x="0.5" y="0" xunits="fraction" yunits="fraction"/>
+		</IconStyle>
+	</Style>
+	<Style id="sn_campground10">
+		<IconStyle>
+			<scale>1.2</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/shapes/campground.png</href>
+			</Icon>
+			<hotSpot x="0.5" y="0" xunits="fraction" yunits="fraction"/>
+		</IconStyle>
+	</Style>
+	<Style id="sh_campground">
+		<IconStyle>
+			<scale>1.4</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/shapes/campground.png</href>
+			</Icon>
+			<hotSpot x="0.5" y="0" xunits="fraction" yunits="fraction"/>
+		</IconStyle>
+	</Style>
+	<Style id="sn_campground1">
+		<IconStyle>
+			<scale>1.2</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/shapes/campground.png</href>
+			</Icon>
+			<hotSpot x="0.5" y="0" xunits="fraction" yunits="fraction"/>
+		</IconStyle>
+	</Style>
+	<Style id="sn_snowflake_simple30">
+		<IconStyle>
+			<scale>1.2</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/shapes/snowflake_simple.png</href>
+			</Icon>
+			<hotSpot x="0.5" y="0" xunits="fraction" yunits="fraction"/>
+		</IconStyle>
+	</Style>
+
+	<Style id="sh_campground10">
+		<IconStyle>
+			<scale>1.4</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/shapes/campground.png</href>
+			</Icon>
+			<hotSpot x="0.5" y="0" xunits="fraction" yunits="fraction"/>
+		</IconStyle>
+	</Style>
+	<Style id="sh_snowflake_simple0">
+		<IconStyle>
+			<scale>1.4</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/shapes/snowflake_simple.png</href>
+			</Icon>
+			<hotSpot x="0.5" y="0" xunits="fraction" yunits="fraction"/>
+		</IconStyle>
+	</Style>
+	<Style id="sh_snowflake_simple11">
+		<IconStyle>
+			<scale>1.4</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/shapes/snowflake_simple.png</href>
+			</Icon>
+			<hotSpot x="0.5" y="0" xunits="fraction" yunits="fraction"/>
+		</IconStyle>
+	</Style>
+	<Style id="sn_campground0">
+		<IconStyle>
+			<scale>1.2</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/shapes/campground.png</href>
+			</Icon>
+			<hotSpot x="0.5" y="0" xunits="fraction" yunits="fraction"/>
+		</IconStyle>
+	</Style>
+	<Style id="sh_homegardenbusiness1">
+		<IconStyle>
+			<scale>1.4</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/shapes/homegardenbusiness.png</href>
+			</Icon>
+			<hotSpot x="0.5" y="0" xunits="fraction" yunits="fraction"/>
+		</IconStyle>
+	</Style>
+	<Style id="sn_homegardenbusiness1">
+		<IconStyle>
+			<scale>1.2</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/shapes/homegardenbusiness.png</href>
+			</Icon>
+			<hotSpot x="0.5" y="0" xunits="fraction" yunits="fraction"/>
+		</IconStyle>
+	</Style>
+	<Style id="sn_campground00">
+		<IconStyle>
+			<scale>1.2</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/shapes/campground.png</href>
+			</Icon>
+			<hotSpot x="0.5" y="0" xunits="fraction" yunits="fraction"/>
+		</IconStyle>
+	</Style>
+	<Style id="sn_snowflake_simple1">
+		<IconStyle>
+			<scale>1.2</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/shapes/snowflake_simple.png</href>
+			</Icon>
+			<hotSpot x="0.5" y="0" xunits="fraction" yunits="fraction"/>
+		</IconStyle>
+	</Style>
+	<Style id="sh_snowflake_simple">
+		<IconStyle>
+			<scale>1.4</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/shapes/snowflake_simple.png</href>
+			</Icon>
+			<hotSpot x="0.5" y="0" xunits="fraction" yunits="fraction"/>
+		</IconStyle>
+	</Style>
+	<Style id="sn_snowflake_simple3">
+		<IconStyle>
+			<scale>1.2</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/shapes/snowflake_simple.png</href>
+			</Icon>
+			<hotSpot x="0.5" y="0" xunits="fraction" yunits="fraction"/>
+		</IconStyle>
+	</Style>
+	<Style id="sn_campground">
+		<IconStyle>
+			<scale>1.2</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/shapes/campground.png</href>
+			</Icon>
+			<hotSpot x="0.5" y="0" xunits="fraction" yunits="fraction"/>
+		</IconStyle>
+	</Style>
+	<Style id="sh_campground0">
+		<IconStyle>
+			<scale>1.4</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/shapes/campground.png</href>
+			</Icon>
+			<hotSpot x="0.5" y="0" xunits="fraction" yunits="fraction"/>
+		</IconStyle>
+	</Style>
+	<Style id="sh_campground00">
+		<IconStyle>
+			<scale>1.4</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/shapes/campground.png</href>
+			</Icon>
+			<hotSpot x="0.5" y="0" xunits="fraction" yunits="fraction"/>
+		</IconStyle>
+	</Style>
+	<Style id="sh_campground4">
+		<IconStyle>
+			<scale>1.4</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/shapes/campground.png</href>
+			</Icon>
+			<hotSpot x="0.5" y="0" xunits="fraction" yunits="fraction"/>
+		</IconStyle>
+	</Style>
+	<Style id="sn_arrow">
+		<IconStyle>
+			<scale>1.2</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/shapes/arrow.png</href>
+			</Icon>
+			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
+		</IconStyle>
+	</Style>
+	<Style id="sh_campground1">
+		<IconStyle>
+			<scale>1.4</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/shapes/campground.png</href>
+			</Icon>
+			<hotSpot x="0.5" y="0" xunits="fraction" yunits="fraction"/>
+		</IconStyle>
+	</Style>
+	<Style id="sn_campground3">
+		<IconStyle>
+			<scale>1.2</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/shapes/campground.png</href>
+			</Icon>
+			<hotSpot x="0.5" y="0" xunits="fraction" yunits="fraction"/>
+		</IconStyle>
+	</Style>
+	<Style id="sn_homegardenbusiness0">
+		<IconStyle>
+			<scale>1.2</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/shapes/homegardenbusiness.png</href>
+			</Icon>
+			<hotSpot x="0.5" y="0" xunits="fraction" yunits="fraction"/>
+		</IconStyle>
+	</Style>
+	<Style id="sn_campground4">
+		<IconStyle>
+			<scale>1.2</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/shapes/campground.png</href>
+			</Icon>
+			<hotSpot x="0.5" y="0" xunits="fraction" yunits="fraction"/>
+		</IconStyle>
+	</Style>
+	<Folder>
+		<name>Byłem tam.</name>
+		<visibility>0</visibility>
+		<description>Byłem tam osobiście.
+Samodzielnie wyszukane i dodane przeze mnie.</description>
+		<Placemark id="default_starting_location">
+			<name>Olkusz</name>
+			<visibility>0</visibility>
+			<description>Mój dom.</description>
+
+			<styleUrl>#msn_homegardenbusiness1</styleUrl>
+			<Point>
+				<coordinates>19.58036951931224,50.27733043988344,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>Tu pomieszkuje Ania</name>
+			<visibility>0</visibility>
+			<description>W Katowicach, na potrzeby studiowania.</description>
+
+			<styleUrl>#msn_homegardenbusiness</styleUrl>
+			<Point>
+				<coordinates>18.97790814866119,50.23016007942601,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>Śnieżnica</name>
+			<visibility>0</visibility>
+			<description>Stok, na którym byliśmy w pewnien mroźny (-15) piątek na desce.
+Kasina Wielka.</description>
+
+			<styleUrl>#msn_snowflake_simple3</styleUrl>
+			<Point>
+				<coordinates>20.16063891077404,49.7176632618484,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>Kraków - mieszkanie</name>
+			<visibility>0</visibility>
+			<description>Tu mieszkamy z Tomkiem studiując w Krakowie.</description>
+
+			<styleUrl>#msn_arrow0</styleUrl>
+			<Point>
+				<coordinates>19.88552930076777,50.06843381450049,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>Kamping Polari</name>
+			<visibility>0</visibility>
+			<description>Byliśmy tam z 7 razy.
+Teraz to straszna drożyzna, bo się kurort zrobił.</description>
+
+			<styleUrl>#msn_campground00</styleUrl>
+			<Point>
+				<coordinates>13.67419891072487,45.0626417694086,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>Pani S, Zuberec</name>
+			<visibility>0</visibility>
+			<description>Tu byliśmy też kilka razy, na nartach.</description>
+
+			<styleUrl>#msn_ranger_station</styleUrl>
+			<Point>
+				<coordinates>19.61716718156589,49.25988938484288,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>Kamping Tunarica</name>
+			<visibility>0</visibility>
+			<description>Kamping w Chorwacji.</description>
+
+			<styleUrl>#msn_campground1</styleUrl>
+			<Point>
+				<coordinates>14.09858969075798,44.96932747034363,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>Kamping w Rzymie</name>
+			<visibility>0</visibility>
+			<description>Na tym kampingu nocowaliśmy przez 5 nocy pobytu we Włoszech w wakacje 2009.</description>
+
+			<styleUrl>#msn_campground0</styleUrl>
+			<Point>
+				<coordinates>12.48096945374393,41.95949226030819,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>Kamping w Sarospataku</name>
+			<visibility>0</visibility>
+			<description>Byliśmy tu przez 2 tygodnie, nie ma morza, ale są baseny. Wiem, że to nie to samo, ale cóż zrobić.</description>
+
+			<styleUrl>#msn_campground2</styleUrl>
+			<Point>
+				<coordinates>21.5819992760242,48.33108380552848,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>Polska Misja Katolicka</name>
+			<visibility>0</visibility>
+			<description>Tu spaliśmy 5 nocy, gdy na wakacjach byliśmy Paryżu.</description>
+
+			<styleUrl>#msn_campground4</styleUrl>
+			<Point>
+				<coordinates>3.127525945247176,48.95543908558748,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>Kamping Posejdon</name>
+			<visibility>0</visibility>
+			<description>Kamping, na którym nocowaliśmy przed tydzień, w Grecji.</description>
+
+			<styleUrl>#msn_campground3</styleUrl>
+			<Point>
+				<coordinates>22.98670361778548,37.50489806477147,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>Kamping pod Olimpem.</name>
+			<visibility>0</visibility>
+			<description>Drugi tydzień pobytu w Grecji.
+Lokalizacja przyblizona, bo nie jestem pewnien czy to dokładnie tu, ale miasto się zgadza.</description>
+
+			<styleUrl>#msn_campground</styleUrl>
+			<Point>
+				<coordinates>22.59163945246282,40.01526439131348,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>Kamping Paestum</name>
+			<visibility>0</visibility>
+			<description>Tam spędzimy tydzień wakacji we Włoszech.</description>
+
+			<styleUrl>#msn_campground5</styleUrl>
+			<Point>
+				<coordinates>14.94576891749226,40.49146459337156,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>Lodowiec Hintertux najniższa stacja</name>
+			<visibility>0</visibility>
+			<description>Tu jest najniższa stacja wyciągu, na którym będziemy jeździć na nastach/desce.</description>
+
+			<styleUrl>#msn_snowflake_simple30</styleUrl>
+			<Point>
+				<coordinates>11.66349931547919,47.09705224773732,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>Lodowiec Hintertux najwyższa stacja</name>
+			<visibility>0</visibility>
+			<description>Najwyższy punkt na który można wyjechać wyciągami na lodowcu Hintertux. 3200m npm.
+Być może tam wyjadę z deską i zjadę z całej góry, czyli do wysokości 2000m npm.</description>
+
+			<styleUrl>#msn_snowflake_simple11</styleUrl>
+			<Point>
+				<coordinates>11.68046997122522,47.06292884772604,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>Lodowiec Hintertux - Parking</name>
+			<visibility>0</visibility>
+			<description>Stąd co prawda jest wyciąg na lodowiec, ale można juz tu nie zjechać, z powodu braku śniegu (w kwietniu).</description>
+
+			<styleUrl>#msn_snowflake_simple1</styleUrl>
+			<Point>
+				<coordinates>11.67564684586448,47.10785621828234,0</coordinates>
+			</Point>
+		</Placemark>
+	</Folder>
+</Document>
+</kml>
