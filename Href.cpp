@@ -33,5 +33,5 @@ Href::~Href()
 
 void Href::init()
 {
-  name = "Href";
+  name = "href";
 }

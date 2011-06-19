@@ -19,6 +19,8 @@ public:
   Document(std::string* s);
   Document(const Document& orig);
   virtual ~Document();
+
+  //void saveToFile(std::string fill, int level);
 private:
   void init();
 };

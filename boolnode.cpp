@@ -7,8 +7,11 @@
 
 #include "boolnode.h"
 
+#include "node.h"
+
 #include <cstdlib>
 #include <string>
+#include <fstream>
 
 using namespace std;
 
@@ -35,4 +38,11 @@ boolnode::~boolnode()
 void boolnode::init()
 {
   name = "Bool";
+}
+
+void boolnode::saveToFile(std::string file, int level)
+{
+  std::ofstream of(file.c_str(), std::ios::app);
+  of << val;
+  of.close();
 }

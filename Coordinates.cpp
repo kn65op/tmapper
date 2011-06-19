@@ -47,5 +47,5 @@ void Coordinates::addCoordinate(std::string* x, std::string* y, std::string* z)
 
 void Coordinates::init()
 {
-  name = "Coordinates";
+  name = "coordinates";
 }

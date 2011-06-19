@@ -23,6 +23,8 @@ public:
 
   friend std::ostream& operator<<(std::ostream& out, const node& n);
 
+  virtual void saveToFile(std::string file, int level);
+
   std::list<node*> GetChildren() const
   {
     return children;

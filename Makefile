@@ -31,7 +31,7 @@ parser.cpp: gramatyka_bison.y
 pareser.o: parser.cpp
 	$(CC) $(CCFLAGS_C) -o parser.o parser.cpp
 
-analiser.o: Analiser.cpp
+analiser.o: Analiser.cpp Analiser.h
 	$(CC) $(CCFLAGS_C) -o analiser.o Analiser.cpp
 
 KML.o: KML.cpp KML.h

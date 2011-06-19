@@ -7,7 +7,9 @@
 
 #include "KML.h"
 
+#include <iostream>
 #include <string>
+#include <fstream>
 
 using namespace std;
 
@@ -33,3 +35,11 @@ void KML::init()
 {
   name = "KML";
 }
+
+/*void KML::saveToFile(std::string file, int level)
+{
+  std::ofstream of(file.c_str());
+  of << "";
+  of.close();
+  reinterpret_cast<node*>(this)->saveToFile(file, 0);
+}*/

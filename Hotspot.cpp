@@ -10,6 +10,7 @@
 using namespace std;
 
 #include <string>
+#include <fstream>
 
 #include "node.h"
 
@@ -33,5 +34,12 @@ Hotspot::~Hotspot()
 
 void Hotspot::init()
 {
-  name = "Hotspot";
+  name = "hotSpot";
+}
+
+void Hotspot::saveToFile(std::string file, int level)
+{
+  std::ofstream of(file.c_str(), std::ios::app);
+  of << "<" << name << " x=\"" << x << "\" y=\"" << y << "\" xunits=" << xunits << " yunits=" << yunits << "/>";
+  of.close();
 }

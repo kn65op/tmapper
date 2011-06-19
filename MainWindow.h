@@ -33,7 +33,7 @@ public:
   }//*/
 
 
-  KML* getKML() const
+  /*KML* getKML() const
   {
     return kml;
   }
@@ -41,13 +41,14 @@ public:
   void setKML(KML* kml)
   {
     this->kml = kml;
-  }
-  Analiser getAnaliser() const
+  }//*/
+
+  Analiser* getAnaliser() const
   {
     return analiser;
   }
 
-  void setAnaliser(Analiser analiser)
+  void setAnaliser(Analiser* analiser)
   {
     this->analiser = analiser;
   }
@@ -73,10 +74,12 @@ private:
   GtkWidget *help;
   GtkWidget *newf;
   GtkWidget *open;
-  GtkWidget *save;
+  GtkWidget *save_as;
   GtkWidget *quit;
   GtkWidget *about;
   GtkWidget *sep;
+
+  GtkAccelGroup *accel_group;
 
   /*funkcje gtk*/
   static gboolean delete_event(GtkWidget *widget, GdkEvent *event, gpointer data);
@@ -84,12 +87,13 @@ private:
   static void buttonclicked(GtkWidget *widget, gpointer data);
   static void showInfo(GtkWidget *widget, gpointer data);
   static void openFile(GtkWidget *widget, gpointer data);
+  static void saveFile(GtkWidget *widget, gpointer data);
 
   static void paint(GtkWidget *widget, GdkEventExpose *eev, gpointer data);
 
   /*zmienne do do map*/
-  KML *kml;
-  Analiser analiser;
+  //KML *kml;
+  Analiser *analiser;
 };
 
 #endif	/* MAINWINDOW_H */

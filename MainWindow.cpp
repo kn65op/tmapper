@@ -8,6 +8,7 @@
 #include "MainWindow.h"
 
 #include <gtk-2.0/gtk/gtk.h>
+#include <gtk-2.0/gdk/gdkkeysyms.h>
 #include <cairo/cairo.h>
 #include <iostream>
 
@@ -18,7 +19,7 @@ using namespace std;
 
 MainWindow::MainWindow(int argc, char **argv)
 {
-  kml = 0;
+  analiser = new Analiser();
 }
 
 MainWindow::MainWindow(const MainWindow& orig)
@@ -40,8 +41,8 @@ void MainWindow::build()
 {
   map = gtk_window_new(GTK_WINDOW_TOPLEVEL);
   //tree = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-  vbox = gtk_vbox_new(GTK_ORIENTATION_VERTICAL, 5);
-  hbox = gtk_hbox_new(GTK_ORIENTATION_HORIZONTAL, 5);
+  vbox = gtk_vbox_new(GTK_ORIENTATION_VERTICAL, 1);
+  hbox = gtk_hbox_new(GTK_ORIENTATION_HORIZONTAL, 1);
 
   g_signal_connect(G_OBJECT(map), "delete_event", G_CALLBACK(delete_event), this);
   g_signal_connect(G_OBJECT(map), "destroy", G_CALLBACK(destroy), this);
@@ -50,7 +51,10 @@ void MainWindow::build()
   /*okno*/
   gtk_window_set_title(GTK_WINDOW(map), "Mapa");
   gtk_widget_set_size_request(map, 700, 800);
-  gtk_container_set_border_width(GTK_CONTAINER(map), 10); //*/
+  gtk_container_set_border_width(GTK_CONTAINER(map), 0); //*/
+
+  accel_group = gtk_accel_group_new();//do skrótów klawiszowych
+  gtk_window_add_accel_group(GTK_WINDOW(map), accel_group);
 
   /* create a new drawing area widget
    */
@@ -99,21 +103,28 @@ void MainWindow::build()
 
   open = gtk_image_menu_item_new_from_stock(GTK_STOCK_OPEN, NULL); //tworzymy opcje menu
   newf = gtk_image_menu_item_new_from_stock(GTK_STOCK_NEW, NULL);
-  save = gtk_image_menu_item_new_from_stock(GTK_STOCK_SAVE, NULL);
+  save_as = gtk_image_menu_item_new_from_stock(GTK_STOCK_SAVE_AS, NULL);
   quit = gtk_image_menu_item_new_from_stock(GTK_STOCK_QUIT, NULL);
   about = gtk_image_menu_item_new_from_stock(GTK_STOCK_ABOUT, NULL);
   sep = gtk_separator_menu_item_new();
 
-  g_signal_connect(G_OBJECT(quit), "activate", G_CALLBACK(gtk_main_quit), NULL); //łączymy opcje z przyciksami
+  g_signal_connect(G_OBJECT(quit), "activate", G_CALLBACK(gtk_main_quit), NULL); //łączymy opcje z działaniem aplikacji
   g_signal_connect(G_OBJECT(about), "activate", G_CALLBACK(showInfo), NULL);
   g_signal_connect(G_OBJECT(open), "activate", G_CALLBACK(openFile), this);
+  g_signal_connect(G_OBJECT(save_as), "activate", G_CALLBACK(saveFile), this);
+
+  /*skróty klawiszowe*/
+  gtk_widget_add_accelerator(quit, "activate", accel_group, GDK_q, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE); //skróty klawiszowe
+  gtk_widget_add_accelerator(open, "activate", accel_group, GDK_o, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
+  gtk_widget_add_accelerator(save_as, "activate", accel_group, GDK_s, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
+  gtk_widget_add_accelerator(newf, "activate", accel_group, GDK_n, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
 
   gtk_menu_item_set_submenu(GTK_MENU_ITEM(file), file_menu); // łączymy kategorie z nazwami
   gtk_menu_item_set_submenu(GTK_MENU_ITEM(help), help_menu);
 
   gtk_menu_shell_append(GTK_MENU_SHELL(file_menu), newf); // łączymy kategorie z opcjami
   gtk_menu_shell_append(GTK_MENU_SHELL(file_menu), open);
-  gtk_menu_shell_append(GTK_MENU_SHELL(file_menu), save);
+  gtk_menu_shell_append(GTK_MENU_SHELL(file_menu), save_as);
   gtk_menu_shell_append(GTK_MENU_SHELL(file_menu), sep);
   gtk_menu_shell_append(GTK_MENU_SHELL(file_menu), quit);
   gtk_menu_shell_append(GTK_MENU_SHELL(help_menu), about);
@@ -224,7 +235,7 @@ void MainWindow::paint(GtkWidget* widget, GdkEventExpose* eev, gpointer data)
   cairo_set_source_rgb(cr, 1, 1, 1);
   cairo_paint(cr);
 
-  if (mw->getKML()) //można narysować
+  if (mw->getAnaliser()->GetKML()) //można narysować
   {
 
   }
@@ -253,18 +264,45 @@ void MainWindow::showInfo(GtkWidget *widget, gpointer data)
 void MainWindow::openFile(GtkWidget* widget, gpointer data)
 {
   MainWindow *mw = static_cast<MainWindow*> (data);
-  GtkWidget *chooser = gtk_file_chooser_dialog_new ("Otwórz plik",
-				      GTK_WINDOW(mw->map),
-				      GTK_FILE_CHOOSER_ACTION_OPEN,
-				      GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
-				      GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT,
-				      NULL);
-  if (gtk_dialog_run (GTK_DIALOG (chooser)) == GTK_RESPONSE_ACCEPT)
+  GtkWidget *chooser = gtk_file_chooser_dialog_new("Otwórz plik",
+          GTK_WINDOW(mw->map),
+          GTK_FILE_CHOOSER_ACTION_OPEN,
+          GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+          GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT,
+          NULL);
+  if (gtk_dialog_run(GTK_DIALOG(chooser)) == GTK_RESPONSE_ACCEPT)
   {
     char *filename;
-    filename = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (chooser));
-    mw->getAnaliser().SetFilename(string(filename));
-    g_free (filename);
+    filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(chooser));
+    mw->getAnaliser()->SetFilename(string(filename));
+    mw->getAnaliser()->Analise();
+    if (mw->getAnaliser()->GetKML())
+    {
+      //TODO wyświetlić komunikat o braku pliku
+      //std::cout << *(mw->getAnaliser()->GetKML());
+    }
+    g_free(filename);
   }
-gtk_widget_destroy (chooser);
+  gtk_widget_destroy(chooser);
+}
+
+void MainWindow::saveFile(GtkWidget* widget, gpointer data)
+{
+  MainWindow *mw = static_cast<MainWindow*> (data);
+  GtkWidget *chooser = gtk_file_chooser_dialog_new("Zapisz plik",
+          GTK_WINDOW(mw->map),
+          GTK_FILE_CHOOSER_ACTION_SAVE,
+          GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+          GTK_STOCK_SAVE, GTK_RESPONSE_ACCEPT,
+          NULL);
+  if (gtk_dialog_run(GTK_DIALOG(chooser)) == GTK_RESPONSE_ACCEPT)
+  {
+    char *filename;
+    filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(chooser));
+    std::cout << "A\n";
+    mw->getAnaliser()->saveKMLToFile(string(filename));
+    std::cout << "A\n";
+    g_free(filename);
+  }
+  gtk_widget_destroy(chooser);
 }

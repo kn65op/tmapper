@@ -30,5 +30,5 @@ Name::~Name()
 
 void Name::init()
 {
-  name = "Name";
+  name = "name";
 }

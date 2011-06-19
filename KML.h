@@ -8,7 +8,6 @@
 #ifndef KML_H
 #define	KML_H
 
-#include <list>
 #include <string>
 
 #include "node.h"
@@ -20,6 +19,8 @@ public:
   KML(std::string* s);
   KML(const KML& orig);
   virtual ~KML();
+
+//  void saveToFile(std::string file, int level);
 private:
   void init();
 };

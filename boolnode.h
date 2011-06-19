@@ -18,6 +18,8 @@ public:
   boolnode(const boolnode& orig);
   virtual ~boolnode();
 
+  void saveToFile(std::string file, int level);
+
   bool isVal() const
   {
     return val;

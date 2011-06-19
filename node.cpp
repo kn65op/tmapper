@@ -7,10 +7,12 @@
 
 #include <iosfwd>
 #include <iostream>
+#include <fstream>
 #include <string>
 
 #include "node.h"
 #include "textnode.h"
+#include "KML.h"
 
 node::node() :id("")
 {
@@ -54,7 +56,7 @@ std::ostream& operator<<(std::ostream& out, const node& n)
   {
     out << "no id\n";
   }
-  out << "Children:";
+  out << "Children of " << n.name << ":";
   if (n.children.empty())
   {
     out << "none\n";
@@ -65,7 +67,40 @@ std::ostream& operator<<(std::ostream& out, const node& n)
   end = n.children.end();
   for (it = n.children.begin(); it != end; it++)
   {
-    out << **it << "\n";
+    out << "child of; " << n.name << " " << **it << "\n";
   }
+  out << "End of children from " << n.name << "\n";
   return out;
+}
+
+void node::saveToFile(std::string file, int level)
+{
+  std::ofstream of;
+  if (dynamic_cast<KML*>(this))
+  {
+    of.open(file.c_str());
+  }
+  else
+  {
+    of.open(file.c_str(), std::ios::app);
+    of << "\n";
+  }
+  for (int i=0; i<level; i++) of << "\t";;
+  of << "<" << name;
+  if (id != "")
+  {
+    of << " id=\"" <<  id << "\"";
+  }
+  of << ">";
+  of.close();
+  std::list<node*>::const_iterator it, end;
+  end = children.end();
+  for (it = children.begin(); it != end; it++)
+  {
+    (*it)->saveToFile(file, level+1);
+  }
+  of.open(file.c_str(), std::ios::app);
+  for (int i=0; i<level; i++) of << "\t";;
+  of << "</" << name << ">\n";
+  of.close();
 }

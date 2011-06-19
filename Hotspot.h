@@ -21,6 +21,8 @@ public:
   Hotspot(const Hotspot& orig);
   virtual ~Hotspot();
 
+  void saveToFile(std::string file, int level);
+
   double getX() const
   {
     return x;

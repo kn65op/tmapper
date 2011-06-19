@@ -33,5 +33,5 @@ Visibility::~Visibility()
 
 void Visibility::init()
 {
-  name = "Visibility";
+  name = "visibility";
 }

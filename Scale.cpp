@@ -33,5 +33,5 @@ Scale::~Scale()
 
 void Scale::init()
 {
-  name = "Scale";
+  name = "scale";
 }

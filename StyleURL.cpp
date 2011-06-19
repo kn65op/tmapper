@@ -33,5 +33,5 @@ StyleURL::~StyleURL()
 
 void StyleURL::init()
 {
-  name = "StyleURL";
+  name = "styleURL";
 }

@@ -33,3 +33,8 @@ void Document::init()
 {
   name = "Document";
 }
+
+/*void Document::saveToFile(std::string file, int level)
+{
+  
+}//*/

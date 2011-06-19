@@ -163,7 +163,7 @@ last_element = last_element->GetLastChild();
 
 placemark_end: TAG_OPEN TAG_END PLACEMARK_SYM TAG_CLOSE
 {
-last_element = last_element->GetParent()
+last_element = last_element->GetParent();
 }
 ;
 
@@ -231,6 +231,9 @@ if (dynamic_cast<Coordinates*>(last_element))
 ;
 
 coordinates_end: TAG_OPEN TAG_END COORDINATES_SYM TAG_CLOSE
+{
+last_element = last_element->GetParent()
+}
 ;
 
 point_end: TAG_OPEN TAG_END POINT_SYM TAG_CLOSE

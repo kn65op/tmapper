@@ -8,6 +8,7 @@
 #include "textnode.h"
 
 #include <string>
+#include <fstream>
 
 using namespace std;
 
@@ -37,3 +38,9 @@ void textnode::init()
   name = "Text";
 }
 
+void textnode::saveToFile(std::string file, int level)
+{
+  std::ofstream of(file.c_str(), std::ios::app);
+  of << Text;
+  of.close();
+}

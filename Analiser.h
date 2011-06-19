@@ -23,6 +23,8 @@ public:
   Analiser(const Analiser& orig);
   virtual ~Analiser();
   void Analise(void);
+  void saveKMLToFile(std::string file);
+
 
   std::string GetFilename() const
   {
@@ -34,12 +36,12 @@ public:
     this->filename = filename;
   }
 
-  KML* GetKml() const
+  KML* GetKML() const
   {
     return kml;
   }
 
-  void SetKml(KML* kml)
+  void SetKML(KML* kml)
   {
     this->kml = kml;
   }

@@ -31,5 +31,5 @@ Description::~Description()
 
 void Description::init()
 {
-  name = "Description";
+  name = "description";
 }

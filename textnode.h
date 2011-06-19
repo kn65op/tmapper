@@ -18,6 +18,8 @@ public:
   textnode(std::string *t);
   textnode(const textnode& orig);
   virtual ~textnode();
+
+  void saveToFile(std::string file, int level);
 private:
   std::string Text;
   void init();

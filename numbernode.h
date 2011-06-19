@@ -20,6 +20,8 @@ public:
   numbernode(const numbernode& orig);
   virtual ~numbernode();
 
+  void saveToFile(std::string file, int level);
+
   int getVal() const
   {
     return val;
@@ -32,7 +34,7 @@ public:
 
 
 private:
-  int val;
+  double val;
   void init();
 };
 
