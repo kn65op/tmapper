@@ -22,8 +22,10 @@ public:
   virtual ~Coordinates();
 
   void addCoordinate(std::string *x, std::string *y, std::string *z);
+  void saveToFile(std::string file, int level);
+  void findHW(int max_x, int min_x, int max_y, int min_y);
 private:
-  std::vector<int*> coordinates;
+  std::vector<double*> coordinates;
 
   void init();
 };

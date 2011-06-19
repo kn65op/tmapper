@@ -231,6 +231,7 @@ void MainWindow::paint(GtkWidget* widget, GdkEventExpose* eev, gpointer data)
   std::cout << "LOL\n";
 
   cairo_t *cr = gdk_cairo_create(mw->canvas->window);
+
   mw->drawKML(cr);
 
   cairo_destroy(cr);
@@ -300,13 +301,20 @@ void MainWindow::saveFile(GtkWidget* widget, gpointer data)
   gtk_widget_destroy(chooser);
 }
 
-void MainWindow::drawKML(cairo_t cr)
+void MainWindow::drawKML(cairo_t *cr)
 {
-  cairo_set_source_rgb(cr, 1, 1, 0.5);
+  cairo_set_source_rgb(cr, 1, 1, 1);
   cairo_paint(cr);
 
-  if (!mw->getAnaliser()->GetKML()) //można narysować
+  if (!analiser->GetKML()) //można narysować
   {
     return;
   }
+
+  int min_x, max_x, min_y, max_y;
+
+  analiser->GetKML()->findHW(min_x, max_x, min_y, max_y);
+
+  analiser->GetKML()->draw(cr, max_x, min_x, max_y, min_y);
+
 }

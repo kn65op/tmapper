@@ -22,6 +22,7 @@ numbernode::numbernode()
 
 numbernode::numbernode(std::string *s)
 {
+  if (s->find(".") != std::string::npos) s->replace(s->find("."), 1, ",");
   val = atof(s->c_str());
   delete s;
   init();

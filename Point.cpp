@@ -33,3 +33,8 @@ void Point::init()
 {
   name = "Point";
 }
+
+void Point::draw(cairo_t* cr, int max_x, int min_x, int max_y, int min_y)
+{
+  //double
+}

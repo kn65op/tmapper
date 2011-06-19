@@ -104,3 +104,23 @@ void node::saveToFile(std::string file, int level)
   of << "</" << name << ">\n";
   of.close();
 }
+
+void node::draw(cairo_t* cr, int max_x, int min_x, int max_y, int min_y)
+{
+  std::list<node*>::const_iterator it, end;
+  end = children.end();
+  for (it = children.begin(); it != end; it++)
+  {
+    (*it)->draw(cr, max_x, min_x, max_y, min_y);
+  }
+}
+
+void node::findHW(int max_x, int min_x, int max_y, int min_y)
+{
+  std::list<node*>::const_iterator it, end;
+  end = children.end();
+  for (it = children.begin(); it != end; it++)
+  {
+    (*it)->findHW(max_x, min_x, max_y, min_y);
+  }
+}

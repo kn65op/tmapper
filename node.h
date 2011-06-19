@@ -9,9 +9,9 @@
 #define	NODE_H
 
 #include <list>
-#include <iosfwd>
 #include <iostream>
 #include <string>
+#include <cairo/cairo.h>
 
 class node
 {
@@ -24,6 +24,8 @@ public:
   friend std::ostream& operator<<(std::ostream& out, const node& n);
 
   virtual void saveToFile(std::string file, int level);
+  virtual void draw(cairo_t *cr, int max_x, int min_x, int max_y, int min_y);
+  virtual void findHW(int max_x, int min_x, int max_y, int min_y);
 
   std::list<node*> GetChildren() const
   {

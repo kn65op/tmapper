@@ -19,6 +19,9 @@ public:
   Point(std::string *s);
   Point(const Point& orig);
   virtual ~Point();
+
+  void draw(cairo_t *cr, int max_x, int min_x, int max_y, int min_y);
+
 private:
   void init();
 };

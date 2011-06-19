@@ -96,7 +96,7 @@ private:
   Analiser *analiser;
   
   /* Funkcje inne*/
-  void drawKML(cairo_t cr);
+  void drawKML(cairo_t *cr);
 };
 
 #endif	/* MAINWINDOW_H */
