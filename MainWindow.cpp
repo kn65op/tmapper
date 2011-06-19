@@ -311,10 +311,11 @@ void MainWindow::drawKML(cairo_t *cr)
     return;
   }
 
-  int min_x, max_x, min_y, max_y;
+  int min_x, max_x, min_y, max_y, width, height;
 
   analiser->GetKML()->findHW(min_x, max_x, min_y, max_y);
 
+  gtk_window_get_size(GTK_WINDOW(map))
   analiser->GetKML()->draw(cr, max_x, min_x, max_y, min_y);
 
 }

@@ -8,6 +8,7 @@
 #include "Point.h"
 
 #include <string>
+#include <cairo/cairo.h>
 
 using namespace std;
 
@@ -36,5 +37,6 @@ void Point::init()
 
 void Point::draw(cairo_t* cr, int max_x, int min_x, int max_y, int min_y)
 {
-  //double
+  double x ;
+  double y;
 }
