@@ -19,6 +19,9 @@ public:
   LineStyle(std::string *s);
   LineStyle(const LineStyle& orig);
   virtual ~LineStyle();
+
+  double* getColor();
+
 private:
   void init();
 };

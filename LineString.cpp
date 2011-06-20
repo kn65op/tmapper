@@ -7,6 +7,8 @@
 
 #include "LineString.h"
 #include "Coordinates.h"
+#include "LineStyle.h"
+#include "Placemark.h"
 
 #include <string>
 #include <cairo/cairo.h>
@@ -38,15 +40,27 @@ void LineString::init()
 
 void LineString::draw(cairo_t* cr, double a_x, double b_x, double a_y, double b_y, double *color)
 {
+  LineStyle *ls = dynamic_cast<LineStyle*> (dynamic_cast<Placemark*> (parent)->getLinestyle());
+  double *col;
+  if (ls)
+  {
+    col = ls->getColor();
+  }
+
   double *cor;
   int n = (dynamic_cast<Coordinates*> (children.front()))->getSize();
-  if (!color) //domyślnie czarny
+  if (color) //domyślnie czarny
   {
-    cairo_set_source_rgb(cr, 0, 0, 0);
+    cairo_set_source_rgba(cr, color[0], color[1], color[2], color[3]);
+  }
+  else if (ls)
+  {
+    cairo_set_source_rgba(cr, col[0], col[1], col[2], col[3]);
+    std::cout << "OK?\n";
   }
   else
   {
-    cairo_set_source_rgba(cr, color[0], color[1], color[2], color[3]);
+    cairo_set_source_rgb(cr, 0, 0, 0);
   }
   cairo_set_line_width(cr, 1.0);
   cor = (dynamic_cast<Coordinates*> (children.front()))->getCoordinates(0);

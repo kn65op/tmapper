@@ -19,8 +19,14 @@ public:
   Color(std::string *s);
   Color(const Color& orig);
   virtual ~Color();
+
+  double* getColor();
+
 private:
   void init();
+
+  double color[4];
+  bool color_ok;
 };
 
 #endif	/* COLOR_H */

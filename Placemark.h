@@ -24,7 +24,7 @@ public:
   Placemark(std::string *s);
   Placemark(const Placemark& orig);
   virtual ~Placemark();
-
+  
   IconStyle* getIconstyle() const
   {
     return iconstyle;

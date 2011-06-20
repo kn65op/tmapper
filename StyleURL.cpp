@@ -17,6 +17,7 @@
 #include "LineStyle.h"
 #include "PolyStyle.h"
 #include "Placemark.h"
+#include "Style.h"
 
 using namespace std;
 
@@ -45,21 +46,25 @@ void StyleURL::init()
 
 void StyleURL::connectStyle(KML* kml)
 {
-  node *style = kml->getStyle(dynamic_cast<textnode*> (children.front())->getText().substr(1));
-  if (dynamic_cast<IconStyle*> (style))
+  Style *style =dynamic_cast<Style*> (kml->getStyle(dynamic_cast<textnode*> (children.front())->getText().substr(1)));
+  if(!style)
   {
-    dynamic_cast<Placemark*> (parent)->setIconstyle(dynamic_cast<IconStyle*> (style));
+    return;
   }
-  else if (dynamic_cast<LabelStyle*> (style))
+  if (style->getIconstyle())
   {
-    dynamic_cast<Placemark*> (parent)->setLabelstyle(dynamic_cast<LabelStyle*> (style));
+    dynamic_cast<Placemark*> (parent)->setIconstyle(style->getIconstyle());
   }
-  else if (dynamic_cast<PolyStyle*> (style))
+  else if (style->getLabelstyle())
   {
-    dynamic_cast<Placemark*> (parent)->setPolystyle(dynamic_cast<PolyStyle*> (style));
+    dynamic_cast<Placemark*> (parent)->setLabelstyle(style->getLabelstyle());
   }
-  else if (dynamic_cast<LineStyle*> (style))
+  else if (style->getPolystyle())
   {
-    dynamic_cast<Placemark*> (parent)->setLinestyle(dynamic_cast<LineStyle*> (style));
+    dynamic_cast<Placemark*> (parent)->setPolystyle(style->getPolystyle());
+  }
+  else if (style->getLinestyle())
+  {
+    dynamic_cast<Placemark*> (parent)->setLinestyle(style->getLinestyle());
   }
 }

@@ -48,8 +48,10 @@ void KML::init()
 void KML::connectStyles()
 {
   //wyszukiwanie styli
+  std::cout << "Szukanie: \n ";
   this->searchStyle(this);
   //łaczenie styli z placemarkami
+  std::cout << "ŁAczenie: \n ";
   this->connectStyle(this);
 }
 
