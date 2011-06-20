@@ -86,12 +86,7 @@ void node::saveToFile(std::string file, int level)
     of << "\n";
   }
   for (int i=0; i<level; i++) of << "\t";;
-  of << "<" << name;
-  if (id != "")
-  {
-    of << " id=\"" <<  id << "\"";
-  }
-  of << ">";
+  saveOpeningTag(of);
   of.close();
   std::list<node*>::const_iterator it, end;
   end = children.end();
@@ -101,8 +96,23 @@ void node::saveToFile(std::string file, int level)
   }
   of.open(file.c_str(), std::ios::app);
   for (int i=0; i<level; i++) of << "";;
-  of << "</" << name << ">\n";
+  saveClosingTag(of);
   of.close();
+}
+
+void node::saveClosingTag(std::ofstream& of)
+{
+  of << "</" << name << ">\n";
+}
+
+void node::saveOpeningTag(std::ofstream& of)
+{
+  of << "<" << name;
+  if (id != "")
+  {
+    of << " id=\"" <<  id << "\"";
+  }
+  of << ">";
 }
 
 void node::draw(cairo_t* cr, double a_x, double b_x, double a_y, double b_y)

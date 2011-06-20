@@ -56,7 +56,11 @@ void Coordinates::init()
 
 void Coordinates::saveToFile(std::string file, int level)
 {
+
   std::ofstream of(file.c_str(), std::ios::app);
+
+  saveOpeningTag(of);
+
   vector<double*>::iterator it, end;
   end = coordinates.end();
   for (it = coordinates.begin(); it != end; it++)
@@ -64,6 +68,9 @@ void Coordinates::saveToFile(std::string file, int level)
     std::cout << "?\n";
     of << (*it)[0] << "," << (*it)[1] << "," << (*it)[2] << "\n";
   }
+
+  saveClosingTag(of);
+
   of.close();
 }
 

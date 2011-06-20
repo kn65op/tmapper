@@ -92,6 +92,8 @@ protected:
   std::string name;
   std::string id;
   virtual void init()=0;
+  void saveOpeningTag(std::ofstream& of);
+  void saveClosingTag(std::ofstream& of);
 
 };
 

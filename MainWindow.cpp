@@ -331,8 +331,8 @@ void MainWindow::drawKML(cairo_t *cr)
 
   a_x = (width-TREE_SIZE)/(max_x - min_x);
   b_x = min_x;
-  a_y = (height-MENU_SIZE)/(max_y - min_y);
-  b_y = min_y;
+  a_y = (height-MENU_SIZE)/(min_y - max_y);
+  b_y = max_y;
 
   analiser->GetKML()->draw(cr, a_x, b_x, a_y, b_y);
 

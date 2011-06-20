@@ -33,7 +33,7 @@ KML::~KML()
 
 void KML::init()
 {
-  name = "KML";
+  name = "kml";
 }
 
 /*void KML::saveToFile(std::string file, int level)
