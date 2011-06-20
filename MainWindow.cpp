@@ -334,6 +334,6 @@ void MainWindow::drawKML(cairo_t *cr)
   a_y = (height-MENU_SIZE)/(min_y - max_y);
   b_y = max_y;
 
-  analiser->GetKML()->draw(cr, a_x, b_x, a_y, b_y);
+  analiser->GetKML()->draw(cr, a_x, b_x, a_y, b_y, NULL);
 
 }

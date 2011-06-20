@@ -115,13 +115,13 @@ void node::saveOpeningTag(std::ofstream& of)
   of << ">";
 }
 
-void node::draw(cairo_t* cr, double a_x, double b_x, double a_y, double b_y)
+void node::draw(cairo_t* cr, double a_x, double b_x, double a_y, double b_y, double *color)
 {
   std::list<node*>::const_iterator it, end;
   end = children.end();
   for (it = children.begin(); it != end; it++)
   {
-    (*it)->draw(cr, a_x, b_x, a_y, b_y);
+    (*it)->draw(cr, a_x, b_x, a_y, b_y, color);
   }
 }
 

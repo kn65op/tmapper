@@ -33,5 +33,5 @@ InnerBoundaryIs::~InnerBoundaryIs()
 
 void InnerBoundaryIs::init()
 {
-  name = "InnerBoundaryIs";
+  name = "innerBoundaryIs";
 }

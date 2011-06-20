@@ -33,5 +33,5 @@ OuterBoundaryIs::~OuterBoundaryIs()
 
 void OuterBoundaryIs::init()
 {
-  name = "OuterBoundaryIs";
+  name = "outerBoundaryIs";
 }

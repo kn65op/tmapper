@@ -20,7 +20,7 @@ public:
   LineString(const LineString& orig);
   virtual ~LineString();
 
-  void draw(cairo_t* cr, double a_x, double b_x, double a_y, double b_y);
+  void draw(cairo_t* cr, double a_x, double b_x, double a_y, double b_y, double *color);
 private:
   void init();
 

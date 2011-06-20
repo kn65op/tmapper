@@ -36,11 +36,18 @@ void LineString::init()
   name = "LineString";
 }
 
-void LineString::draw(cairo_t* cr, double a_x, double b_x, double a_y, double b_y)
+void LineString::draw(cairo_t* cr, double a_x, double b_x, double a_y, double b_y, double *color)
 {
   double *cor;
   int n = (dynamic_cast<Coordinates*> (children.front()))->getSize();
-  cairo_set_source_rgb(cr, 0, 0, 0);
+  if (!color) //domyślnie czarny
+  {
+    cairo_set_source_rgb(cr, 0, 0, 0);
+  }
+  else
+  {
+    cairo_set_source_rgba(cr, color[0], color[1], color[2], color[3]);
+  }
   cairo_set_line_width(cr, 1.0);
   cor = (dynamic_cast<Coordinates*> (children.front()))->getCoordinates(0);
   cairo_move_to(cr, a_x * (cor[0] - b_x), a_y * (cor[1] - b_y));
