@@ -44,7 +44,8 @@ void Point::draw(cairo_t* cr, double a_x, double b_x, double a_y, double b_y)
   double *cor = (dynamic_cast<Coordinates*>(children.front()))->getCoordinates(0);
   cairo_set_source_rgb(cr, 0, 0, 0);
   cairo_set_line_width(cr, 1.0);
-  cairo_arc(cr, a_x*(cor[0]-b_x), a_y*(cor[1]-b_y), 1.0, 0, 2*M_PI);
+  cairo_arc(cr, a_x*(cor[0]-b_x), a_y*(cor[1]-b_y), 2.0, 0, 2*M_PI);
+  cairo_fill(cr);
   /*cairo_move_to(cr, a_x*(cor[0]-b_x), a_y*(cor[1]-b_y));
   cairo_line_to(cr, a_x*(cor[0]-b_x)+1, a_y*(cor[1]-b_y)+1);//*/
   cairo_stroke(cr);

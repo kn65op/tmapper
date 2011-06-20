@@ -324,9 +324,14 @@ void MainWindow::drawKML(cairo_t *cr)
   analiser->GetKML()->findHW(max_x, min_x, max_y, min_y);
   gtk_window_get_size(GTK_WINDOW(map), &width, &height);
 
-  a_x = (width*1.01-TREE_SIZE)/(max_x - min_x);
+  max_x = max_x > 0 ? max_x * 1.02 : max_x * 0.98;
+  max_y = max_y > 0 ? max_y * 1.02 : max_y * 0.98;
+  min_x = min_x > 0 ? min_x * 0.98 : min_x * 1.02;
+  min_y = min_y > 0 ? min_y * 0.98 : min_y * 1.02;
+
+  a_x = (width-TREE_SIZE)/(max_x - min_x);
   b_x = min_x;
-  a_y = (height*1.01-MENU_SIZE)/(max_y - min_y);
+  a_y = (height-MENU_SIZE)/(max_y - min_y);
   b_y = min_y;
 
   analiser->GetKML()->draw(cr, a_x, b_x, a_y, b_y);
