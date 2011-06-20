@@ -1,0 +1,123 @@
+<kml id="zgh">
+<Document id="asd">
+	<name>~GE13F.kmz</name>
+	<Style id="styl">
+		<IconStyle>
+			<scale>1.2</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/shapes/campground.png</href>
+			</Icon>
+			<hotSpot x="0.5" y="0" xunits="fraction" yunits="fraction"/>
+		</IconStyle>
+	</Style>
+	<Style id="niebieski">
+		<LineStyle>
+			<color>80ff0000</color>
+		</LineStyle>
+	</Style>
+	<Style id="prz">
+		<LineStyle>
+			<color>8000ff00</color>
+		</LineStyle>
+	</Style>
+	<Folder>
+		<name>Byłem tam.</name>
+		<visibility>0</visibility>
+		<description>Byłem tam osobiście.
+Samodzielnie wyszukane i dodane przeze mnie.</description>
+		<Placemark id="lol">
+			<name>Olkusz</name>
+			<visibility>0</visibility>
+			<description>Mój dom.</description>
+			<styleUrl>#styl</styleUrl>
+			<Point>
+				<coordinates>1,1,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<Point>
+				<coordinates>-1,-1,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<Point>
+				<coordinates>-1,1,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<Point>
+				<coordinates>1,-1,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<Point>
+				<coordinates>0,0,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<styleUrl>#niebieski</styleUrl>
+			<LineString>
+				<coordinates>
+					-0.5,-0.5,0
+					0.5,-0.5,0
+					0.5,0.5,0
+					-0.5,0.5,0
+					-0.5,-0.5,0
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<styleUrl>#prz</styleUrl>
+			<LineString>
+				<coordinates>
+					-1,-1,0
+					1,0,0
+					0,0,0
+					1,1,0
+					0,1,0
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<LinearRing>
+				<coordinates>
+					0,0,0
+					0,1,0
+					-1,0,0
+				</coordinates>
+			</LinearRing>
+		</Placemark>
+		<Placemark>
+			<Polygon>
+				<innerBoundaryIs>
+					<LinearRing>
+						<coordinates>
+							4.1,4.1,0
+							4.2,4.3,0
+							4.3,4.2,0
+						</coordinates>
+					</LinearRing>
+				</innerBoundaryIs>
+				<innerBoundaryIs>
+					<LinearRing>
+						<coordinates>
+							4.5,4.5,0
+							4.5,6.5,0
+							6.5,4.5,0
+						</coordinates>
+					</LinearRing>
+				</innerBoundaryIs>
+				<outerBoundaryIs>
+					<LinearRing>
+						<coordinates>
+							4,4,0
+							8,4,0
+							4,8,0
+						</coordinates>
+					</LinearRing>
+				</outerBoundaryIs>
+			</Polygon>
+		</Placemark>
+	</Folder>
+</Document>
+</kml>

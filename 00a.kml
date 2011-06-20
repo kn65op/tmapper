@@ -1,0 +1,66 @@
+<kml id="zgh">
+<Document id="asd">
+	<name>~GE13F.kmz</name>
+	<Style id="styl">
+		<IconStyle>
+			<scale>1.2</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/shapes/campground.png</href>
+			</Icon>
+			<hotSpot x="0.5" y="0" xunits="fraction" yunits="fraction"/>
+		</IconStyle>
+	</Style>
+	<Style id="niebieski">
+		<LineStyle>
+			<color>ff808080</color>
+		</LineStyle>
+	</Style>
+	<Folder>
+		<name>Byłem tam.</name>
+		<visibility>0</visibility>
+		<description>Byłem tam osobiście.
+Samodzielnie wyszukane i dodane przeze mnie.</description>
+		<Placemark id="lol">
+			<name>Olkusz</name>
+			<visibility>0</visibility>
+			<description>Mój dom.</description>
+			<styleUrl>#styl</styleUrl>
+			<Point>
+				<coordinates>1,1,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<Point>
+				<coordinates>-1,-1,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<Point>
+				<coordinates>-1,1,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<Point>
+				<coordinates>1,-1,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<Point>
+				<coordinates>0,0,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<styleUrl>#niebieski</styleUrl>
+			<LineString>
+				<coordinates>
+					-0.5,-0.5,0
+					0.5,-0.5,0
+					0.5,0.5,0
+					-0.5,0.5,0
+					-0.5,-0.5,0
+				</coordinates>
+			</LineString>
+		</Placemark>
+	</Folder>
+</Document>
+</kml>

@@ -1,0 +1,82 @@
+<kml id="zgh">
+	<Document id="asd">
+		<name>~GE13F.kmz</name>
+
+		<Style id="sn_campground4">
+			<IconStyle>
+				<scale>1.2</scale>
+
+				<Icon>
+					<href>http://maps.google.com/mapfiles/kml/shapes/campground.png</href>
+</Icon>
+<hotSpot x="0" y="0" xunits="fraction" yunits="fraction"/></IconStyle>
+</Style>
+
+		<Folder>
+			<name>Byłem tam.</name>
+
+			<visibility>0</visibility>
+
+			<description>Byłem tam osobiście.
+Samodzielnie wyszukane i dodane przeze mnie.</description>
+
+			<Placemark id="default_starting_location">
+				<name>Olkusz</name>
+
+				<visibility>0</visibility>
+
+				<description>Mój dom.</description>
+
+				<styleUrl>#msn_homegardenbusiness1</styleUrl>
+
+				<Point><coordinates>1,1,0
+</coordinates>
+</Point>
+</Placemark>
+
+			<Placemark>
+				<Point><coordinates>-1,-1,0
+</coordinates>
+</Point>
+</Placemark>
+
+			<Placemark>
+				<Point><coordinates>-1,1,0
+</coordinates>
+</Point>
+</Placemark>
+
+			<Placemark>
+				<Point><coordinates>1,-1,0
+</coordinates>
+</Point>
+</Placemark>
+
+			<Placemark>
+				<Point><coordinates>0,0,0
+</coordinates>
+</Point>
+</Placemark>
+
+			<Placemark>
+				<LineString><coordinates>-0.5,-0.5,0
+0.5,-0.5,0
+0.5,0.5,0
+-0.5,0.5,0
+-0.5,-0.5,0
+</coordinates>
+</LineString>
+</Placemark>
+
+			<Placemark>
+				<LineString><coordinates>-1,-1,0
+1,0,0
+0,0,0
+1,1,0
+0,1,0
+</coordinates>
+</LineString>
+</Placemark>
+</Folder>
+</Document>
+</kml>
