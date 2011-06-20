@@ -30,4 +30,8 @@ Placemark::~Placemark()
 void Placemark::init()
 {
   name = "Placemark";
+  labelstyle = 0;
+  polystyle = 0;
+  iconstyle = 0;
+  linestyle = 0;
 }

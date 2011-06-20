@@ -20,6 +20,8 @@ public:
   KML(const KML& orig);
   virtual ~KML();
 
+  void connectStyles();
+
 //  void saveToFile(std::string file, int level);
 private:
   void init();

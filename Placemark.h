@@ -9,6 +9,11 @@
 #define	PLACEMARK_H
 
 #include "node.h"
+#include "LabelStyle.h"
+#include "IconStyle.h"
+#include "LineStyle.h"
+#include "PolyStyle.h"
+#include "Icon.h"
 
 #include <string>
 
@@ -21,6 +26,10 @@ public:
   virtual ~Placemark();
 private:
   void init();
+  LabelStyle *labelstyle;
+  IconStyle *iconstyle;
+  LineStyle *linestyle;
+  PolyStyle *polystyle;
 };
 
 #endif	/* PLACEMARK_H */

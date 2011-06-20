@@ -117,12 +117,7 @@ void node::saveOpeningTag(std::ofstream& of)
 
 void node::draw(cairo_t* cr, double a_x, double b_x, double a_y, double b_y, double *color)
 {
-  std::list<node*>::const_iterator it, end;
-  end = children.end();
-  for (it = children.begin(); it != end; it++)
-  {
-    (*it)->draw(cr, a_x, b_x, a_y, b_y, color);
-  }
+  drawChildren(cr, a_x, b_x, a_y, b_y, color);
 }
 
 void node::findHW(double& max_x, double& min_x, double& max_y, double& min_y)
@@ -132,5 +127,15 @@ void node::findHW(double& max_x, double& min_x, double& max_y, double& min_y)
   for (it = children.begin(); it != end; it++)
   {
     (*it)->findHW(max_x, min_x, max_y, min_y);
+  }
+}
+
+void node::drawChildren(cairo_t* cr, double a_x, double b_x, double a_y, double b_y, double* color)
+{
+  std::list<node*>::const_iterator it, end;
+  end = children.end();
+  for (it = children.begin(); it != end; it++)
+  {
+    (*it)->draw(cr, a_x, b_x, a_y, b_y, color);
   }
 }

@@ -34,6 +34,7 @@ KML::~KML()
 void KML::init()
 {
   name = "kml";
+  parent = 0;
 }
 
 /*void KML::saveToFile(std::string file, int level)
@@ -43,3 +44,10 @@ void KML::init()
   of.close();
   reinterpret_cast<node*>(this)->saveToFile(file, 0);
 }*/
+
+void KML::connectStyles()
+{
+  //wyszukiwanie styli
+
+  //łaczenie styli z placemarkami
+}

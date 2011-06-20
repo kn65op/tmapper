@@ -279,9 +279,11 @@ void MainWindow::openFile(GtkWidget* widget, gpointer data)
       //TODO wyświetlić komunikat o braku pliku
       //std::cout << *(mw->getAnaliser()->GetKML());
     }
+    mw->getAnaliser()->GetKML()->connectStyles();
     g_free(filename);
   }
   gtk_widget_destroy(chooser);
+  MainWindow::paint(widget, 0, data);
 }
 
 void MainWindow::saveFile(GtkWidget* widget, gpointer data)
