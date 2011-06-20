@@ -19,6 +19,7 @@ public:
   IconStyle(std::string *s);
   IconStyle(const IconStyle& orig);
   virtual ~IconStyle();
+
 private:
   void init();
 };

@@ -6,7 +6,11 @@
  */
 
 #include "Style.h"
+
 #include <string>
+
+#include "node.h"
+#include "KML.h"
 
 using namespace std;
 
@@ -31,4 +35,9 @@ Style::~Style()
 void Style::init()
 {
   name = "Style";
+}
+
+void Style::searchStyle(KML* kml)
+{
+  kml->addStyle(id, this);
 }

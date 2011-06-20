@@ -11,7 +11,7 @@
 #include <string>
 
 #include "node.h"
-#include "StyleURL.h"
+#include "KML.h"
 
 class StyleURL : public node
 {
@@ -20,6 +20,9 @@ public:
   StyleURL(std::string *s);
   StyleURL(const StyleURL& orig);
   virtual ~StyleURL();
+
+  void connectStyle(KML *kml);
+
 private:
   void init();
 

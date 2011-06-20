@@ -8,8 +8,10 @@
 #ifndef STYLE_H
 #define	STYLE_H
 
-#include "node.h"
 #include <string>
+
+#include "node.h"
+#include "KML.h"
 
 class Style :public node
 {
@@ -18,6 +20,9 @@ public:
   Style(std::string *s);
   Style(const Style& orig);
   virtual ~Style();
+
+  void searchStyle(KML *kml);
+
 private:
   void init();
 };

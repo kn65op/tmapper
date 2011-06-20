@@ -19,6 +19,7 @@ public:
   Scale(std::string *s);
   Scale(const Scale& orig);
   virtual ~Scale();
+
 private:
   void init();
 };

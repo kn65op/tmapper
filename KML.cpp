@@ -48,6 +48,17 @@ void KML::init()
 void KML::connectStyles()
 {
   //wyszukiwanie styli
-
+  this->searchStyle(this);
   //łaczenie styli z placemarkami
+  this->connectStyle(this);
+}
+
+void KML::addStyle(std::string id, node* n)
+{
+  styles.insert(std::pair<std::string, node*>(id, n));
+}
+
+node* KML::getStyle(std::string id)
+{
+  return styles[id];
 }

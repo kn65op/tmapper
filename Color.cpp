@@ -33,5 +33,5 @@ Color::~Color()
 
 void Color::init()
 {
-  name = "Color";
+  name = "color";
 }

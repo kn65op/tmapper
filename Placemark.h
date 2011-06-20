@@ -24,6 +24,48 @@ public:
   Placemark(std::string *s);
   Placemark(const Placemark& orig);
   virtual ~Placemark();
+
+  IconStyle* getIconstyle() const
+  {
+    return iconstyle;
+  }
+
+  void setIconstyle(IconStyle* iconstyle)
+  {
+    this->iconstyle = iconstyle;
+  }
+
+  LabelStyle* getLabelstyle() const
+  {
+    return labelstyle;
+  }
+
+  void setLabelstyle(LabelStyle* labelstyle)
+  {
+    this->labelstyle = labelstyle;
+  }
+
+  LineStyle* getLinestyle() const
+  {
+    return linestyle;
+  }
+
+  void setLinestyle(LineStyle* linestyle)
+  {
+    this->linestyle = linestyle;
+  }
+
+  PolyStyle* getPolystyle() const
+  {
+    return polystyle;
+  }
+
+  void setPolystyle(PolyStyle* polystyle)
+  {
+    this->polystyle = polystyle;
+  }
+
+
 private:
   void init();
   LabelStyle *labelstyle;

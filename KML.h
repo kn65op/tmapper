@@ -9,6 +9,7 @@
 #define	KML_H
 
 #include <string>
+#include <map>
 
 #include "node.h"
 
@@ -22,9 +23,14 @@ public:
 
   void connectStyles();
 
+  void addStyle(std::string id, node* n);
+  node* getStyle(std::string id);
+
 //  void saveToFile(std::string file, int level);
 private:
   void init();
+
+  std::map<std::string, node*> styles;
 };
 
 #endif	/* KML_H */

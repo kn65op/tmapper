@@ -139,3 +139,23 @@ void node::drawChildren(cairo_t* cr, double a_x, double b_x, double a_y, double 
     (*it)->draw(cr, a_x, b_x, a_y, b_y, color);
   }
 }
+
+void node::searchStyle(KML* kml)
+{
+  std::list<node*>::const_iterator it, end;
+  end = children.end();
+  for (it = children.begin(); it != end; it++)
+  {
+    (*it)->searchStyle(kml);
+  }
+}
+
+void node::connectStyle(KML* kml)
+{
+  std::list<node*>::const_iterator it, end;
+  end = children.end();
+  for (it = children.begin(); it != end; it++)
+  {
+    (*it)->connectStyle(kml);
+  }
+}

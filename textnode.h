@@ -20,6 +20,17 @@ public:
   virtual ~textnode();
 
   void saveToFile(std::string file, int level);
+
+  std::string getText() const
+  {
+    return Text;
+  }
+
+  void setText(std::string Text)
+  {
+    this->Text = Text;
+  }
+
 private:
   std::string Text;
   void init();
