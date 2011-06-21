@@ -42,10 +42,14 @@ void LineString::draw(cairo_t* cr, double a_x, double b_x, double a_y, double b_
 {
   //TODO: dodać badanie multigeometry
   LineStyle *ls;
-  if (dynamic_cast<Placemark*> (parent))
+
+  node *tmp = parent;
+  while (!(dynamic_cast<Placemark*> (tmp)))
   {
-    ls = dynamic_cast<Placemark*> (parent)->getLinestyle();
+    tmp = tmp->GetParent();
   }
+  ls = dynamic_cast<Placemark*> (tmp)->getLinestyle();
+
   double *col = 0;
   if (ls)
   {

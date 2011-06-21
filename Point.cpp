@@ -43,9 +43,19 @@ void Point::init()
 
 void Point::draw(cairo_t* cr, double a_x, double b_x, double a_y, double b_y, double *color)
 {
-  IconStyle *ls = dynamic_cast<IconStyle*> (dynamic_cast<Placemark*> (parent)->getLinestyle());
+  node *tmp = parent ;
+  while (!(dynamic_cast<Placemark*> (tmp)))
+  {
+    tmp = tmp->GetParent();
+  }
+
+  IconStyle *is = dynamic_cast<Placemark*> (tmp)->getIconstyle();
 
   ///TODO: dodanie obrazka - ikony
+  if (is)
+  {
+    
+  }
   /*if (ls) //TODO: dodanie ikony - obrazka
   {
     col = ls->getColor();
