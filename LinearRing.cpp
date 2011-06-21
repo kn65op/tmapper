@@ -9,6 +9,8 @@
 
 #include "node.h"
 #include "Coordinates.h"
+#include "PolyStyle.h"
+#include "Placemark.h"
 
 #include <cairo/cairo.h>
 
@@ -39,15 +41,33 @@ void LinearRing::init()
 
 void LinearRing::draw(cairo_t* cr, double a_x, double b_x, double a_y, double b_y, double *color)
 {
+  PolyStyle *ps;
+  node *tmp = parent ;
+  while (!(dynamic_cast<Placemark*> (tmp)))
+  {
+    tmp = tmp->GetParent();
+  }
+  ps = dynamic_cast<Placemark*> (tmp)->getPolystyle();
+
+  double *col = 0;
+  if (ps)
+  {
+    col = ps->getColor();
+  }
+
   double *cor;
   int n = (dynamic_cast<Coordinates*> (children.front()))->getSize();
-  if (!color) //domyślny czarny
+  if (color)
   {
-    cairo_set_source_rgb(cr, 0, 0, 0);
+    cairo_set_source_rgba(cr, color[0], color[1], color[2], color[3]);
+  }
+  else if (ps) //domyślny czarny
+  {
+    cairo_set_source_rgba(cr, col[0], col[1], col[2], col[3]);
   }
   else
   {
-    cairo_set_source_rgba(cr, color[0], color[1], color[2], color[3]);
+    cairo_set_source_rgb(cr, 0, 0, 0);
   }
   cairo_set_line_width(cr, 1.0);
   cor = (dynamic_cast<Coordinates*> (children.front()))->getCoordinates(0);

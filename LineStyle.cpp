@@ -37,15 +37,3 @@ void LineStyle::init()
   name = "LineStyle";
 }
 
-double* LineStyle::getColor()
-{
-  std::list<node*>::const_iterator it, end;
-  end = children.end();
-  for (it = children.begin(); it != end; it++)
-  {
-    if (dynamic_cast<Color*>(*it))
-    {
-      return dynamic_cast<Color*>(*it)->getColor();
-    }
-  }
-}

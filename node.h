@@ -25,6 +25,8 @@ public:
 
   friend std::ostream& operator<<(std::ostream& out, const node& n);
 
+  double* getColor();
+
   virtual void saveToFile(std::string file, int level);
   virtual void draw(cairo_t* cr, double a_x, double b_x, double a_y, double b_y, double *color);
   virtual void findHW(double& max_x, double& min_x, double& max_y, double& min_y);

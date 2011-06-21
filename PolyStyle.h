@@ -19,6 +19,7 @@ public:
   PolyStyle(std::string *s);
   PolyStyle(const PolyStyle& orig);
   virtual ~PolyStyle();
+
 private:
   void init();
 };

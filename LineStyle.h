@@ -20,8 +20,6 @@ public:
   LineStyle(const LineStyle& orig);
   virtual ~LineStyle();
 
-  double* getColor();
-
 private:
   void init();
 };

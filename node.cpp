@@ -13,6 +13,7 @@
 #include "node.h"
 #include "textnode.h"
 #include "KML.h"
+#include "Color.h"
 
 node::node() :id("")
 {
@@ -157,5 +158,18 @@ void node::connectStyle(KML* kml)
   for (it = children.begin(); it != end; it++)
   {
     (*it)->connectStyle(kml);
+  }
+}
+
+double* node::getColor()
+{
+  std::list<node*>::const_iterator it, end;
+  end = children.end();
+  for (it = children.begin(); it != end; it++)
+  {
+    if (dynamic_cast<Color*>(*it))
+    {
+      return dynamic_cast<Color*>(*it)->getColor();
+    }
   }
 }

@@ -14,6 +14,9 @@
 		<LineStyle>
 			<color>80ff0000</color>
 		</LineStyle>
+		<PolyStyle>
+			<color>80ff0000</color>
+		</PolyStyle>
 	</Style>
 	<Style id="prz">
 		<LineStyle>
@@ -88,31 +91,33 @@ Samodzielnie wyszukane i dodane przeze mnie.</description>
 			</LinearRing>
 		</Placemark>
 		<Placemark>
+			<styleUrl>#niebieski</styleUrl>
 			<Polygon>
 				<innerBoundaryIs>
 					<LinearRing>
 						<coordinates>
-							4.1,4.1,0
-							4.2,4.3,0
-							4.3,4.2,0
+							0.3,-0.35,0
+							0.3,-0.3,0
+							0.35,-0.3,0
+							0.35,-0.35,0
 						</coordinates>
 					</LinearRing>
 				</innerBoundaryIs>
 				<innerBoundaryIs>
 					<LinearRing>
 						<coordinates>
-							4.5,4.5,0
-							4.5,6.5,0
-							6.5,4.5,0
+							0.1,-0.1,0
+							0.1,-0.2,0
+							0.2,-0.1,0
 						</coordinates>
 					</LinearRing>
 				</innerBoundaryIs>
 				<outerBoundaryIs>
 					<LinearRing>
 						<coordinates>
-							4,4,0
-							8,4,0
-							4,8,0
+							0,0,0
+							1,0,0
+							0,-1,0
 						</coordinates>
 					</LinearRing>
 				</outerBoundaryIs>
