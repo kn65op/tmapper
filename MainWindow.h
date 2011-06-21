@@ -92,7 +92,7 @@ private:
   static void paint(GtkWidget *widget, GdkEventExpose *eev, gpointer data);
 
   /* do błędów*/
-  void convertToPolish(std::string &s);
+  static void convertToPolish(std::string &s);
   /*zmienne do do map*/
   //KML *kml;
   Analiser *analiser;

@@ -344,9 +344,9 @@ void MainWindow::drawKML(cairo_t *cr)
 void MainWindow::showError(const char* s, int line, MainWindow* mw)
 {
   std::string err(s);
-  convertToPolish(s);
+  MainWindow::convertToPolish(err);
   GtkWidget *error = gtk_message_dialog_new(GTK_WINDOW(mw->map), GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_ERROR, GTK_BUTTONS_YES_NO,
-          "Znaleziono błąd: %s\n w linii %d.\nCzy chcesz otworzyć edytor plików?", s, line);
+          "Znaleziono błąd: %s\n w linii %d.\nCzy chcesz otworzyć edytor plików?", err.c_str(), line);
   gtk_window_set_title(GTK_WINDOW(error), "Bład w odczytywanym pliku.");
   gint response = gtk_dialog_run(GTK_DIALOG(error));
   if (response == GTK_RESPONSE_YES)
@@ -359,5 +359,10 @@ void MainWindow::showError(const char* s, int line, MainWindow* mw)
 
 void MainWindow::convertToPolish(std::string& s)
 {
-  
+  std::string what = "FILL";
+  std::string to = "<fill>";
+  while (s.find(what) != std::string::npos)
+  {
+    s.replace(s.find(what), what.size(), to);
+  }
 }
