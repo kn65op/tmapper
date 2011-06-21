@@ -55,15 +55,15 @@ void StyleURL::connectStyle(KML* kml)
   {
     dynamic_cast<Placemark*> (parent)->setIconstyle(style->getIconstyle());
   }
-  else if (style->getLabelstyle())
+  if (style->getLabelstyle())
   {
     dynamic_cast<Placemark*> (parent)->setLabelstyle(style->getLabelstyle());
   }
-  else if (style->getPolystyle())
+  if (style->getPolystyle())
   {
     dynamic_cast<Placemark*> (parent)->setPolystyle(style->getPolystyle());
   }
-  else if (style->getLinestyle())
+  if (style->getLinestyle())
   {
     dynamic_cast<Placemark*> (parent)->setLinestyle(style->getLinestyle());
   }

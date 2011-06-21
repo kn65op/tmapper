@@ -61,7 +61,7 @@ bool PolyStyle::getFill()
   }
 
   fill_ok = true;
-  fill = 0;
+  fill = 1;
   return fill;
 }
 
