@@ -36,10 +36,11 @@ LineStyle::~LineStyle()
 void LineStyle::init()
 {
   name = "LineStyle";
+  width_ok = false;
 }
 
 
-double LineStyle::getWidth() const
+double LineStyle::getWidth()
 {
   if (width_ok)
   {
@@ -52,7 +53,7 @@ double LineStyle::getWidth() const
   {
     if (dynamic_cast<Width*>(*it))
     {
-      width_ok = true
+      width_ok = true;
       width = dynamic_cast<Width*>(*it)->getWidth();
       return width;
     }

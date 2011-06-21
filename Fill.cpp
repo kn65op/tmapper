@@ -12,6 +12,7 @@ using namespace std;
 #include <string>
 
 #include "node.h"
+#include "boolnode.h"
 
 Fill::Fill()
 {
@@ -33,5 +34,10 @@ Fill::~Fill()
 
 void Fill::init()
 {
-  name = "Fill";
+  name = "fill";
+}
+
+bool Fill::getFill()
+{
+  return dynamic_cast<boolnode*>(children.front())->getVal();
 }

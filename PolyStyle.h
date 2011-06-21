@@ -20,8 +20,16 @@ public:
   PolyStyle(const PolyStyle& orig);
   virtual ~PolyStyle();
 
+  bool getFill();
+  bool getOutline();
+
 private:
   void init();
+
+  bool fill;
+  bool fill_ok;
+  bool outline;
+  bool outline_ok;
 };
 
 #endif	/* POLYSTYLE_H */

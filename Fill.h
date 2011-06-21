@@ -19,6 +19,8 @@ public:
   Fill(std::string *s);
   Fill(const Fill& orig);
   virtual ~Fill();
+
+  bool getFill();
 private:
   void init();
 };

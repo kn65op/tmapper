@@ -20,7 +20,7 @@ public:
   LineStyle(const LineStyle& orig);
   virtual ~LineStyle();
 
-  double getWidth() const;
+  double getWidth();
 
 private:
   void init();

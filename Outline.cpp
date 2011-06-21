@@ -12,6 +12,7 @@ using namespace std;
 #include <string>
 
 #include "node.h"
+#include "boolnode.h"
 
 Outline::Outline()
 {
@@ -33,5 +34,10 @@ Outline::~Outline()
 
 void Outline::init()
 {
-  name = "Outline";
+  name = "outline";
+}
+
+bool Outline::getOutline()
+{
+  return dynamic_cast<boolnode*>(children.front())->getVal();
 }

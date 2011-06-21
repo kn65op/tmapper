@@ -19,6 +19,8 @@ public:
   Outline(std::string *s);
   Outline(const Outline& orig);
   virtual ~Outline();
+
+  bool getOutline();
 private:
   void init();
 };

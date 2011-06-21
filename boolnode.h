@@ -20,7 +20,7 @@ public:
 
   void saveToFile(std::string file, int level);
 
-  bool isVal() const
+  bool getVal() const
   {
     return val;
   }

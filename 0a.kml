@@ -13,6 +13,7 @@
 	<Style id="niebieski">
 		<LineStyle>
 			<color>80ff0000</color>
+			<width>3.0</width>
 		</LineStyle>
 		<PolyStyle>
 			<color>80ff0000</color>
@@ -21,6 +22,13 @@
 	<Style id="prz">
 		<LineStyle>
 			<color>8000ff00</color>
+			<width>10.0</width>
+		</LineStyle>
+	</Style>
+	<Style id="cienka">
+		<LineStyle>
+			<color>ff0000ff</color>
+			<width>1.1</width>
 		</LineStyle>
 	</Style>
 	<Folder>
@@ -66,6 +74,18 @@ Samodzielnie wyszukane i dodane przeze mnie.</description>
 					0.5,0.5,0
 					-0.5,0.5,0
 					-0.5,-0.5,0
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<styleUrl>#cienka</styleUrl>
+			<LineString>
+				<coordinates>
+					1,1,0
+					0,1,0
+					0.5,0.9,0
+					-1,-1,0
+					1,1,0
 				</coordinates>
 			</LineString>
 		</Placemark>
