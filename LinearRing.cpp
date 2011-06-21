@@ -57,7 +57,7 @@ void LinearRing::draw(cairo_t* cr, double a_x, double b_x, double a_y, double b_
 
   double *cor;
   int n = (dynamic_cast<Coordinates*> (children.front()))->getSize();
-  if (color)
+  if (color) // najpierw biały oznaczający puste miejsce
   {
     cairo_set_source_rgba(cr, color[0], color[1], color[2], color[3]);
   }
