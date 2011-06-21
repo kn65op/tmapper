@@ -23,13 +23,13 @@ pareser.o: parser.cpp
 	$(CC) $(CCFLAGS_GTK) $(CCFLAGS_C) -o parser.o parser.cpp
 
 skaner.cpp: skaner.l
-	$(LEX) $(LEXFLAGS) -v -o skaner.cpp skaner.l
+	$(LEX) $(LEXFLAGS) -o skaner.cpp skaner.l
 
 skaner.o: skaner.cpp parser.cpp
 	$(CC) $(CCFLAGS_C) -o skaner.o skaner.cpp
 
 parser.cpp: gramatyka_bison.y
-	$(YACC) $(YACCFLAGS) -v -o parser.cpp gramatyka_bison.y
+	$(YACC) $(YACCFLAGS) -o parser.cpp gramatyka_bison.y
 
 analiser.o: Analiser.cpp Analiser.h
 	$(CC) $(CCFLAGS_C) -o analiser.o Analiser.cpp
