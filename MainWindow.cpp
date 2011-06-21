@@ -14,6 +14,7 @@
 #include <gtk-2.0/gdk/gdkkeysyms.h>
 #include <cairo/cairo.h>
 #include <iostream>
+#include <fstream>
 #include <float.h>
 #include <unistd.h>
 
@@ -346,7 +347,7 @@ void MainWindow::showError(const char* s, int line, MainWindow* mw)
   std::string err(s);
   MainWindow::convertToPolish(err);
   GtkWidget *error = gtk_message_dialog_new(GTK_WINDOW(mw->map), GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_ERROR, GTK_BUTTONS_YES_NO,
-          "Znaleziono błąd: %s\n w linii %d.\nCzy chcesz otworzyć edytor plików?", err.c_str(), line);
+          "Znaleziono błąd: %s w linii %d.\nCzy chcesz otworzyć edytor plików?", err.c_str(), line);
   gtk_window_set_title(GTK_WINDOW(error), "Bład w odczytywanym pliku.");
   gint response = gtk_dialog_run(GTK_DIALOG(error));
   if (response == GTK_RESPONSE_YES)
@@ -357,12 +358,27 @@ void MainWindow::showError(const char* s, int line, MainWindow* mw)
   //gtk_main();
 }
 
-void MainWindow::convertToPolish(std::string& s)
+void MainWindow::convertToPolish(std::string& s) //TODO: Zmienić na pobranie i podzielenie na części względem np. #
 {
-  std::string what = "FILL";
-  std::string to = "<fill>";
-  while (s.find(what) != std::string::npos)
+  ifstream file("pl_text");
+  if (file.eof())
   {
-    s.replace(s.find(what), what.size(), to);
+    return;
+  }
+  std::cout << file.eof() << "\n";
+  std::string what;
+  std::string to;
+  while (!file.eof())
+  {
+    file >> what;
+    file >> to;
+    if (what == "")
+    {
+      return;
+    }
+    while (s.find(what) != std::string::npos)
+    {
+      s.replace(s.find(what), what.size(), to);
+    }
   }
 }

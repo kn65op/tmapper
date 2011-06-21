@@ -1165,7 +1165,7 @@ YY_RULE_SETUP
 case 47:
 YY_RULE_SETUP
 #line 70 "skaner.l"
-{/*std::cout << "Niedozwolony znak!\n";*/ yyterminate();}
+{/*std::cout << "Niedozwolony znak!\n";*/ return SYM_NOT_VALID;}
 	YY_BREAK
 case 48:
 YY_RULE_SETUP

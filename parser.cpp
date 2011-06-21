@@ -200,7 +200,8 @@ void makeHotspot()
      TAG_END = 298,
      COMMA = 299,
      BOOLEAN_VAL = 300,
-     EQ = 301
+     EQ = 301,
+     SYM_NOT_VALID = 302
    };
 #endif
 
@@ -218,7 +219,7 @@ typedef union YYSTYPE
 
 
 /* Line 214 of yacc.c  */
-#line 222 "parser.cpp"
+#line 223 "parser.cpp"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
@@ -230,7 +231,7 @@ typedef union YYSTYPE
 
 
 /* Line 264 of yacc.c  */
-#line 234 "parser.cpp"
+#line 235 "parser.cpp"
 
 #ifdef short
 # undef short
@@ -448,7 +449,7 @@ union yyalloc
 #define YYLAST   388
 
 /* YYNTOKENS -- Number of terminals.  */
-#define YYNTOKENS  47
+#define YYNTOKENS  48
 /* YYNNTS -- Number of nonterminals.  */
 #define YYNNTS  95
 /* YYNRULES -- Number of rules.  */
@@ -458,7 +459,7 @@ union yyalloc
 
 /* YYTRANSLATE(YYLEX) -- Bison symbol number corresponding to YYLEX.  */
 #define YYUNDEFTOK  2
-#define YYMAXUTOK   301
+#define YYMAXUTOK   302
 
 #define YYTRANSLATE(YYX)						\
   ((unsigned int) (YYX) <= YYMAXUTOK ? yytranslate[YYX] : YYUNDEFTOK)
@@ -496,7 +497,7 @@ static const yytype_uint8 yytranslate[] =
       15,    16,    17,    18,    19,    20,    21,    22,    23,    24,
       25,    26,    27,    28,    29,    30,    31,    32,    33,    34,
       35,    36,    37,    38,    39,    40,    41,    42,    43,    44,
-      45,    46
+      45,    46,    47
 };
 
 #if YYDEBUG
@@ -524,89 +525,89 @@ static const yytype_uint16 yyprhs[] =
 /* YYRHS -- A `-1'-separated list of the rules' RHS.  */
 static const yytype_int16 yyrhs[] =
 {
-      48,     0,    -1,    49,    51,    50,    -1,    41,     3,   140,
-      42,    -1,    41,    43,     3,    42,    -1,    -1,    51,    52,
-      54,    53,    -1,    51,    55,    57,    56,    -1,    51,   131,
-     133,   132,    -1,    41,     7,   140,    42,    -1,    41,    43,
-       7,    42,    -1,    -1,    54,    55,    57,    56,    -1,    54,
-      87,    89,    88,    -1,    54,    90,    92,    91,    -1,    54,
-     131,   133,   132,    -1,    54,   137,   138,   139,    -1,    54,
-     134,   135,   136,    -1,    41,     8,   140,    42,    -1,    41,
-      43,     8,    42,    -1,    -1,    57,    61,    62,    67,    -1,
-      57,    68,    69,    70,    -1,    57,    71,    72,    73,    -1,
-      57,    74,    75,    76,    -1,    57,    84,    85,    86,    -1,
-      57,    58,    59,    60,    -1,    57,    87,    89,    88,    -1,
-      57,   134,   135,   136,    -1,    57,   137,   138,   139,    -1,
-      41,    32,   140,    42,    -1,     6,    -1,    41,    43,    32,
-      42,    -1,    41,    15,   140,    42,    -1,    63,    65,    66,
-      -1,    41,    21,   140,    42,    -1,    65,    -1,    64,    65,
+      49,     0,    -1,    50,    52,    51,    -1,    41,     3,   141,
+      42,    -1,    41,    43,     3,    42,    -1,    -1,    52,    53,
+      55,    54,    -1,    52,    56,    58,    57,    -1,    52,   132,
+     134,   133,    -1,    41,     7,   141,    42,    -1,    41,    43,
+       7,    42,    -1,    -1,    55,    56,    58,    57,    -1,    55,
+      88,    90,    89,    -1,    55,    91,    93,    92,    -1,    55,
+     132,   134,   133,    -1,    55,   138,   139,   140,    -1,    55,
+     135,   136,   137,    -1,    41,     8,   141,    42,    -1,    41,
+      43,     8,    42,    -1,    -1,    58,    62,    63,    68,    -1,
+      58,    69,    70,    71,    -1,    58,    72,    73,    74,    -1,
+      58,    75,    76,    77,    -1,    58,    85,    86,    87,    -1,
+      58,    59,    60,    61,    -1,    58,    88,    90,    89,    -1,
+      58,   135,   136,   137,    -1,    58,   138,   139,   140,    -1,
+      41,    32,   141,    42,    -1,     6,    -1,    41,    43,    32,
+      42,    -1,    41,    15,   141,    42,    -1,    64,    66,    67,
+      -1,    41,    21,   141,    42,    -1,    66,    -1,    65,    66,
       -1,    12,    44,    12,    44,    12,    -1,    41,    43,    21,
-      42,    -1,    41,    43,    15,    42,    -1,    41,    19,   140,
-      42,    -1,    63,    64,    66,    -1,    41,    43,    19,    42,
-      -1,    41,    36,   140,    42,    -1,    63,    64,    66,    -1,
-      41,    43,    36,    42,    -1,    41,    20,   140,    42,    -1,
-      77,    78,    79,    80,    -1,    41,    43,    20,    42,    -1,
-      -1,    77,    81,    82,    83,    -1,    41,    18,   140,    42,
-      -1,    71,    72,    73,    -1,    41,    43,    18,    42,    -1,
-      41,    17,   140,    42,    -1,    71,    72,    73,    -1,    41,
-      43,    17,    42,    -1,    41,    16,   140,    42,    -1,    -1,
-      85,    61,    62,    67,    -1,    85,    68,    69,    70,    -1,
-      85,    71,    72,    73,    -1,    85,    74,    75,    76,    -1,
-      85,    84,    85,    86,    -1,    41,    43,    16,    42,    -1,
-      41,     9,   140,    42,    -1,    41,    43,     9,    42,    -1,
-       6,    -1,    41,    10,   140,    42,    -1,    41,    43,    10,
-      42,    -1,    -1,    92,    93,    95,    94,    -1,    92,   107,
-     109,   108,    -1,    92,   113,   115,   114,    -1,    92,   119,
-     121,   120,    -1,    41,    35,   140,    42,    -1,    41,    43,
-      35,    42,    -1,    -1,    95,   122,   123,   124,    -1,    95,
-     110,   111,   112,    -1,    95,    96,    97,    98,    -1,    95,
-      99,   100,   101,    -1,    95,   105,    -1,    41,    38,   140,
+      42,    -1,    41,    43,    15,    42,    -1,    41,    19,   141,
+      42,    -1,    64,    65,    67,    -1,    41,    43,    19,    42,
+      -1,    41,    36,   141,    42,    -1,    64,    65,    67,    -1,
+      41,    43,    36,    42,    -1,    41,    20,   141,    42,    -1,
+      78,    79,    80,    81,    -1,    41,    43,    20,    42,    -1,
+      -1,    78,    82,    83,    84,    -1,    41,    18,   141,    42,
+      -1,    72,    73,    74,    -1,    41,    43,    18,    42,    -1,
+      41,    17,   141,    42,    -1,    72,    73,    74,    -1,    41,
+      43,    17,    42,    -1,    41,    16,   141,    42,    -1,    -1,
+      86,    62,    63,    68,    -1,    86,    69,    70,    71,    -1,
+      86,    72,    73,    74,    -1,    86,    75,    76,    77,    -1,
+      86,    85,    86,    87,    -1,    41,    43,    16,    42,    -1,
+      41,     9,   141,    42,    -1,    41,    43,     9,    42,    -1,
+       6,    -1,    41,    10,   141,    42,    -1,    41,    43,    10,
+      42,    -1,    -1,    93,    94,    96,    95,    -1,    93,   108,
+     110,   109,    -1,    93,   114,   116,   115,    -1,    93,   120,
+     122,   121,    -1,    41,    35,   141,    42,    -1,    41,    43,
+      35,    42,    -1,    -1,    96,   123,   124,   125,    -1,    96,
+     111,   112,   113,    -1,    96,    97,    98,    99,    -1,    96,
+     100,   101,   102,    -1,    96,   106,    -1,    41,    38,   141,
       42,    -1,    12,    -1,    41,    43,    38,    42,    -1,    41,
-      27,   140,    42,    -1,    -1,   100,   102,   103,   104,    -1,
-      41,    43,    27,    42,    -1,    41,    37,   140,    42,    -1,
-       6,    -1,    41,    43,    37,    42,    -1,    41,    22,   106,
-      43,    42,    -1,    -1,   106,    25,    46,     5,    -1,   106,
-      26,    46,     5,    -1,   106,    24,    46,     5,    -1,   106,
-      23,    46,     5,    -1,    41,    31,   140,    42,    -1,    41,
-      43,    31,    42,    -1,    -1,   109,   122,   123,   124,    -1,
-     109,   110,   111,   112,    -1,    41,    28,   140,    42,    -1,
-      12,    -1,    41,    43,    28,    42,    -1,    41,    33,   140,
-      42,    -1,    41,    43,    33,    42,    -1,    -1,   115,   122,
-     123,   124,    -1,   115,   116,   117,   118,    -1,    41,    40,
-     140,    42,    -1,    12,    -1,    41,    43,    40,    42,    -1,
-      41,    34,   140,    42,    -1,    41,    43,    34,    42,    -1,
-      -1,   121,   122,   123,   124,    -1,   121,   125,   126,   127,
-      -1,   121,   128,   129,   130,    -1,    41,    30,   140,    42,
+      27,   141,    42,    -1,    -1,   101,   103,   104,   105,    -1,
+      41,    43,    27,    42,    -1,    41,    37,   141,    42,    -1,
+       6,    -1,    41,    43,    37,    42,    -1,    41,    22,   107,
+      43,    42,    -1,    -1,   107,    25,    46,     5,    -1,   107,
+      26,    46,     5,    -1,   107,    24,    46,     5,    -1,   107,
+      23,    46,     5,    -1,    41,    31,   141,    42,    -1,    41,
+      43,    31,    42,    -1,    -1,   110,   123,   124,   125,    -1,
+     110,   111,   112,   113,    -1,    41,    28,   141,    42,    -1,
+      12,    -1,    41,    43,    28,    42,    -1,    41,    33,   141,
+      42,    -1,    41,    43,    33,    42,    -1,    -1,   116,   123,
+     124,   125,    -1,   116,   117,   118,   119,    -1,    41,    40,
+     141,    42,    -1,    12,    -1,    41,    43,    40,    42,    -1,
+      41,    34,   141,    42,    -1,    41,    43,    34,    42,    -1,
+      -1,   122,   123,   124,   125,    -1,   122,   126,   127,   128,
+      -1,   122,   129,   130,   131,    -1,    41,    30,   141,    42,
       -1,     6,    -1,    41,    43,    30,    42,    -1,    41,    14,
-     140,    42,    -1,    45,    -1,    41,    43,    14,    42,    -1,
-      41,    29,   140,    42,    -1,    45,    -1,    41,    43,    29,
-      42,    -1,    41,    11,   140,    42,    -1,    41,    43,    11,
-      42,    -1,    -1,   133,    87,    89,    88,    -1,   133,   134,
-     135,   136,    -1,   133,   137,   138,   139,    -1,   133,    55,
-      57,    56,    -1,    41,    39,   140,    42,    -1,    45,    -1,
-      41,    43,    39,    42,    -1,    41,    13,   140,    42,    -1,
-       6,    -1,    41,    43,    13,    42,    -1,    -1,   140,   141,
+     141,    42,    -1,    45,    -1,    41,    43,    14,    42,    -1,
+      41,    29,   141,    42,    -1,    45,    -1,    41,    43,    29,
+      42,    -1,    41,    11,   141,    42,    -1,    41,    43,    11,
+      42,    -1,    -1,   134,    88,    90,    89,    -1,   134,   135,
+     136,   137,    -1,   134,   138,   139,   140,    -1,   134,    56,
+      58,    57,    -1,    41,    39,   141,    42,    -1,    45,    -1,
+      41,    43,    39,    42,    -1,    41,    13,   141,    42,    -1,
+       6,    -1,    41,    43,    13,    42,    -1,    -1,   141,   142,
       46,     5,    -1,    -1,     4,    -1
 };
 
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint16 yyrline[] =
 {
-       0,   117,   117,   120,   131,   134,   135,   136,   137,   140,
-     147,   153,   154,   155,   156,   157,   158,   159,   162,   169,
-     175,   176,   177,   178,   179,   180,   181,   182,   183,   184,
-     187,   194,   200,   208,   215,   218,   225,   226,   229,   238,
-     244,   250,   257,   260,   266,   273,   276,   282,   289,   295,
-     301,   302,   305,   312,   315,   321,   328,   331,   338,   345,
-     346,   347,   348,   349,   350,   353,   359,   366,   372,   379,
-     386,   392,   393,   394,   395,   396,   399,   406,   412,   413,
-     414,   415,   416,   417,   420,   427,   433,   439,   446,   447,
-     450,   456,   463,   469,   475,   481,   482,   487,   492,   497,
-     504,   511,   517,   518,   519,   522,   529,   535,   541,   548,
-     554,   555,   556,   559,   566,   572,   578,   585,   591,   592,
-     593,   594,   597,   604,   610,   616,   624,   630,   636,   643,
-     649,   655,   662,   668,   669,   670,   671,   672,   676,   683,
-     689,   697,   704,   710,   716,   717,   720,   721
+       0,   118,   118,   121,   132,   135,   136,   137,   138,   141,
+     148,   154,   155,   156,   157,   158,   159,   160,   163,   170,
+     176,   177,   178,   179,   180,   181,   182,   183,   184,   185,
+     188,   195,   201,   209,   216,   219,   226,   227,   230,   239,
+     245,   251,   258,   261,   267,   274,   277,   283,   290,   296,
+     302,   303,   306,   313,   316,   322,   329,   332,   339,   346,
+     347,   348,   349,   350,   351,   354,   360,   367,   373,   380,
+     387,   393,   394,   395,   396,   397,   400,   407,   413,   414,
+     415,   416,   417,   418,   421,   428,   434,   440,   447,   448,
+     451,   457,   464,   470,   476,   482,   483,   488,   493,   498,
+     505,   512,   518,   519,   520,   523,   530,   536,   542,   549,
+     555,   556,   557,   560,   567,   573,   579,   586,   592,   593,
+     594,   595,   598,   605,   611,   617,   625,   631,   637,   644,
+     650,   656,   663,   669,   670,   671,   672,   673,   677,   684,
+     690,   698,   705,   711,   717,   718,   721,   722
 };
 #endif
 
@@ -624,28 +625,29 @@ static const char *const yytname[] =
   "OUTLINE_SYM", "COLOR_SYM", "LABEL_STYLE_SYM", "STYLE_URL_SYM",
   "LINE_STYLE_SYM", "POLY_STYLE_SYM", "ICON_STYLE_SYM", "LINEAR_RING_SYM",
   "HREF_SYM", "HEADING_SYM", "VISIBILITY_SYM", "WIDTH_SYM", "TAG_OPEN",
-  "TAG_CLOSE", "TAG_END", "COMMA", "BOOLEAN_VAL", "EQ", "$accept", "input",
-  "kml_start", "kml_end", "kml", "document_start", "document_end",
-  "document", "placemark_start", "placemark_end", "placemark",
-  "style_url_start", "style_url", "style_url_end", "point_start", "point",
-  "coordinates_start", "coordinates", "one_coordinates", "coordinates_end",
-  "point_end", "line_string_start", "line_string", "line_string_end",
-  "linear_ring_start", "linear_ring", "linear_ring_end", "polygon_start",
-  "polygon", "polygon_end", "polygon_more", "outer_boundary_is_start",
-  "outer_boundary_is", "outer_boundary_is_end", "inner_boundary_is_start",
-  "inner_boundary_is", "inner_boundary_is_end", "multigeometry_start",
-  "multigeometry", "multigeometry_end", "name_start", "name_end", "name",
-  "style_start", "style_end", "style", "icon_style_start",
-  "icon_style_end", "icon_style", "heading_start", "heading",
-  "heading_end", "icon_start", "icon", "icon_end", "href_start", "href",
-  "href_end", "hotspot", "hotspot_options", "label_style_start",
-  "label_style_end", "label_style", "scale_start", "scale", "scale_end",
-  "line_style_start", "line_style_end", "line_style", "width_start",
-  "width", "width_end", "poly_style_start", "poly_style_end", "poly_style",
-  "color_start", "color", "color_end", "fill_start", "fill", "fill_end",
-  "outline_start", "outline", "outline_end", "folder_start", "folder_end",
-  "folder", "visibility_start", "visibility", "visibility_end",
-  "description_start", "description", "description_end", "options", "attr", 0
+  "TAG_CLOSE", "TAG_END", "COMMA", "BOOLEAN_VAL", "EQ", "SYM_NOT_VALID",
+  "$accept", "input", "kml_start", "kml_end", "kml", "document_start",
+  "document_end", "document", "placemark_start", "placemark_end",
+  "placemark", "style_url_start", "style_url", "style_url_end",
+  "point_start", "point", "coordinates_start", "coordinates",
+  "one_coordinates", "coordinates_end", "point_end", "line_string_start",
+  "line_string", "line_string_end", "linear_ring_start", "linear_ring",
+  "linear_ring_end", "polygon_start", "polygon", "polygon_end",
+  "polygon_more", "outer_boundary_is_start", "outer_boundary_is",
+  "outer_boundary_is_end", "inner_boundary_is_start", "inner_boundary_is",
+  "inner_boundary_is_end", "multigeometry_start", "multigeometry",
+  "multigeometry_end", "name_start", "name_end", "name", "style_start",
+  "style_end", "style", "icon_style_start", "icon_style_end", "icon_style",
+  "heading_start", "heading", "heading_end", "icon_start", "icon",
+  "icon_end", "href_start", "href", "href_end", "hotspot",
+  "hotspot_options", "label_style_start", "label_style_end", "label_style",
+  "scale_start", "scale", "scale_end", "line_style_start",
+  "line_style_end", "line_style", "width_start", "width", "width_end",
+  "poly_style_start", "poly_style_end", "poly_style", "color_start",
+  "color", "color_end", "fill_start", "fill", "fill_end", "outline_start",
+  "outline", "outline_end", "folder_start", "folder_end", "folder",
+  "visibility_start", "visibility", "visibility_end", "description_start",
+  "description", "description_end", "options", "attr", 0
 };
 #endif
 
@@ -658,28 +660,28 @@ static const yytype_uint16 yytoknum[] =
      265,   266,   267,   268,   269,   270,   271,   272,   273,   274,
      275,   276,   277,   278,   279,   280,   281,   282,   283,   284,
      285,   286,   287,   288,   289,   290,   291,   292,   293,   294,
-     295,   296,   297,   298,   299,   300,   301
+     295,   296,   297,   298,   299,   300,   301,   302
 };
 # endif
 
 /* YYR1[YYN] -- Symbol number of symbol that rule YYN derives.  */
 static const yytype_uint8 yyr1[] =
 {
-       0,    47,    48,    49,    50,    51,    51,    51,    51,    52,
-      53,    54,    54,    54,    54,    54,    54,    54,    55,    56,
-      57,    57,    57,    57,    57,    57,    57,    57,    57,    57,
-      58,    59,    60,    61,    62,    63,    64,    64,    65,    66,
-      67,    68,    69,    70,    71,    72,    73,    74,    75,    76,
-      77,    77,    78,    79,    80,    81,    82,    83,    84,    85,
-      85,    85,    85,    85,    85,    86,    87,    88,    89,    90,
-      91,    92,    92,    92,    92,    92,    93,    94,    95,    95,
-      95,    95,    95,    95,    96,    97,    98,    99,   100,   100,
-     101,   102,   103,   104,   105,   106,   106,   106,   106,   106,
-     107,   108,   109,   109,   109,   110,   111,   112,   113,   114,
-     115,   115,   115,   116,   117,   118,   119,   120,   121,   121,
-     121,   121,   122,   123,   124,   125,   126,   127,   128,   129,
-     130,   131,   132,   133,   133,   133,   133,   133,   134,   135,
-     136,   137,   138,   139,   140,   140,   141,   141
+       0,    48,    49,    50,    51,    52,    52,    52,    52,    53,
+      54,    55,    55,    55,    55,    55,    55,    55,    56,    57,
+      58,    58,    58,    58,    58,    58,    58,    58,    58,    58,
+      59,    60,    61,    62,    63,    64,    65,    65,    66,    67,
+      68,    69,    70,    71,    72,    73,    74,    75,    76,    77,
+      78,    78,    79,    80,    81,    82,    83,    84,    85,    86,
+      86,    86,    86,    86,    86,    87,    88,    89,    90,    91,
+      92,    93,    93,    93,    93,    93,    94,    95,    96,    96,
+      96,    96,    96,    96,    97,    98,    99,   100,   101,   101,
+     102,   103,   104,   105,   106,   107,   107,   107,   107,   107,
+     108,   109,   110,   110,   110,   111,   112,   113,   114,   115,
+     116,   116,   116,   117,   118,   119,   120,   121,   122,   122,
+     122,   122,   123,   124,   125,   126,   127,   128,   129,   130,
+     131,   132,   133,   134,   134,   134,   134,   134,   135,   136,
+     137,   138,   139,   140,   141,   141,   142,   142
 };
 
 /* YYR2[YYN] -- Number of symbols composing right hand side of rule YYN.  */
@@ -923,45 +925,45 @@ static const yytype_int16 yycheck[] =
    symbol of state STATE-NUM.  */
 static const yytype_uint8 yystos[] =
 {
-       0,    41,    48,    49,     3,     0,    51,   140,    41,    50,
-      52,    55,   131,     4,    42,   141,     7,     8,    11,    43,
-      54,    57,   133,    46,   140,   140,   140,     3,    41,    53,
-      55,    87,    90,   131,   134,   137,    41,    56,    58,    61,
-      68,    71,    74,    84,    87,   134,   137,    41,    55,    87,
-     132,   134,   137,     5,    42,    42,    42,    42,     9,    10,
-      13,    39,    43,    57,     6,    89,    92,   133,    45,   135,
-       6,   138,    15,    16,    19,    20,    32,    36,    43,     6,
-      59,    41,    62,    63,    63,    69,    63,    72,    75,    77,
-      85,    89,   135,   138,    43,    57,    89,   135,   138,   140,
-     140,   140,   140,     7,    56,    41,    88,    41,    91,    93,
-     107,   113,   119,   132,    41,   136,    41,   139,   140,   140,
-     140,   140,   140,   140,     8,    41,    60,    21,    41,    67,
-      12,    65,    64,    65,    41,    70,    64,    41,    73,    41,
-      76,    41,    78,    81,    41,    61,    68,    71,    74,    84,
-      86,    88,   136,   139,    11,    56,    88,   136,   139,    42,
+       0,    41,    49,    50,     3,     0,    52,   141,    41,    51,
+      53,    56,   132,     4,    42,   142,     7,     8,    11,    43,
+      55,    58,   134,    46,   141,   141,   141,     3,    41,    54,
+      56,    88,    91,   132,   135,   138,    41,    57,    59,    62,
+      69,    72,    75,    85,    88,   135,   138,    41,    56,    88,
+     133,   135,   138,     5,    42,    42,    42,    42,     9,    10,
+      13,    39,    43,    58,     6,    90,    93,   134,    45,   136,
+       6,   139,    15,    16,    19,    20,    32,    36,    43,     6,
+      60,    41,    63,    64,    64,    70,    64,    73,    76,    78,
+      86,    90,   136,   139,    43,    58,    90,   136,   139,   141,
+     141,   141,   141,     7,    57,    41,    89,    41,    92,    94,
+     108,   114,   120,   133,    41,   137,    41,   140,   141,   141,
+     141,   141,   141,   141,     8,    41,    61,    21,    41,    68,
+      12,    66,    65,    66,    41,    71,    65,    41,    74,    41,
+      77,    41,    79,    82,    41,    62,    69,    72,    75,    85,
+      87,    89,   137,   140,    11,    57,    89,   137,   140,    42,
       42,    42,    42,    42,    43,    31,    33,    34,    35,    43,
-      95,   109,   115,   121,    43,    43,    42,    42,    42,    42,
-      42,    42,    42,    43,   140,    43,    44,    41,    66,    65,
-      66,    43,    66,    43,    43,    17,    18,    41,    71,    79,
-      71,    82,    43,    62,    69,    72,    75,    85,    42,     9,
-     140,   140,   140,   140,    10,    41,    94,    96,    99,   105,
-     110,   122,    41,   108,   110,   122,    41,   114,   116,   122,
-      41,   120,   122,   125,   128,    39,    13,    32,    42,    15,
-      12,    43,    19,    36,    20,   140,   140,    72,    41,    80,
-      72,    41,    83,    16,    67,    70,    73,    76,    86,    42,
+      96,   110,   116,   122,    43,    43,    42,    42,    42,    42,
+      42,    42,    42,    43,   141,    43,    44,    41,    67,    66,
+      67,    43,    67,    43,    43,    17,    18,    41,    72,    80,
+      72,    83,    43,    63,    70,    73,    76,    86,    42,     9,
+     141,   141,   141,   141,    10,    41,    95,    97,   100,   106,
+     111,   123,    41,   109,   111,   123,    41,   115,   117,   123,
+      41,   121,   123,   126,   129,    39,    13,    32,    42,    15,
+      12,    43,    19,    36,    20,   141,   141,    73,    41,    81,
+      73,    41,    84,    16,    68,    71,    74,    77,    87,    42,
       42,    42,    42,    42,    42,    22,    27,    28,    30,    38,
-      43,    12,    97,   100,    12,   111,     6,   123,    43,   111,
-     123,    40,    43,    12,   117,   123,    14,    29,    43,   123,
-      45,   126,    45,   129,    42,    42,    42,    42,    44,    21,
-      42,    42,    42,    42,    42,    73,    43,    73,    43,    42,
-     106,   140,   140,   140,   140,    35,    41,    98,    41,   101,
-     102,    41,   112,    41,   124,    31,   112,   124,   140,    33,
-      41,   118,   124,   140,   140,    34,   124,    41,   127,    41,
-     130,    12,    42,    18,    17,    23,    24,    25,    26,    43,
-      42,    42,    42,    42,    42,    43,    37,    43,     6,   103,
+      43,    12,    98,   101,    12,   112,     6,   124,    43,   112,
+     124,    40,    43,    12,   118,   124,    14,    29,    43,   124,
+      45,   127,    45,   130,    42,    42,    42,    42,    44,    21,
+      42,    42,    42,    42,    42,    74,    43,    74,    43,    42,
+     107,   141,   141,   141,   141,    35,    41,    99,    41,   102,
+     103,    41,   113,    41,   125,    31,   113,   125,   141,    33,
+      41,   119,   125,   141,   141,    34,   125,    41,   128,    41,
+     131,    12,    42,    18,    17,    23,    24,    25,    26,    43,
+      42,    42,    42,    42,    42,    43,    37,    43,     6,   104,
       43,    43,    42,    42,    42,    43,    42,    42,    42,    43,
-      43,    42,    42,    46,    46,    46,    46,    42,    38,   140,
-      27,    41,   104,    28,    30,    40,    14,    29,     5,     5,
+      43,    42,    42,    46,    46,    46,    46,    42,    38,   141,
+      27,    41,   105,    28,    30,    40,    14,    29,     5,     5,
        5,     5,    42,    42,    42,    43,    42,    42,    42,    42,
       42,    37,    42
 };
@@ -1777,7 +1779,7 @@ yyreduce:
         case 3:
 
 /* Line 1455 of yacc.c  */
-#line 121 "gramatyka_bison.y"
+#line 122 "gramatyka_bison.y"
     {
   if (tree)
   {
@@ -1791,7 +1793,7 @@ yyreduce:
   case 9:
 
 /* Line 1455 of yacc.c  */
-#line 141 "gramatyka_bison.y"
+#line 142 "gramatyka_bison.y"
     {
 last_element->AddChild(new Document((yyvsp[(3) - (4)].str)));
 last_element = last_element->GetLastChild();
@@ -1801,7 +1803,7 @@ last_element = last_element->GetLastChild();
   case 10:
 
 /* Line 1455 of yacc.c  */
-#line 148 "gramatyka_bison.y"
+#line 149 "gramatyka_bison.y"
     {
 last_element = last_element->GetParent()
 ;}
@@ -1810,7 +1812,7 @@ last_element = last_element->GetParent()
   case 18:
 
 /* Line 1455 of yacc.c  */
-#line 163 "gramatyka_bison.y"
+#line 164 "gramatyka_bison.y"
     {
 last_element->AddChild(new Placemark((yyvsp[(3) - (4)].str)));
 last_element = last_element->GetLastChild();
@@ -1820,7 +1822,7 @@ last_element = last_element->GetLastChild();
   case 19:
 
 /* Line 1455 of yacc.c  */
-#line 170 "gramatyka_bison.y"
+#line 171 "gramatyka_bison.y"
     {
 last_element = last_element->GetParent();
 ;}
@@ -1829,7 +1831,7 @@ last_element = last_element->GetParent();
   case 30:
 
 /* Line 1455 of yacc.c  */
-#line 188 "gramatyka_bison.y"
+#line 189 "gramatyka_bison.y"
     {
 last_element->AddChild(new StyleURL((yyvsp[(3) - (4)].str)));
 last_element = last_element->GetLastChild();
@@ -1839,7 +1841,7 @@ last_element = last_element->GetLastChild();
   case 31:
 
 /* Line 1455 of yacc.c  */
-#line 195 "gramatyka_bison.y"
+#line 196 "gramatyka_bison.y"
     {
 last_element->AddChild(new textnode((yyvsp[(1) - (1)].str)));
 ;}
@@ -1848,7 +1850,7 @@ last_element->AddChild(new textnode((yyvsp[(1) - (1)].str)));
   case 32:
 
 /* Line 1455 of yacc.c  */
-#line 201 "gramatyka_bison.y"
+#line 202 "gramatyka_bison.y"
     {
 last_element = last_element->GetParent()
 ;}
@@ -1857,7 +1859,7 @@ last_element = last_element->GetParent()
   case 33:
 
 /* Line 1455 of yacc.c  */
-#line 209 "gramatyka_bison.y"
+#line 210 "gramatyka_bison.y"
     {
 last_element->AddChild(new Point((yyvsp[(3) - (4)].str)));
 last_element = last_element->GetLastChild();
@@ -1867,7 +1869,7 @@ last_element = last_element->GetLastChild();
   case 35:
 
 /* Line 1455 of yacc.c  */
-#line 219 "gramatyka_bison.y"
+#line 220 "gramatyka_bison.y"
     {
 last_element->AddChild(new Coordinates((yyvsp[(3) - (4)].str)));
 last_element = last_element->GetLastChild();
@@ -1877,7 +1879,7 @@ last_element = last_element->GetLastChild();
   case 38:
 
 /* Line 1455 of yacc.c  */
-#line 230 "gramatyka_bison.y"
+#line 231 "gramatyka_bison.y"
     {
 if (dynamic_cast<Coordinates*>(last_element))
 {
@@ -1889,7 +1891,7 @@ if (dynamic_cast<Coordinates*>(last_element))
   case 39:
 
 /* Line 1455 of yacc.c  */
-#line 239 "gramatyka_bison.y"
+#line 240 "gramatyka_bison.y"
     {
 last_element = last_element->GetParent()
 ;}
@@ -1898,7 +1900,7 @@ last_element = last_element->GetParent()
   case 40:
 
 /* Line 1455 of yacc.c  */
-#line 245 "gramatyka_bison.y"
+#line 246 "gramatyka_bison.y"
     {
 last_element = last_element->GetParent()
 ;}
@@ -1907,7 +1909,7 @@ last_element = last_element->GetParent()
   case 41:
 
 /* Line 1455 of yacc.c  */
-#line 251 "gramatyka_bison.y"
+#line 252 "gramatyka_bison.y"
     {
 last_element->AddChild(new LineString((yyvsp[(3) - (4)].str)));
 last_element = last_element->GetLastChild();
@@ -1917,7 +1919,7 @@ last_element = last_element->GetLastChild();
   case 43:
 
 /* Line 1455 of yacc.c  */
-#line 261 "gramatyka_bison.y"
+#line 262 "gramatyka_bison.y"
     {
 last_element = last_element->GetParent()
 ;}
@@ -1926,7 +1928,7 @@ last_element = last_element->GetParent()
   case 44:
 
 /* Line 1455 of yacc.c  */
-#line 267 "gramatyka_bison.y"
+#line 268 "gramatyka_bison.y"
     {
 last_element->AddChild(new LinearRing((yyvsp[(3) - (4)].str)));
 last_element = last_element->GetLastChild();
@@ -1936,7 +1938,7 @@ last_element = last_element->GetLastChild();
   case 46:
 
 /* Line 1455 of yacc.c  */
-#line 277 "gramatyka_bison.y"
+#line 278 "gramatyka_bison.y"
     {
 last_element = last_element->GetParent()
 ;}
@@ -1945,7 +1947,7 @@ last_element = last_element->GetParent()
   case 47:
 
 /* Line 1455 of yacc.c  */
-#line 283 "gramatyka_bison.y"
+#line 284 "gramatyka_bison.y"
     {
 last_element->AddChild(new Polygon((yyvsp[(3) - (4)].str)));
 last_element = last_element->GetLastChild();
@@ -1955,7 +1957,7 @@ last_element = last_element->GetLastChild();
   case 49:
 
 /* Line 1455 of yacc.c  */
-#line 296 "gramatyka_bison.y"
+#line 297 "gramatyka_bison.y"
     {
 last_element = last_element->GetParent()
 ;}
@@ -1964,7 +1966,7 @@ last_element = last_element->GetParent()
   case 52:
 
 /* Line 1455 of yacc.c  */
-#line 306 "gramatyka_bison.y"
+#line 307 "gramatyka_bison.y"
     {
 last_element->AddChild(new OuterBoundaryIs((yyvsp[(3) - (4)].str)));
 last_element = last_element->GetLastChild();
@@ -1974,7 +1976,7 @@ last_element = last_element->GetLastChild();
   case 54:
 
 /* Line 1455 of yacc.c  */
-#line 316 "gramatyka_bison.y"
+#line 317 "gramatyka_bison.y"
     {
 last_element = last_element->GetParent()
 ;}
@@ -1983,7 +1985,7 @@ last_element = last_element->GetParent()
   case 55:
 
 /* Line 1455 of yacc.c  */
-#line 322 "gramatyka_bison.y"
+#line 323 "gramatyka_bison.y"
     {
 last_element->AddChild(new InnerBoundaryIs((yyvsp[(3) - (4)].str)));
 last_element = last_element->GetLastChild();
@@ -1993,7 +1995,7 @@ last_element = last_element->GetLastChild();
   case 57:
 
 /* Line 1455 of yacc.c  */
-#line 332 "gramatyka_bison.y"
+#line 333 "gramatyka_bison.y"
     {
 last_element = last_element->GetParent()
 ;}
@@ -2002,7 +2004,7 @@ last_element = last_element->GetParent()
   case 58:
 
 /* Line 1455 of yacc.c  */
-#line 339 "gramatyka_bison.y"
+#line 340 "gramatyka_bison.y"
     {
 last_element->AddChild(new Multigeometry((yyvsp[(3) - (4)].str)));
 last_element = last_element->GetLastChild();
@@ -2012,7 +2014,7 @@ last_element = last_element->GetLastChild();
   case 65:
 
 /* Line 1455 of yacc.c  */
-#line 354 "gramatyka_bison.y"
+#line 355 "gramatyka_bison.y"
     {
 last_element = last_element->GetParent()
 ;}
@@ -2021,7 +2023,7 @@ last_element = last_element->GetParent()
   case 66:
 
 /* Line 1455 of yacc.c  */
-#line 360 "gramatyka_bison.y"
+#line 361 "gramatyka_bison.y"
     {
 last_element->AddChild(new Name((yyvsp[(3) - (4)].str)));
 last_element = last_element->GetLastChild();
@@ -2031,7 +2033,7 @@ last_element = last_element->GetLastChild();
   case 67:
 
 /* Line 1455 of yacc.c  */
-#line 367 "gramatyka_bison.y"
+#line 368 "gramatyka_bison.y"
     {
 last_element = last_element->GetParent()
 ;}
@@ -2040,7 +2042,7 @@ last_element = last_element->GetParent()
   case 68:
 
 /* Line 1455 of yacc.c  */
-#line 373 "gramatyka_bison.y"
+#line 374 "gramatyka_bison.y"
     {
 last_element->AddChild(new textnode((yyvsp[(1) - (1)].str)));
 ;}
@@ -2049,7 +2051,7 @@ last_element->AddChild(new textnode((yyvsp[(1) - (1)].str)));
   case 69:
 
 /* Line 1455 of yacc.c  */
-#line 380 "gramatyka_bison.y"
+#line 381 "gramatyka_bison.y"
     {
 last_element->AddChild(new Style((yyvsp[(3) - (4)].str)));
 last_element = last_element->GetLastChild();
@@ -2059,7 +2061,7 @@ last_element = last_element->GetLastChild();
   case 70:
 
 /* Line 1455 of yacc.c  */
-#line 387 "gramatyka_bison.y"
+#line 388 "gramatyka_bison.y"
     {
 last_element = last_element->GetParent()
 ;}
@@ -2068,7 +2070,7 @@ last_element = last_element->GetParent()
   case 76:
 
 /* Line 1455 of yacc.c  */
-#line 400 "gramatyka_bison.y"
+#line 401 "gramatyka_bison.y"
     {
 last_element->AddChild(new IconStyle((yyvsp[(3) - (4)].str)));
 last_element = last_element->GetLastChild();
@@ -2078,7 +2080,7 @@ last_element = last_element->GetLastChild();
   case 77:
 
 /* Line 1455 of yacc.c  */
-#line 407 "gramatyka_bison.y"
+#line 408 "gramatyka_bison.y"
     {
 last_element = last_element->GetParent()
 ;}
@@ -2087,7 +2089,7 @@ last_element = last_element->GetParent()
   case 84:
 
 /* Line 1455 of yacc.c  */
-#line 421 "gramatyka_bison.y"
+#line 422 "gramatyka_bison.y"
     {
 last_element->AddChild(new Heading((yyvsp[(3) - (4)].str)));
 last_element = last_element->GetLastChild();
@@ -2097,7 +2099,7 @@ last_element = last_element->GetLastChild();
   case 85:
 
 /* Line 1455 of yacc.c  */
-#line 428 "gramatyka_bison.y"
+#line 429 "gramatyka_bison.y"
     {
 last_element->AddChild(new numbernode((yyvsp[(1) - (1)].str)));
 ;}
@@ -2106,7 +2108,7 @@ last_element->AddChild(new numbernode((yyvsp[(1) - (1)].str)));
   case 86:
 
 /* Line 1455 of yacc.c  */
-#line 434 "gramatyka_bison.y"
+#line 435 "gramatyka_bison.y"
     {
 last_element = last_element->GetParent()
 ;}
@@ -2115,7 +2117,7 @@ last_element = last_element->GetParent()
   case 87:
 
 /* Line 1455 of yacc.c  */
-#line 440 "gramatyka_bison.y"
+#line 441 "gramatyka_bison.y"
     {
 last_element->AddChild(new Icon((yyvsp[(3) - (4)].str)));
 last_element = last_element->GetLastChild();
@@ -2125,7 +2127,7 @@ last_element = last_element->GetLastChild();
   case 90:
 
 /* Line 1455 of yacc.c  */
-#line 451 "gramatyka_bison.y"
+#line 452 "gramatyka_bison.y"
     {
 last_element = last_element->GetParent()
 ;}
@@ -2134,7 +2136,7 @@ last_element = last_element->GetParent()
   case 91:
 
 /* Line 1455 of yacc.c  */
-#line 457 "gramatyka_bison.y"
+#line 458 "gramatyka_bison.y"
     {
 last_element->AddChild(new Href((yyvsp[(3) - (4)].str)));
 last_element = last_element->GetLastChild();
@@ -2144,7 +2146,7 @@ last_element = last_element->GetLastChild();
   case 92:
 
 /* Line 1455 of yacc.c  */
-#line 464 "gramatyka_bison.y"
+#line 465 "gramatyka_bison.y"
     {
 last_element->AddChild(new textnode((yyvsp[(1) - (1)].str)));
 ;}
@@ -2153,7 +2155,7 @@ last_element->AddChild(new textnode((yyvsp[(1) - (1)].str)));
   case 93:
 
 /* Line 1455 of yacc.c  */
-#line 470 "gramatyka_bison.y"
+#line 471 "gramatyka_bison.y"
     {
 last_element = last_element->GetParent()
 ;}
@@ -2162,7 +2164,7 @@ last_element = last_element->GetParent()
   case 94:
 
 /* Line 1455 of yacc.c  */
-#line 476 "gramatyka_bison.y"
+#line 477 "gramatyka_bison.y"
     {
 last_element = last_element->GetParent()
 ;}
@@ -2171,7 +2173,7 @@ last_element = last_element->GetParent()
   case 96:
 
 /* Line 1455 of yacc.c  */
-#line 483 "gramatyka_bison.y"
+#line 484 "gramatyka_bison.y"
     {
 makeHotspot();
 dynamic_cast<Hotspot*>(last_element)->setX((yyvsp[(4) - (4)].str));
@@ -2181,7 +2183,7 @@ dynamic_cast<Hotspot*>(last_element)->setX((yyvsp[(4) - (4)].str));
   case 97:
 
 /* Line 1455 of yacc.c  */
-#line 488 "gramatyka_bison.y"
+#line 489 "gramatyka_bison.y"
     {
 makeHotspot();
 dynamic_cast<Hotspot*>(last_element)->setY((yyvsp[(4) - (4)].str));
@@ -2191,7 +2193,7 @@ dynamic_cast<Hotspot*>(last_element)->setY((yyvsp[(4) - (4)].str));
   case 98:
 
 /* Line 1455 of yacc.c  */
-#line 493 "gramatyka_bison.y"
+#line 494 "gramatyka_bison.y"
     {
 makeHotspot();
 dynamic_cast<Hotspot*>(last_element)->setXunits((yyvsp[(4) - (4)].str));
@@ -2201,7 +2203,7 @@ dynamic_cast<Hotspot*>(last_element)->setXunits((yyvsp[(4) - (4)].str));
   case 99:
 
 /* Line 1455 of yacc.c  */
-#line 498 "gramatyka_bison.y"
+#line 499 "gramatyka_bison.y"
     {
 makeHotspot();
 dynamic_cast<Hotspot*>(last_element)->setYunits((yyvsp[(4) - (4)].str));
@@ -2211,7 +2213,7 @@ dynamic_cast<Hotspot*>(last_element)->setYunits((yyvsp[(4) - (4)].str));
   case 100:
 
 /* Line 1455 of yacc.c  */
-#line 505 "gramatyka_bison.y"
+#line 506 "gramatyka_bison.y"
     {
 last_element->AddChild(new LabelStyle((yyvsp[(3) - (4)].str)));
 last_element = last_element->GetLastChild();
@@ -2221,7 +2223,7 @@ last_element = last_element->GetLastChild();
   case 101:
 
 /* Line 1455 of yacc.c  */
-#line 512 "gramatyka_bison.y"
+#line 513 "gramatyka_bison.y"
     {
 last_element = last_element->GetParent()
 ;}
@@ -2230,7 +2232,7 @@ last_element = last_element->GetParent()
   case 105:
 
 /* Line 1455 of yacc.c  */
-#line 523 "gramatyka_bison.y"
+#line 524 "gramatyka_bison.y"
     {
 last_element->AddChild(new Scale((yyvsp[(3) - (4)].str)));
 last_element = last_element->GetLastChild();
@@ -2240,7 +2242,7 @@ last_element = last_element->GetLastChild();
   case 106:
 
 /* Line 1455 of yacc.c  */
-#line 530 "gramatyka_bison.y"
+#line 531 "gramatyka_bison.y"
     {
 last_element->AddChild(new numbernode((yyvsp[(1) - (1)].str)));
 ;}
@@ -2249,7 +2251,7 @@ last_element->AddChild(new numbernode((yyvsp[(1) - (1)].str)));
   case 107:
 
 /* Line 1455 of yacc.c  */
-#line 536 "gramatyka_bison.y"
+#line 537 "gramatyka_bison.y"
     {
 last_element = last_element->GetParent()
 ;}
@@ -2258,7 +2260,7 @@ last_element = last_element->GetParent()
   case 108:
 
 /* Line 1455 of yacc.c  */
-#line 542 "gramatyka_bison.y"
+#line 543 "gramatyka_bison.y"
     {
 last_element->AddChild(new LineStyle((yyvsp[(3) - (4)].str)));
 last_element = last_element->GetLastChild();
@@ -2268,7 +2270,7 @@ last_element = last_element->GetLastChild();
   case 109:
 
 /* Line 1455 of yacc.c  */
-#line 549 "gramatyka_bison.y"
+#line 550 "gramatyka_bison.y"
     {
 last_element = last_element->GetParent()
 ;}
@@ -2277,7 +2279,7 @@ last_element = last_element->GetParent()
   case 113:
 
 /* Line 1455 of yacc.c  */
-#line 560 "gramatyka_bison.y"
+#line 561 "gramatyka_bison.y"
     {
 last_element->AddChild(new Width((yyvsp[(3) - (4)].str)));
 last_element = last_element->GetLastChild();
@@ -2287,7 +2289,7 @@ last_element = last_element->GetLastChild();
   case 114:
 
 /* Line 1455 of yacc.c  */
-#line 567 "gramatyka_bison.y"
+#line 568 "gramatyka_bison.y"
     {
 last_element->AddChild(new numbernode((yyvsp[(1) - (1)].str)));
 ;}
@@ -2296,7 +2298,7 @@ last_element->AddChild(new numbernode((yyvsp[(1) - (1)].str)));
   case 115:
 
 /* Line 1455 of yacc.c  */
-#line 573 "gramatyka_bison.y"
+#line 574 "gramatyka_bison.y"
     {
 last_element = last_element->GetParent()
 ;}
@@ -2305,7 +2307,7 @@ last_element = last_element->GetParent()
   case 116:
 
 /* Line 1455 of yacc.c  */
-#line 579 "gramatyka_bison.y"
+#line 580 "gramatyka_bison.y"
     {
 last_element->AddChild(new PolyStyle((yyvsp[(3) - (4)].str)));
 last_element = last_element->GetLastChild();
@@ -2315,7 +2317,7 @@ last_element = last_element->GetLastChild();
   case 117:
 
 /* Line 1455 of yacc.c  */
-#line 586 "gramatyka_bison.y"
+#line 587 "gramatyka_bison.y"
     {
 last_element = last_element->GetParent()
 ;}
@@ -2324,7 +2326,7 @@ last_element = last_element->GetParent()
   case 122:
 
 /* Line 1455 of yacc.c  */
-#line 598 "gramatyka_bison.y"
+#line 599 "gramatyka_bison.y"
     {
 last_element->AddChild(new Color((yyvsp[(3) - (4)].str)));
 last_element = last_element->GetLastChild();
@@ -2334,7 +2336,7 @@ last_element = last_element->GetLastChild();
   case 123:
 
 /* Line 1455 of yacc.c  */
-#line 605 "gramatyka_bison.y"
+#line 606 "gramatyka_bison.y"
     {
 last_element->AddChild(new textnode((yyvsp[(1) - (1)].str)));
 ;}
@@ -2343,7 +2345,7 @@ last_element->AddChild(new textnode((yyvsp[(1) - (1)].str)));
   case 124:
 
 /* Line 1455 of yacc.c  */
-#line 611 "gramatyka_bison.y"
+#line 612 "gramatyka_bison.y"
     {
 last_element = last_element->GetParent()
 ;}
@@ -2352,7 +2354,7 @@ last_element = last_element->GetParent()
   case 125:
 
 /* Line 1455 of yacc.c  */
-#line 617 "gramatyka_bison.y"
+#line 618 "gramatyka_bison.y"
     {
 last_element->AddChild(new Fill((yyvsp[(3) - (4)].str)));
 last_element = last_element->GetLastChild();
@@ -2362,7 +2364,7 @@ last_element = last_element->GetLastChild();
   case 126:
 
 /* Line 1455 of yacc.c  */
-#line 625 "gramatyka_bison.y"
+#line 626 "gramatyka_bison.y"
     {
 last_element->AddChild(new boolnode((yyvsp[(1) - (1)].str)));
 ;}
@@ -2371,7 +2373,7 @@ last_element->AddChild(new boolnode((yyvsp[(1) - (1)].str)));
   case 127:
 
 /* Line 1455 of yacc.c  */
-#line 631 "gramatyka_bison.y"
+#line 632 "gramatyka_bison.y"
     {
 last_element = last_element->GetParent()
 ;}
@@ -2380,7 +2382,7 @@ last_element = last_element->GetParent()
   case 128:
 
 /* Line 1455 of yacc.c  */
-#line 637 "gramatyka_bison.y"
+#line 638 "gramatyka_bison.y"
     {
 last_element->AddChild(new Outline((yyvsp[(3) - (4)].str)));
 last_element = last_element->GetLastChild();
@@ -2390,7 +2392,7 @@ last_element = last_element->GetLastChild();
   case 129:
 
 /* Line 1455 of yacc.c  */
-#line 644 "gramatyka_bison.y"
+#line 645 "gramatyka_bison.y"
     {
 last_element->AddChild(new boolnode((yyvsp[(1) - (1)].str)));
 ;}
@@ -2399,7 +2401,7 @@ last_element->AddChild(new boolnode((yyvsp[(1) - (1)].str)));
   case 130:
 
 /* Line 1455 of yacc.c  */
-#line 650 "gramatyka_bison.y"
+#line 651 "gramatyka_bison.y"
     {
 last_element = last_element->GetParent()
 ;}
@@ -2408,7 +2410,7 @@ last_element = last_element->GetParent()
   case 131:
 
 /* Line 1455 of yacc.c  */
-#line 656 "gramatyka_bison.y"
+#line 657 "gramatyka_bison.y"
     {
 last_element->AddChild(new Folder((yyvsp[(3) - (4)].str)));
 last_element = last_element->GetLastChild();
@@ -2418,7 +2420,7 @@ last_element = last_element->GetLastChild();
   case 132:
 
 /* Line 1455 of yacc.c  */
-#line 663 "gramatyka_bison.y"
+#line 664 "gramatyka_bison.y"
     {
 last_element = last_element->GetParent()
 ;}
@@ -2427,7 +2429,7 @@ last_element = last_element->GetParent()
   case 138:
 
 /* Line 1455 of yacc.c  */
-#line 677 "gramatyka_bison.y"
+#line 678 "gramatyka_bison.y"
     {
 last_element->AddChild(new Visibility((yyvsp[(3) - (4)].str)));
 last_element = last_element->GetLastChild();
@@ -2437,7 +2439,7 @@ last_element = last_element->GetLastChild();
   case 139:
 
 /* Line 1455 of yacc.c  */
-#line 684 "gramatyka_bison.y"
+#line 685 "gramatyka_bison.y"
     {
 last_element->AddChild(new boolnode((yyvsp[(1) - (1)].str)));
 ;}
@@ -2446,7 +2448,7 @@ last_element->AddChild(new boolnode((yyvsp[(1) - (1)].str)));
   case 140:
 
 /* Line 1455 of yacc.c  */
-#line 690 "gramatyka_bison.y"
+#line 691 "gramatyka_bison.y"
     {
 last_element = last_element->GetParent()
 ;}
@@ -2455,7 +2457,7 @@ last_element = last_element->GetParent()
   case 141:
 
 /* Line 1455 of yacc.c  */
-#line 698 "gramatyka_bison.y"
+#line 699 "gramatyka_bison.y"
     {
 last_element->AddChild(new Description((yyvsp[(3) - (4)].str)));
 last_element = last_element->GetLastChild();
@@ -2465,7 +2467,7 @@ last_element = last_element->GetLastChild();
   case 142:
 
 /* Line 1455 of yacc.c  */
-#line 705 "gramatyka_bison.y"
+#line 706 "gramatyka_bison.y"
     {
 last_element->AddChild(new textnode((yyvsp[(1) - (1)].str)));
 ;}
@@ -2474,7 +2476,7 @@ last_element->AddChild(new textnode((yyvsp[(1) - (1)].str)));
   case 143:
 
 /* Line 1455 of yacc.c  */
-#line 711 "gramatyka_bison.y"
+#line 712 "gramatyka_bison.y"
     {
 last_element = last_element->GetParent()
 ;}
@@ -2483,21 +2485,21 @@ last_element = last_element->GetParent()
   case 144:
 
 /* Line 1455 of yacc.c  */
-#line 716 "gramatyka_bison.y"
+#line 717 "gramatyka_bison.y"
     {(yyval.str) = NULL;}
     break;
 
   case 145:
 
 /* Line 1455 of yacc.c  */
-#line 717 "gramatyka_bison.y"
+#line 718 "gramatyka_bison.y"
     {(yyval.str) = (yyvsp[(4) - (4)].str);}
     break;
 
 
 
 /* Line 1455 of yacc.c  */
-#line 2501 "parser.cpp"
+#line 2503 "parser.cpp"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);

@@ -108,6 +108,7 @@ void makeHotspot()
 %token COMMA //',' 
 %token BOOLEAN_VAL /// 1 | 0
 %token EQ // '='
+%token SYM_NOT_VALID
 
 %type<str> options
 %type<str> TEXT BOOLEAN_VAL NUMBER STRING
