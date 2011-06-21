@@ -19,6 +19,8 @@ public:
   Width(std::string *s);
   Width(const Width& orig);
   virtual ~Width();
+
+  double getWidth();
 private:
   void init();
 };

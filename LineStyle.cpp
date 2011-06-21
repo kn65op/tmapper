@@ -13,6 +13,7 @@ using namespace std;
 
 #include "node.h"
 #include "Color.h"
+#include "Width.h"
 
 LineStyle::LineStyle()
 {
@@ -37,3 +38,27 @@ void LineStyle::init()
   name = "LineStyle";
 }
 
+
+double LineStyle::getWidth() const
+{
+  if (width_ok)
+  {
+    return width;
+  }
+
+  std::list<node*>::const_iterator it, end;
+  end = children.end();
+  for (it = children.begin(); it != end; it++)
+  {
+    if (dynamic_cast<Width*>(*it))
+    {
+      width_ok = true
+      width = dynamic_cast<Width*>(*it)->getWidth();
+      return width;
+    }
+  }
+
+  width_ok = true;
+  width = 0;
+  return width;
+}

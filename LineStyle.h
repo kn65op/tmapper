@@ -20,8 +20,13 @@ public:
   LineStyle(const LineStyle& orig);
   virtual ~LineStyle();
 
+  double getWidth() const;
+
 private:
   void init();
+
+  double width;
+  bool width_ok;
 };
 
 #endif	/* LINESTYLE_H */

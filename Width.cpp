@@ -12,6 +12,7 @@ using namespace std;
 #include <string>
 
 #include "node.h"
+#include "numbernode.h"
 
 Width::Width()
 {
@@ -34,4 +35,9 @@ Width::~Width()
 void Width::init()
 {
   name = "Width";
+}
+
+double Width::getWidth()
+{
+  return dynamic_cast<numbernode*>(children.front())->getVal();
 }

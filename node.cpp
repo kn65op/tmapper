@@ -172,4 +172,5 @@ double* node::getColor()
       return dynamic_cast<Color*>(*it)->getColor();
     }
   }
+  return NULL;
 }

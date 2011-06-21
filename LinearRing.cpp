@@ -61,11 +61,11 @@ void LinearRing::draw(cairo_t* cr, double a_x, double b_x, double a_y, double b_
   {
     cairo_set_source_rgba(cr, color[0], color[1], color[2], color[3]);
   }
-  else if (ps) //domyślny czarny
+  else if (col)
   {
     cairo_set_source_rgba(cr, col[0], col[1], col[2], col[3]);
   }
-  else
+  else //domyślny czarny
   {
     cairo_set_source_rgb(cr, 0, 0, 0);
   }

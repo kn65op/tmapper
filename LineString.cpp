@@ -41,6 +41,7 @@ void LineString::init()
 void LineString::draw(cairo_t* cr, double a_x, double b_x, double a_y, double b_y, double *color)
 {
   //TODO: dodać badanie multigeometry
+  double def_line_width = 1.0;
   LineStyle *ls;
 
   node *tmp = parent;
@@ -54,15 +55,17 @@ void LineString::draw(cairo_t* cr, double a_x, double b_x, double a_y, double b_
   if (ls)
   {
     col = ls->getColor();
+    if (ls->getWidth())
+    {
+      def_line_width = ls->getWidth();
+    }
   }
 
-  double *cor;
-  int n = (dynamic_cast<Coordinates*> (children.front()))->getSize();
   if (color) //domyślnie czarny
   {
     cairo_set_source_rgba(cr, color[0], color[1], color[2], color[3]);
   }
-  else if (ls)
+  else if (col)
   {
     cairo_set_source_rgba(cr, col[0], col[1], col[2], col[3]);
     std::cout << "OK?\n";
@@ -71,7 +74,11 @@ void LineString::draw(cairo_t* cr, double a_x, double b_x, double a_y, double b_
   {
     cairo_set_source_rgb(cr, 0, 0, 0);
   }
-  cairo_set_line_width(cr, 1.0);
+
+  cairo_set_line_width(cr, def_line_width);
+
+  double *cor;
+  int n = (dynamic_cast<Coordinates*> (children.front()))->getSize();
   cor = (dynamic_cast<Coordinates*> (children.front()))->getCoordinates(0);
   cairo_move_to(cr, a_x * (cor[0] - b_x), a_y * (cor[1] - b_y));
   for (int i = 1; i < n; i++)
