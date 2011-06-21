@@ -40,7 +40,11 @@ void LineString::init()
 
 void LineString::draw(cairo_t* cr, double a_x, double b_x, double a_y, double b_y, double *color)
 {
-  LineStyle *ls = dynamic_cast<LineStyle*> (dynamic_cast<Placemark*> (parent)->getLinestyle());
+  LineStyle *ls;
+  if (dynamic_cast<Placemark*> (parent)) 
+  {
+    ls = dynamic_cast<LineStyle*> (dynamic_cast<Placemark*> (parent)->getLinestyle());
+  }
   double *col;
   if (ls)
   {

@@ -12,7 +12,12 @@
 	</Style>
 	<Style id="niebieski">
 		<LineStyle>
-			<color>ff808080</color>
+			<color>80ff0000</color>
+		</LineStyle>
+	</Style>
+	<Style id="prz">
+		<LineStyle>
+			<color>8000ff00</color>
 		</LineStyle>
 	</Style>
 	<Folder>
@@ -60,6 +65,27 @@ Samodzielnie wyszukane i dodane przeze mnie.</description>
 					-0.5,-0.5,0
 				</coordinates>
 			</LineString>
+		</Placemark>
+		<Placemark>
+			<styleUrl>#prz</styleUrl>
+			<LineString>
+				<coordinates>
+					-1,-1,0
+					1,0,0
+					0,0,0
+					1,1,0
+					0,1,0
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<LinearRing>
+				<coordinates>
+					0,0,0
+					0,1,0
+					-1,0,0
+				</coordinates>
+			</LinearRing>
 		</Placemark>
 	</Folder>
 </Document>

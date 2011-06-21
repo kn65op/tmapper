@@ -13,6 +13,8 @@
 #include <cmath>
 
 #include "Coordinates.h"
+#include "IconStyle.h"
+#include "Placemark.h"
 
 using namespace std;
 
@@ -41,6 +43,14 @@ void Point::init()
 
 void Point::draw(cairo_t* cr, double a_x, double b_x, double a_y, double b_y, double *color)
 {
+  IconStyle *ls = dynamic_cast<IconStyle*> (dynamic_cast<Placemark*> (parent)->getLinestyle());
+
+  ///TODO: dodanie obrazka - ikony
+  /*if (ls) //TODO: dodanie ikony - obrazka
+  {
+    col = ls->getColor();
+  }*/
+
   double *cor = (dynamic_cast<Coordinates*>(children.front()))->getCoordinates(0);
   if (!color) //jak nie ma koloru to domyślny czarny
   {
