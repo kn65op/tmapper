@@ -27,11 +27,12 @@ public:
   void build();
   void run();
 
+  static void showError(const char *s, int line, MainWindow *mw);
+
   /*GtkWidget* getMap() const
   {
     return map;
   }//*/
-
 
   /*KML* getKML() const
   {
@@ -52,7 +53,6 @@ public:
   {
     this->analiser = analiser;
   }
-
 
 private:
   /*zmienne gtk*/
@@ -91,10 +91,12 @@ private:
 
   static void paint(GtkWidget *widget, GdkEventExpose *eev, gpointer data);
 
+  /* do błędów*/
+  void convertToPolish(std::string &s);
   /*zmienne do do map*/
   //KML *kml;
   Analiser *analiser;
-  
+
   /* Funkcje inne*/
   void drawKML(cairo_t *cr);
 };

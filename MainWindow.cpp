@@ -15,6 +15,7 @@
 #include <cairo/cairo.h>
 #include <iostream>
 #include <float.h>
+#include <unistd.h>
 
 #include "KML.h"
 //#include <gtkmm-2.4/gtkmm/main.h>
@@ -57,7 +58,7 @@ void MainWindow::build()
   gtk_widget_set_size_request(map, 700, 400);
   gtk_container_set_border_width(GTK_CONTAINER(map), 0); //*/
 
-  accel_group = gtk_accel_group_new();//do skrótów klawiszowych
+  accel_group = gtk_accel_group_new(); //do skrótów klawiszowych
   gtk_window_add_accel_group(GTK_WINDOW(map), accel_group);
 
   /* create a new drawing area widget
@@ -331,11 +332,32 @@ void MainWindow::drawKML(cairo_t *cr)
   min_x = min_x > 0 ? min_x * 0.98 : min_x * 1.02;
   min_y = min_y > 0 ? min_y * 0.98 : min_y * 1.02;
 
-  a_x = (width-TREE_SIZE)/(max_x - min_x);
+  a_x = (width - TREE_SIZE) / (max_x - min_x);
   b_x = min_x;
-  a_y = (height-MENU_SIZE)/(min_y - max_y);
+  a_y = (height - MENU_SIZE) / (min_y - max_y);
   b_y = max_y;
 
   analiser->GetKML()->draw(cr, a_x, b_x, a_y, b_y, NULL);
 
+}
+
+void MainWindow::showError(const char* s, int line, MainWindow* mw)
+{
+  std::string err(s);
+  convertToPolish(s);
+  GtkWidget *error = gtk_message_dialog_new(GTK_WINDOW(mw->map), GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_ERROR, GTK_BUTTONS_YES_NO,
+          "Znaleziono błąd: %s\n w linii %d.\nCzy chcesz otworzyć edytor plików?", s, line);
+  gtk_window_set_title(GTK_WINDOW(error), "Bład w odczytywanym pliku.");
+  gint response = gtk_dialog_run(GTK_DIALOG(error));
+  if (response == GTK_RESPONSE_YES)
+  {
+    //TODO: wyfrokuj gedit czy coś :D
+  }
+  gtk_widget_destroy(error);
+  //gtk_main();
+}
+
+void MainWindow::convertToPolish(std::string& s)
+{
+  
 }

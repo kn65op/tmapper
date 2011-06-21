@@ -5,31 +5,31 @@ CC = g++
 
 #flagi
 
+CFLAGS = `pkg-config --cflags --libs gtk+-2.0`
+CPPFLAGS = `pkg-config --cflags --libs gtk+-2.0`
 CCFLAGS_C = -c -g
-CCFLAGS_L = `pkg-config --cflags --libs gtk+-2.0` -g
+CCFLAGS_GTK = `pkg-config --cflags --libs gtk+-2.0` -g
 LEXFLAGS = 
 YACCFLAGS = -d
 
 #pliki pomocznicze *.o
-O_FILES = skaner.o analiser.o KML.o node.o main.o parser.o Document.o Placemark.o Folder.o Name.o Style.o Description.o textnode.o boolnode.o Visibility.o Point.o LineString.o LinearRing.o Polygon.o Multigeometry.o StyleURL.o Coordinates.o OuterBoundaryIs.o InnerBoundaryIs.o IconStyle.o LabelStyle.o LineStyle.o PolyStyle.o Color.o Scale.o Heading.o Icon.o Hotspot.o Href.o Width.o Fill.o Outline.o numbernode.o MainWindow.o TreeWindow.o
+O_FILES = parser.o skaner.o analiser.o KML.o node.o main.o Document.o Placemark.o Folder.o Name.o Style.o Description.o textnode.o boolnode.o Visibility.o Point.o LineString.o LinearRing.o Polygon.o Multigeometry.o StyleURL.o Coordinates.o OuterBoundaryIs.o InnerBoundaryIs.o IconStyle.o LabelStyle.o LineStyle.o PolyStyle.o Color.o Scale.o Heading.o Icon.o Hotspot.o Href.o Width.o Fill.o Outline.o numbernode.o MainWindow.o TreeWindow.o
 
 #reguły
 
 all: TMapper
+	
+pareser.o: parser.cpp
+	$(CC) $(CCFLAGS_GTK) $(CCFLAGS_C) -o parser.o parser.cpp
 
 skaner.cpp: skaner.l
 	$(LEX) $(LEXFLAGS) -o skaner.cpp skaner.l
 
-skaner.o: skaner.cpp parser.hpp
+skaner.o: skaner.cpp parser.cpp
 	$(CC) $(CCFLAGS_C) -o skaner.o skaner.cpp
-
-parser.hpp: parser.cpp
 
 parser.cpp: gramatyka_bison.y
 	$(YACC) $(YACCFLAGS) -o parser.cpp gramatyka_bison.y
-
-pareser.o: parser.cpp
-	$(CC) $(CCFLAGS_C) -o parser.o parser.cpp
 
 analiser.o: Analiser.cpp Analiser.h
 	$(CC) $(CCFLAGS_C) -o analiser.o Analiser.cpp
@@ -41,7 +41,7 @@ node.o: node.cpp node.h
 	$(CC) $(CCFLAGS_C) -o node.o node.cpp
 
 main.o: main.cpp
-	$(CC) $(CCFLAGS_C) $(CCFLAGS_L) -o main.o main.cpp
+	$(CC) $(CCFLAGS_C) $(CCFLAGS_GTK) -o main.o main.cpp
 
 Document.o: Document.cpp Document.h
 	$(CC) $(CCFLAGS_C) -o Document.o Document.cpp
@@ -140,13 +140,13 @@ Outline.o: Outline.cpp Outline.h
 	$(CC) $(CCFLAGS_C) -o Outline.o Outline.cpp
 
 MainWindow.o: MainWindow.cpp MainWindow.h
-	$(CC) $(CCFLAGS_C) $(CCFLAGS_L) -o MainWindow.o MainWindow.cpp
+	$(CC) $(CCFLAGS_C) $(CCFLAGS_GTK) -o MainWindow.o MainWindow.cpp
 
 TreeWindow.o: TreeWindow.cpp TreeWindow.h
-	$(CC) $(CCFLAGS_C) $(CCFLAGS_L) -o TreeWindow.o TreeWindow.cpp
+	$(CC) $(CCFLAGS_C) $(CCFLAGS_GTK) -o TreeWindow.o TreeWindow.cpp
 
 clean:
 	rm skaner.cpp parser.cpp parser.hpp $(O_FILES)
 	
 TMapper: $(O_FILES)
-	$(CC) $(CCFLAGS_L) -o TMapper $(O_FILES)	
+	$(CC) $(CCFLAGS_GTK) -o TMapper $(O_FILES)

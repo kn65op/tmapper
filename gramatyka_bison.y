@@ -3,7 +3,10 @@
         #include <iostream>
 
         #include "KML.h"
+        #include "MainWindow.h"
+
         extern KML* tree;
+        extern MainWindow *gui;
 
         #include "textnode.h"
         #include "boolnode.h"
@@ -43,7 +46,7 @@
 
 	extern int yylex();
         extern int flush_lex(void);
-	void yyerror(const char *s) { std::cout << "ERROR: " << s << " in line: " << flush_lex() << "\n" ;}
+	void yyerror(const char *s) { MainWindow::showError(s, flush_lex(), gui);/*std::cout << "ERROR: " << s << " in line: " << flush_lex() << "\n" ;*/}
 
 void makeHotspot()
 {
@@ -54,6 +57,8 @@ void makeHotspot()
   }
 }
 %}
+
+%error-verbose
 
 %union{
 		std::string *str;

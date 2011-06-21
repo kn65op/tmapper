@@ -5,9 +5,11 @@
 #include "MainWindow.h"
 #include "KML.h"
 
+MainWindow *gui;
+
 int main(int argc, char **argv)
 {
-  MainWindow *gui = new MainWindow(argc, argv);
+  gui = new MainWindow(argc, argv);
 
   gui->init(argc,argv);
   gui->build();
