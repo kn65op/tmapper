@@ -6,7 +6,7 @@
  */
 
 #define MENU_SIZE 20
-#define TREE_SIZE 30
+#define TREE_SIZE 200
 
 #include "MainWindow.h"
 
@@ -17,6 +17,7 @@
 #include <fstream>
 #include <float.h>
 #include <unistd.h>
+#include <sstream>
 
 #include "KML.h"
 //#include <gtkmm-2.4/gtkmm/main.h>
@@ -46,7 +47,7 @@ void MainWindow::init(int argc, char** argv)
 void MainWindow::build()
 {
   map = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-  //tree = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+  tree = gtk_tree_view_new();
   vbox = gtk_vbox_new(GTK_ORIENTATION_VERTICAL, 1);
   hbox = gtk_hbox_new(GTK_ORIENTATION_HORIZONTAL, 1);
 
@@ -77,9 +78,11 @@ void MainWindow::build()
   g_signal_connect(G_OBJECT(button),"clicked",G_CALLBACK(buttonclicked),this);
   gtk_container_add(GTK_CONTAINER(map),button);//*/
 
-  /*gtk_window_set_title(GTK_WINDOW(tree), "Drzewo");
-  gtk_widget_set_size_request(tree, 300, 800);
-  gtk_container_set_border_width(GTK_CONTAINER(tree), 10);//*/
+  //gtk_window_set_title(GTK_WINDOW(tree), "Drzewo");
+  //gtk_widget_set_size_request(tree, 300, 800);
+  //gtk_container_set_border_width(GTK_CONTAINER(tree), 10);//*/
+  /*widok drzewa*/
+  gtk_widget_set_size_request(tree, TREE_SIZE, TREE_SIZE);
 
   /*przycisk*/
   button = gtk_button_new_with_label("Narysuj coś");
@@ -147,7 +150,7 @@ void MainWindow::build()
   gtk_box_pack_end(GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
 
   gtk_box_pack_start(GTK_BOX(hbox), canvas, TRUE, TRUE, 0);
-  gtk_box_pack_end(GTK_BOX(hbox), button, FALSE, FALSE, 0);
+  gtk_box_pack_end(GTK_BOX(hbox), tree, FALSE, FALSE, 0);
 
 
   gtk_container_add(GTK_CONTAINER(map), vbox);
@@ -275,13 +278,14 @@ void MainWindow::openFile(GtkWidget* widget, gpointer data)
     char *filename;
     filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(chooser));
     mw->getAnaliser()->SetFilename(string(filename));
-    mw->getAnaliser()->Analise();
+    if (mw->getAnaliser()->Analise())
+    {
+      MainWindow::showNoFile(mw);
+    }
     if (mw->getAnaliser()->GetKML())
     {
-      //TODO wyświetlić komunikat o braku pliku
-      //std::cout << *(mw->getAnaliser()->GetKML());
+      mw->getAnaliser()->GetKML()->connectStyles();
     }
-    mw->getAnaliser()->GetKML()->connectStyles();
     g_free(filename);
   }
   gtk_widget_destroy(chooser);
@@ -352,7 +356,22 @@ void MainWindow::showError(const char* s, int line, MainWindow* mw)
   gint response = gtk_dialog_run(GTK_DIALOG(error));
   if (response == GTK_RESPONSE_YES)
   {
-    //TODO: wyfrokuj gedit czy coś :D
+    int pid = fork();
+    if (!pid)
+    {
+      stringstream ss;
+      ss << "+";
+      ss << line;
+      string file = mw->getAnaliser()->GetFilename().c_str();
+      int i = 0;
+      while (file.find(" ", i) != std::string::npos)
+      {
+        file.replace(file.find(" ", i), 1, "\\ ");
+        i = file.find(" ", i) + 1;
+      }
+      std::cout << "gedit " << ss.str().c_str() << " " << file.c_str() << "\n";
+      execlp("gedit", "gedit", ss.str().c_str(), file.c_str(), 0); //FIXME: do zmiany kiedyś może //TODO: do poprawy
+    }
   }
   gtk_widget_destroy(error);
   //gtk_main();
@@ -381,4 +400,13 @@ void MainWindow::convertToPolish(std::string& s) //TODO: Zmienić na pobranie i 
       s.replace(s.find(what), what.size(), to);
     }
   }
+}
+
+void MainWindow::showNoFile(MainWindow* mw)
+{
+  GtkWidget *error = gtk_message_dialog_new(GTK_WINDOW(mw->map), GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK,
+          "Wybrany plik nie istnieje w systemie plików.");
+  gtk_window_set_title(GTK_WINDOW(error), "Podany plik nie istnieje.");
+  gtk_dialog_run(GTK_DIALOG(error));
+  gtk_widget_destroy(error);
 }

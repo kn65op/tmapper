@@ -35,18 +35,19 @@ Analiser::~Analiser()
 {
 }
 
-void Analiser::Analise()
+int Analiser::Analise()
 {
   yyin = fopen(filename.c_str(), "r");
   if (!yyin)
   {
     kml = 0;
-    return;
+    return 1;
   }
   yyparse() ? std::cout << "Źle\n" : std::cout << "OK\n";
   fclose(yyin);
   yyin = 0;
   kml = tree;
+  return 0;
 }
 
 void Analiser::saveKMLToFile(std::string file)

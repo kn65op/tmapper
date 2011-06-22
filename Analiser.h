@@ -22,7 +22,7 @@ public:
   Analiser();
   Analiser(const Analiser& orig);
   virtual ~Analiser();
-  void Analise(void);
+  int Analise(void);
   void saveKMLToFile(std::string file);
 
 

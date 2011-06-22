@@ -88,6 +88,7 @@ private:
   static void showInfo(GtkWidget *widget, gpointer data);
   static void openFile(GtkWidget *widget, gpointer data);
   static void saveFile(GtkWidget *widget, gpointer data);
+  static void showNoFile(MainWindow *mw);
 
   static void paint(GtkWidget *widget, GdkEventExpose *eev, gpointer data);
 
