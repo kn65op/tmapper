@@ -260,11 +260,6 @@ void MainWindow::paint(GtkWidget* widget, GdkEventExpose* eev, gpointer data)
   /* clear background */
   MainWindow *mw = static_cast<MainWindow*> (data);
 
-  mw->printTree();
-  mw->model = GTK_TREE_MODEL(mw->treestore);
-  gtk_tree_view_set_model(GTK_TREE_VIEW(mw->tree), mw->model);
-  g_object_unref(mw->model);
-
   std::cout << "LOL\n";
 
   cairo_t *cr = gdk_cairo_create(mw->canvas->window);
@@ -313,6 +308,10 @@ void MainWindow::openFile(GtkWidget* widget, gpointer data)
     if (mw->getAnaliser()->GetKML())
     {
       mw->getAnaliser()->GetKML()->connectStyles();
+      mw->printTree();
+      mw->model = GTK_TREE_MODEL(mw->treestore);
+      gtk_tree_view_set_model(GTK_TREE_VIEW(mw->tree), mw->model);
+      g_object_unref(mw->model);
     }
     g_free(filename);
   }
