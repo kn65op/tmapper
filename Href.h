@@ -19,6 +19,8 @@ public:
   Href(std::string *s);
   Href(const Href& orig);
   virtual ~Href();
+
+  std::string getText();
 private:
   void init();
 };

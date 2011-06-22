@@ -5,7 +5,7 @@
 		<IconStyle>
 			<scale>1.2</scale>
 			<Icon>
-				<href>http://maps.google.com/mapfiles/kml/shapes/campground.png</href>
+				<href>kolon.png</href>
 			</Icon>
 			<hotSpot x="0.5" y="0" xunits="fraction" yunits="fraction"/>
 		</IconStyle>

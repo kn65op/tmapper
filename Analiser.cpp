@@ -37,7 +37,10 @@ Analiser::~Analiser()
 
 int Analiser::Analise()
 {
-  delete kml;
+  if (kml)
+  {
+    delete kml;
+  }
   tree = new KML();
   yyin = fopen(filename.c_str(), "r");
   if (!yyin)
@@ -45,10 +48,17 @@ int Analiser::Analise()
     kml = 0;
     return 1;
   }
-  yyparse() ? std::cout << "Źle\n" : std::cout << "OK\n";
+  if (!yyparse()) // ? std::cout << "Źle\n" : std::cout << "OK\n";
+  {
+    kml = tree;
+  }
+  else
+  {
+    if (kml) delete kml;
+    kml = 0;
+  }
   fclose(yyin);
   yyin = 0;
-  kml = tree;
   return 0;
 }
 

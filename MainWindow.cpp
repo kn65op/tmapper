@@ -58,9 +58,12 @@ void MainWindow::build()
 
 
   /*okno*/
-  gtk_window_set_title(GTK_WINDOW(map), "Mapa");
+  gtk_window_set_title(GTK_WINDOW(map), "TMapper");
   gtk_widget_set_size_request(map, 700, 400);
   gtk_container_set_border_width(GTK_CONTAINER(map), 0); //*/
+  GdkPixbuf *pixbuf = gdk_pixbuf_new_from_file("icon.png", NULL);
+  gtk_window_set_icon(GTK_WINDOW(map), pixbuf);
+  g_object_unref(pixbuf), pixbuf = NULL;
 
   accel_group = gtk_accel_group_new(); //do skrótów klawiszowych
   gtk_window_add_accel_group(GTK_WINDOW(map), accel_group);
@@ -259,8 +262,10 @@ void MainWindow::paint(GtkWidget* widget, GdkEventExpose* eev, gpointer data)
 
   /* clear background */
   MainWindow *mw = static_cast<MainWindow*> (data);
-
-  std::cout << "LOL\n";
+  mw->printTree();
+  mw->model = GTK_TREE_MODEL(mw->treestore);
+  gtk_tree_view_set_model(GTK_TREE_VIEW(mw->tree), mw->model);
+  g_object_unref(mw->model);
 
   cairo_t *cr = gdk_cairo_create(mw->canvas->window);
 
@@ -278,10 +283,11 @@ void MainWindow::showInfo(GtkWidget *widget, gpointer data)
   gtk_about_dialog_set_copyright(GTK_ABOUT_DIALOG(info), "(c) Tomasz Drzewiecki");
   gtk_about_dialog_set_comments(GTK_ABOUT_DIALOG(info), "TMapper to program do podglądu i edycji map zapisanych w KML.\n"
           "Program zrealizowany jako program zaliczeniowy na przedmiot \"Języki formalne i kompilatory\",\nprowadzący:\tdr. inż. Jacek Piwowarczyk,\n"
-          "Informatyka stosowana,\nIII rok");
+          "AGH\nInformatyka stosowana,\nIII rok");
   gtk_about_dialog_set_website(GTK_ABOUT_DIALOG(info), "https://sourceforge.net/projects/tmapper/");
-  //gtk_about_dialog_set_logo(GTK_ABOUT_DIALOG(info), pixbuf); //TODO dołożyć log
-  //g_object_unref(pixbuf), pixbuf = NULL;
+  GdkPixbuf *pixbuf = gdk_pixbuf_new_from_file("icon.png", NULL);
+  gtk_about_dialog_set_logo(GTK_ABOUT_DIALOG(info), pixbuf);
+  g_object_unref(pixbuf), pixbuf = NULL;
   gtk_dialog_run(GTK_DIALOG(info));
   gtk_widget_destroy(info);
   //gtk_main();
@@ -308,10 +314,6 @@ void MainWindow::openFile(GtkWidget* widget, gpointer data)
     if (mw->getAnaliser()->GetKML())
     {
       mw->getAnaliser()->GetKML()->connectStyles();
-      mw->printTree();
-      mw->model = GTK_TREE_MODEL(mw->treestore);
-      gtk_tree_view_set_model(GTK_TREE_VIEW(mw->tree), mw->model);
-      g_object_unref(mw->model);
     }
     g_free(filename);
   }
@@ -404,7 +406,7 @@ void MainWindow::showError(const char* s, int line, MainWindow* mw)
   //gtk_main();
 }
 
-void MainWindow::convertToPolish(std::string& s) //TODO: Zmienić na pobranie i podzielenie na części względem np. #
+void MainWindow::convertToPolish(std::string& s) //TODO: Zmienić na pobranie i podzielenie na części względem np. # albo po angielsku
 {
   ifstream file("pl_text");
   if (file.eof())
@@ -441,6 +443,8 @@ void MainWindow::showNoFile(MainWindow* mw)
 void MainWindow::printTree()
 {
   treestore = gtk_tree_store_new(1, G_TYPE_STRING);
-  analiser->GetKML()->makeTree(treestore, NULL);
-
+  if (analiser->GetKML())
+  {
+    analiser->GetKML()->makeTree(treestore, NULL);
+  }
 }

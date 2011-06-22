@@ -12,6 +12,7 @@ using namespace std;
 #include <string>
 
 #include "node.h"
+#include "Href.h"
 
 Icon::Icon()
 {
@@ -34,4 +35,18 @@ Icon::~Icon()
 void Icon::init()
 {
   name = "Icon";
+}
+
+std::string Icon::getImage()
+{
+  std::list<node*>::const_iterator it, end;
+  end = children.end();
+  for (it = children.begin(); it != end; it++)
+  {
+    if (dynamic_cast<Href*>(*it))
+    {
+      return dynamic_cast<Href*>(*it)->getText();
+    }
+  }
+  return "";
 }

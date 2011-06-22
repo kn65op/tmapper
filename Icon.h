@@ -19,6 +19,8 @@ public:
   Icon(std::string *s);
   Icon(const Icon& orig);
   virtual ~Icon();
+
+  std::string getImage();
 private:
   void init();
 };

@@ -12,6 +12,7 @@ using namespace std;
 #include <string>
 
 #include "node.h"
+#include "Icon.h"
 
 IconStyle::IconStyle()
 {
@@ -34,4 +35,17 @@ IconStyle::~IconStyle()
 void IconStyle::init()
 {
   name = "IconStyle";
+}
+
+std::string IconStyle::getImage()
+{
+  std::list<node*>::const_iterator it, end;
+  end = children.end();
+  for (it = children.begin(); it != end; it++)
+  {
+    if (dynamic_cast<Icon*> (*it))
+    {
+      return dynamic_cast<Icon*> (*it)->getImage();
+    }
+  }
 }

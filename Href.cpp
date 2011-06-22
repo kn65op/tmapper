@@ -12,6 +12,7 @@ using namespace std;
 #include <string>
 
 #include "node.h"
+#include "textnode.h"
 
 Href::Href()
 {
@@ -34,4 +35,9 @@ Href::~Href()
 void Href::init()
 {
   name = "href";
+}
+
+std::string Href::getText()
+{
+  return dynamic_cast<textnode*> (children.front())->getText();
 }

@@ -20,6 +20,8 @@ public:
   IconStyle(const IconStyle& orig);
   virtual ~IconStyle();
 
+  std::string getImage();
+
 private:
   void init();
 };
