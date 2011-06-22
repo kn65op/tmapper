@@ -32,6 +32,10 @@ Coordinates::Coordinates(const Coordinates& orig)
 
 Coordinates::~Coordinates()
 {
+  for (int i=0; i<coordinates.size(); i++)
+  {
+    delete [] coordinates[i];
+  }
 }
 
 void Coordinates::addCoordinate(std::string* x, std::string* y, std::string* z)

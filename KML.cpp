@@ -10,6 +10,7 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <gtk-2.0/gtk/gtk.h>
 
 using namespace std;
 
@@ -63,4 +64,15 @@ void KML::addStyle(std::string id, node* n)
 node* KML::getStyle(std::string id)
 {
   return styles[id];
+}
+
+void KML::makeTree(GtkTreeStore* treestore, GtkTreeIter* parent)
+{
+  std::list<node*>::const_iterator it, end;
+  end = children.end();
+
+  for (it = children.begin(); it != end; it++)
+  {
+    (*it)->makeTree(treestore, parent);
+  }
 }

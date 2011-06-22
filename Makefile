@@ -7,7 +7,8 @@ CC = g++
 
 CFLAGS = `pkg-config --cflags --libs gtk+-2.0`
 CPPFLAGS = `pkg-config --cflags --libs gtk+-2.0`
-CCFLAGS_C = -c -g
+CCFLAGS_C = -c `pkg-config --cflags --libs gtk+-2.0` -g
+CCFLAGS_L = `pkg-config --cflags --libs gtk+-2.0` -g
 CCFLAGS_GTK = `pkg-config --cflags --libs gtk+-2.0` -g
 LEXFLAGS = 
 YACCFLAGS = -d
@@ -20,7 +21,7 @@ O_FILES = parser.o skaner.o analiser.o KML.o node.o main.o Document.o Placemark.
 all: TMapper
 	
 pareser.o: parser.cpp
-	$(CC) $(CCFLAGS_GTK) $(CCFLAGS_C) -o parser.o parser.cpp
+	$(CC) $(CCFLAGS_C) -o parser.o parser.cpp
 
 skaner.cpp: skaner.l
 	$(LEX) $(LEXFLAGS) -o skaner.cpp skaner.l
@@ -41,7 +42,7 @@ node.o: node.cpp node.h
 	$(CC) $(CCFLAGS_C) -o node.o node.cpp
 
 main.o: main.cpp
-	$(CC) $(CCFLAGS_C) $(CCFLAGS_GTK) -o main.o main.cpp
+	$(CC) $(CCFLAGS_C) -o main.o main.cpp
 
 Document.o: Document.cpp Document.h
 	$(CC) $(CCFLAGS_C) -o Document.o Document.cpp
@@ -140,13 +141,13 @@ Outline.o: Outline.cpp Outline.h
 	$(CC) $(CCFLAGS_C) -o Outline.o Outline.cpp
 
 MainWindow.o: MainWindow.cpp MainWindow.h
-	$(CC) $(CCFLAGS_C) $(CCFLAGS_GTK) -o MainWindow.o MainWindow.cpp
+	$(CC) $(CCFLAGS_C) -o MainWindow.o MainWindow.cpp
 
 TreeWindow.o: TreeWindow.cpp TreeWindow.h
-	$(CC) $(CCFLAGS_C) $(CCFLAGS_GTK) -o TreeWindow.o TreeWindow.cpp
+	$(CC) $(CCFLAGS_C) -o TreeWindow.o TreeWindow.cpp
 
 clean:
 	rm skaner.cpp parser.cpp parser.hpp $(O_FILES)
 	
 TMapper: $(O_FILES)
-	$(CC) $(CCFLAGS_GTK) -o TMapper $(O_FILES)
+	$(CC) $(CCFLAGS_L) -o TMapper $(O_FILES)

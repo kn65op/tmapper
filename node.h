@@ -12,6 +12,7 @@
 #include <iostream>
 #include <string>
 #include <cairo/cairo.h>
+#include <gtk-2.0/gtk/gtk.h>
 
 class KML;
 
@@ -32,6 +33,7 @@ public:
   virtual void findHW(double& max_x, double& min_x, double& max_y, double& min_y);
   virtual void searchStyle(KML* kml);
   virtual void connectStyle(KML* kml);
+  virtual void makeTree(GtkTreeStore* treestore, GtkTreeIter* parent);
 
   std::list<node*> GetChildren() const
   {

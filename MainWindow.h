@@ -58,9 +58,14 @@ private:
   /*zmienne gtk*/
   GtkWidget *map;
   GtkWidget *tree;
+  GtkWidget *treew;
   GtkWidget *vbox; // box na menu i resztę
   GtkWidget *hbox; // box na rzeczy w mapie
   GtkWindowGroup * wg;
+  GtkTreeViewColumn *col;
+  GtkCellRenderer *renderer;
+  GtkTreeModel *model;
+  GtkTreeStore *treestore;
   std::string programtitle;
 
   GtkWidget *canvas;
@@ -91,6 +96,8 @@ private:
   static void showNoFile(MainWindow *mw);
 
   static void paint(GtkWidget *widget, GdkEventExpose *eev, gpointer data);
+
+  void printTree();
 
   /* do błędów*/
   static void convertToPolish(std::string &s);

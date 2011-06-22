@@ -6,6 +6,7 @@
  */
 
 #include "Name.h"
+#include "textnode.h"
 
 #include <string>
 using namespace std;
@@ -31,4 +32,9 @@ Name::~Name()
 void Name::init()
 {
   name = "name";
+}
+
+std::string Name::getText()
+{
+  return dynamic_cast<textnode*>(children.front())->getText();
 }

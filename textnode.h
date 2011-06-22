@@ -9,6 +9,8 @@
 #define	TEXTNODE_H
 
 #include <string>
+#include <gtk-2.0/gtk/gtk.h>
+
 #include "node.h"
 
 class textnode :public node
@@ -20,6 +22,8 @@ public:
   virtual ~textnode();
 
   void saveToFile(std::string file, int level);
+
+  void makeTree(GtkTreeStore* treestore, GtkTreeIter* parent);
 
   std::string getText() const
   {

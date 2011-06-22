@@ -37,6 +37,8 @@ Analiser::~Analiser()
 
 int Analiser::Analise()
 {
+  delete kml;
+  tree = new KML();
   yyin = fopen(filename.c_str(), "r");
   if (!yyin)
   {

@@ -9,13 +9,15 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <gtk-2.0/gtk/gtk.h>
 
 #include "node.h"
 #include "textnode.h"
 #include "KML.h"
 #include "Color.h"
+#include "Name.h"
 
-node::node() :id("")
+node::node() : id("")
 {
 
 }
@@ -24,13 +26,13 @@ node::node(std::string *i)
 {
   if (i)
   {
-    id = i->substr(1, i->size()-2);
-    delete i;
+    id = i->substr(1, i->size() - 2);
   }
   else
   {
     id = "";
   }
+  delete i;
 }
 
 node::node(const node& orig)
@@ -39,14 +41,14 @@ node::node(const node& orig)
 
 node::~node()
 {
-  while(children.size() != 0)
+  while (children.size() != 0)
   {
     delete children.front();
     children.erase(children.begin());
   }
 }
 
-std::ostream& operator<<(std::ostream& out, const node& n)
+std::ostream & operator<<(std::ostream& out, const node& n)
 {
   out << n.name << "\n";
   if (n.id != "")
@@ -77,7 +79,7 @@ std::ostream& operator<<(std::ostream& out, const node& n)
 void node::saveToFile(std::string file, int level)
 {
   std::ofstream of;
-  if (dynamic_cast<KML*>(this))
+  if (dynamic_cast<KML*> (this))
   {
     of.open(file.c_str());
   }
@@ -86,17 +88,19 @@ void node::saveToFile(std::string file, int level)
     of.open(file.c_str(), std::ios::app);
     of << "\n";
   }
-  for (int i=0; i<level; i++) of << "\t";;
+  for (int i = 0; i < level; i++) of << "\t";
+  ;
   saveOpeningTag(of);
   of.close();
   std::list<node*>::const_iterator it, end;
   end = children.end();
   for (it = children.begin(); it != end; it++)
   {
-    (*it)->saveToFile(file, level+1);
+    (*it)->saveToFile(file, level + 1);
   }
   of.open(file.c_str(), std::ios::app);
-  for (int i=0; i<level; i++) of << "";;
+  for (int i = 0; i < level; i++) of << "";
+  ;
   saveClosingTag(of);
   of.close();
 }
@@ -111,7 +115,7 @@ void node::saveOpeningTag(std::ofstream& of)
   of << "<" << name;
   if (id != "")
   {
-    of << " id=\"" <<  id << "\"";
+    of << " id=\"" << id << "\"";
   }
   of << ">";
 }
@@ -167,10 +171,43 @@ double* node::getColor()
   end = children.end();
   for (it = children.begin(); it != end; it++)
   {
-    if (dynamic_cast<Color*>(*it))
+    if (dynamic_cast<Color*> (*it))
     {
-      return dynamic_cast<Color*>(*it)->getColor();
+      return dynamic_cast<Color*> (*it)->getColor();
     }
   }
   return NULL;
+}
+
+void node::makeTree(GtkTreeStore* treestore, GtkTreeIter* parent)
+{
+  std::list<node*>::const_iterator it, end;
+  end = children.end();
+  GtkTreeIter *next = new GtkTreeIter();
+  gtk_tree_store_append(treestore, next, parent);
+
+  std::string tekst = name;
+  for (it = children.begin(); it != end; it++)
+  {
+    if (dynamic_cast<Name*> (*it))
+    {
+      tekst = dynamic_cast<Name*> (*it)->getText() + " (" + name + ")";
+    }
+  }
+
+  if (id != "")
+  {
+    tekst += " (" + id + ")";
+  }
+
+  gtk_tree_store_set(treestore, next, 0, tekst.c_str(), -1);
+
+  for (it = children.begin(); it != end; it++)
+  {
+    if (!dynamic_cast<Name*> (*it))
+    {
+      (*it)->makeTree(treestore, next);
+    }
+  }
+  delete next;
 }

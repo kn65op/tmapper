@@ -19,6 +19,9 @@ public:
   Name(std::string *s);
   Name(const Name& orig);
   virtual ~Name();
+
+  std::string getText();
+  
 private:
   void init();
 };

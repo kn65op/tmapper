@@ -10,6 +10,7 @@
 
 #include <string>
 #include <map>
+#include <gtk-2.0/gtk/gtk.h>
 
 #include "node.h"
 
@@ -25,6 +26,7 @@ public:
 
   void addStyle(std::string id, node* n);
   node* getStyle(std::string id);
+  void makeTree(GtkTreeStore* treestore, GtkTreeIter* parent);
 
 //  void saveToFile(std::string file, int level);
 private:

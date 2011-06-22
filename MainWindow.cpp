@@ -47,7 +47,9 @@ void MainWindow::init(int argc, char** argv)
 void MainWindow::build()
 {
   map = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+  treew = gtk_scrolled_window_new(NULL, NULL);
   tree = gtk_tree_view_new();
+  col = gtk_tree_view_column_new();
   vbox = gtk_vbox_new(GTK_ORIENTATION_VERTICAL, 1);
   hbox = gtk_hbox_new(GTK_ORIENTATION_HORIZONTAL, 1);
 
@@ -81,13 +83,32 @@ void MainWindow::build()
   //gtk_window_set_title(GTK_WINDOW(tree), "Drzewo");
   //gtk_widget_set_size_request(tree, 300, 800);
   //gtk_container_set_border_width(GTK_CONTAINER(tree), 10);//*/
+
+  /* tree window*/
+  gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(treew),
+      GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
+
   /*widok drzewa*/
   gtk_widget_set_size_request(tree, TREE_SIZE, TREE_SIZE);
+  gtk_tree_view_column_set_title(col, "Drzewo pliku");
+  gtk_tree_view_append_column(GTK_TREE_VIEW(tree), col);
+
+  renderer = gtk_cell_renderer_text_new();
+  gtk_tree_view_column_pack_start(col, renderer, TRUE);
+  gtk_tree_view_column_add_attribute(col, renderer,
+          "text", 0);
+
+  treestore = gtk_tree_store_new(1,
+                  G_TYPE_STRING);
+  model = GTK_TREE_MODEL(treestore);
+  gtk_tree_view_set_model(GTK_TREE_VIEW(tree), model);
+  g_object_unref(model);
 
   /*przycisk*/
   button = gtk_button_new_with_label("Narysuj coś");
   g_signal_connect(G_OBJECT(button), "clicked", G_CALLBACK(buttonclicked), this);
   gtk_widget_set_size_request(button, TREE_SIZE, TREE_SIZE);
+
   //  gtk_container_add(GTK_CONTAINER(map), button); //*/
 
 
@@ -149,8 +170,10 @@ void MainWindow::build()
   gtk_box_pack_start(GTK_BOX(vbox), menu, FALSE, FALSE, 0);
   gtk_box_pack_end(GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
 
+  gtk_container_add(GTK_CONTAINER (treew), tree);
+
   gtk_box_pack_start(GTK_BOX(hbox), canvas, TRUE, TRUE, 0);
-  gtk_box_pack_end(GTK_BOX(hbox), tree, FALSE, FALSE, 0);
+  gtk_box_pack_end(GTK_BOX(hbox), treew, FALSE, FALSE, 0);
 
 
   gtk_container_add(GTK_CONTAINER(map), vbox);
@@ -285,6 +308,12 @@ void MainWindow::openFile(GtkWidget* widget, gpointer data)
     if (mw->getAnaliser()->GetKML())
     {
       mw->getAnaliser()->GetKML()->connectStyles();
+      mw->treestore = gtk_tree_store_new(1,
+                  G_TYPE_STRING);
+      mw->printTree();
+      mw->model = GTK_TREE_MODEL(mw->treestore);
+      gtk_tree_view_set_model(GTK_TREE_VIEW(mw->tree), mw->model);
+      g_object_unref(mw->model);
     }
     g_free(filename);
   }
@@ -409,4 +438,48 @@ void MainWindow::showNoFile(MainWindow* mw)
   gtk_window_set_title(GTK_WINDOW(error), "Podany plik nie istnieje.");
   gtk_dialog_run(GTK_DIALOG(error));
   gtk_widget_destroy(error);
+}
+
+void MainWindow::printTree()
+{
+  analiser->GetKML()->makeTree(treestore, NULL);
+
+  /*gtk_tree_store_append(treestore, &toplevel, NULL);
+  gtk_tree_store_set(treestore, &toplevel,
+                     COLUMN, "Scripting languages",
+                     -1);
+
+  gtk_tree_store_append(treestore, &child, &toplevel);
+  gtk_tree_store_set(treestore, &child,
+                     COLUMN, "Python",
+                     -1);
+
+  gtk_tree_store_append(treestore, &child, &toplevel);
+  gtk_tree_store_set(treestore, &child,
+                     COLUMN, "Perl",
+                     -1);
+  gtk_tree_store_append(treestore, &child, &toplevel);
+  gtk_tree_store_set(treestore, &child,
+                     COLUMN, "PHP",
+                     -1);
+
+  gtk_tree_store_append(treestore, &toplevel, NULL);
+  gtk_tree_store_set(treestore, &toplevel,
+                     COLUMN, "Compiled languages",
+                     -1);
+
+  gtk_tree_store_append(treestore, &child, &toplevel);
+  gtk_tree_store_set(treestore, &child,
+                     COLUMN, "C",
+                     -1);
+
+  gtk_tree_store_append(treestore, &child, &toplevel);
+  gtk_tree_store_set(treestore, &child,
+                     COLUMN, "C++",
+                     -1);
+
+  gtk_tree_store_append(treestore, &child, &toplevel);
+  gtk_tree_store_set(treestore, &child,
+                     COLUMN, "Java",
+                     -1);*/
 }
