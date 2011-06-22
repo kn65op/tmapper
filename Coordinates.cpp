@@ -13,6 +13,8 @@ using namespace std;
 #include <string>
 #include <vector>
 #include <fstream>
+#include <gtk-2.0/gtk/gtk.h>
+#include <sstream>
 
 #include "node.h"
 
@@ -106,4 +108,23 @@ void Coordinates::findHW(double& max_x, double& min_x, double& max_y, double& mi
 int Coordinates::getSize() const
 {
   return coordinates.size();
+}
+
+void Coordinates::makeTree(GtkTreeStore* treestore, GtkTreeIter* parent)
+{
+  vector<double*>::iterator it, end;
+  end = coordinates.end();
+  GtkTreeIter *next = new GtkTreeIter();
+  GtkTreeIter *t = new GtkTreeIter();
+  gtk_tree_store_append(treestore, t, parent);
+  gtk_tree_store_set(treestore, t, 0, name.c_str(), -1);
+  for (it = coordinates.begin(); it != end; it++)
+  {
+    std::stringstream ss;
+    ss << (*it)[0] << "," << (*it)[1] << "," << (*it)[2];
+    gtk_tree_store_append(treestore, next, t);
+    gtk_tree_store_set(treestore, next, 0, ss.str().c_str(), -1);
+  }
+  delete next;
+  delete t;
 }

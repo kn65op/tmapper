@@ -86,7 +86,7 @@ void MainWindow::build()
 
   /* tree window*/
   gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(treew),
-      GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
+          GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
 
   /*widok drzewa*/
   gtk_widget_set_size_request(tree, TREE_SIZE, TREE_SIZE);
@@ -99,7 +99,7 @@ void MainWindow::build()
           "text", 0);
 
   treestore = gtk_tree_store_new(1,
-                  G_TYPE_STRING);
+          G_TYPE_STRING);
   model = GTK_TREE_MODEL(treestore);
   gtk_tree_view_set_model(GTK_TREE_VIEW(tree), model);
   g_object_unref(model);
@@ -170,7 +170,7 @@ void MainWindow::build()
   gtk_box_pack_start(GTK_BOX(vbox), menu, FALSE, FALSE, 0);
   gtk_box_pack_end(GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
 
-  gtk_container_add(GTK_CONTAINER (treew), tree);
+  gtk_container_add(GTK_CONTAINER(treew), tree);
 
   gtk_box_pack_start(GTK_BOX(hbox), canvas, TRUE, TRUE, 0);
   gtk_box_pack_end(GTK_BOX(hbox), treew, FALSE, FALSE, 0);
@@ -308,8 +308,6 @@ void MainWindow::openFile(GtkWidget* widget, gpointer data)
     if (mw->getAnaliser()->GetKML())
     {
       mw->getAnaliser()->GetKML()->connectStyles();
-      mw->treestore = gtk_tree_store_new(1,
-                  G_TYPE_STRING);
       mw->printTree();
       mw->model = GTK_TREE_MODEL(mw->treestore);
       gtk_tree_view_set_model(GTK_TREE_VIEW(mw->tree), mw->model);
@@ -442,44 +440,7 @@ void MainWindow::showNoFile(MainWindow* mw)
 
 void MainWindow::printTree()
 {
+  treestore = gtk_tree_store_new(1, G_TYPE_STRING);
   analiser->GetKML()->makeTree(treestore, NULL);
 
-  /*gtk_tree_store_append(treestore, &toplevel, NULL);
-  gtk_tree_store_set(treestore, &toplevel,
-                     COLUMN, "Scripting languages",
-                     -1);
-
-  gtk_tree_store_append(treestore, &child, &toplevel);
-  gtk_tree_store_set(treestore, &child,
-                     COLUMN, "Python",
-                     -1);
-
-  gtk_tree_store_append(treestore, &child, &toplevel);
-  gtk_tree_store_set(treestore, &child,
-                     COLUMN, "Perl",
-                     -1);
-  gtk_tree_store_append(treestore, &child, &toplevel);
-  gtk_tree_store_set(treestore, &child,
-                     COLUMN, "PHP",
-                     -1);
-
-  gtk_tree_store_append(treestore, &toplevel, NULL);
-  gtk_tree_store_set(treestore, &toplevel,
-                     COLUMN, "Compiled languages",
-                     -1);
-
-  gtk_tree_store_append(treestore, &child, &toplevel);
-  gtk_tree_store_set(treestore, &child,
-                     COLUMN, "C",
-                     -1);
-
-  gtk_tree_store_append(treestore, &child, &toplevel);
-  gtk_tree_store_set(treestore, &child,
-                     COLUMN, "C++",
-                     -1);
-
-  gtk_tree_store_append(treestore, &child, &toplevel);
-  gtk_tree_store_set(treestore, &child,
-                     COLUMN, "Java",
-                     -1);*/
 }

@@ -12,6 +12,8 @@ using namespace std;
 #include <cstdlib>
 #include <string>
 #include <fstream>
+#include <gtk-2.0/gtk/gtk.h>
+#include <sstream>
 
 #include "node.h"
 
@@ -46,4 +48,14 @@ void numbernode::saveToFile(std::string file, int level)
   std::ofstream of(file.c_str(), std::ios::app);
   of << val;
   of.close();
+}
+
+void numbernode::makeTree(GtkTreeStore* treestore, GtkTreeIter* parent)
+{
+  std::stringstream ss;
+  ss << val;
+  GtkTreeIter *next = new GtkTreeIter();
+  gtk_tree_store_append(treestore, next, parent);
+  gtk_tree_store_set(treestore, next, 0, ss.str().c_str(), -1);
+  delete next;
 }

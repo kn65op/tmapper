@@ -53,5 +53,5 @@ void textnode::makeTree(GtkTreeStore* treestore, GtkTreeIter* parent)
   GtkTreeIter *next = new GtkTreeIter();
   gtk_tree_store_append(treestore, next, parent);
   gtk_tree_store_set(treestore, next, 0, Text.c_str(), -1);
-    delete next;
+  delete next;
 }

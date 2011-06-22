@@ -10,6 +10,7 @@
 
 #include <string>
 #include <vector>
+#include <gtk-2.0/gtk/gtk.h>
 
 #include "node.h"
 
@@ -24,6 +25,7 @@ public:
   void addCoordinate(std::string *x, std::string *y, std::string *z);
   void saveToFile(std::string file, int level);
   void findHW(double& max_x, double& min_x, double& max_y, double& min_y);
+  void makeTree(GtkTreeStore* treestore, GtkTreeIter* parent);
 
   int getSize() const;
 

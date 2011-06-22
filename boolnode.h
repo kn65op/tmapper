@@ -10,6 +10,8 @@
 
 #include "node.h"
 
+#include <gtk-2.0/gtk/gtk.h>
+
 class boolnode : public node
 {
 public:
@@ -19,6 +21,7 @@ public:
   virtual ~boolnode();
 
   void saveToFile(std::string file, int level);
+  void makeTree(GtkTreeStore* treestore, GtkTreeIter* parent);
 
   bool getVal() const
   {

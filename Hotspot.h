@@ -10,6 +10,7 @@
 
 #include <string>
 #include <cstdlib>
+#include <gtk-2.0/gtk/gtk.h>
 
 #include "node.h"
 
@@ -22,6 +23,7 @@ public:
   virtual ~Hotspot();
 
   void saveToFile(std::string file, int level);
+  void makeTree(GtkTreeStore* treestore, GtkTreeIter* parent);
 
   double getX() const
   {
