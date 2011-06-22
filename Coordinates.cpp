@@ -17,6 +17,7 @@ using namespace std;
 #include <sstream>
 
 #include "node.h"
+#include "MainWindow.h"
 
 Coordinates::Coordinates()
 {
@@ -127,4 +128,16 @@ void Coordinates::makeTree(GtkTreeStore* treestore, GtkTreeIter* parent)
   }
   delete next;
   delete t;
+}
+
+void Coordinates::mapCoordinates(MainWindow* mw, double a_x, double b_x, double a_y, double b_y)
+{
+  vector<double*>::iterator it, end;
+  end = coordinates.end();
+  int i=0;
+  for (it = coordinates.begin(); it != end; it++)
+  {
+    mw->addCoordinate(a_x * ((*it)[0] - b_x), a_y * ((*it)[1] - b_y), this, i);
+    i++;
+  }
 }

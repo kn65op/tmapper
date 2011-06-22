@@ -34,7 +34,7 @@ Width::~Width()
 
 void Width::init()
 {
-  name = "Width";
+  name = "width";
 }
 
 double Width::getWidth()

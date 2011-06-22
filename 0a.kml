@@ -1,6 +1,14 @@
 <kml id="zgh">
 <Document id="asd">
 	<name>~GE13F.kmz</name>
+	<Style id="ikona">
+		<IconStyle>
+			<Icon>
+				<href>krzyz.png</href>
+			</Icon>
+			<hotSpot x="0.5" y="0" xunits="fraction" yunits="fraction"/>
+		</IconStyle>
+	</Style>
 	<Style id="styl">
 		<IconStyle>
 			<scale>1.2</scale>
@@ -45,6 +53,12 @@ Samodzielnie wyszukane i dodane przeze mnie.</description>
 			<styleUrl>#styl</styleUrl>
 			<Point>
 				<coordinates>1,1,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<styleUrl>#ikona</styleUrl>
+			<Point>
+				<coordinates>0.75,0.25,0</coordinates>
 			</Point>
 		</Placemark>
 		<Placemark>

@@ -9,6 +9,7 @@
 #define TREE_SIZE 200
 
 #include "MainWindow.h"
+#include "Analiser.h"
 
 #include <gtk-2.0/gtk/gtk.h>
 #include <gtk-2.0/gdk/gdkkeysyms.h>
@@ -20,6 +21,7 @@
 #include <sstream>
 
 #include "KML.h"
+#include "Coordinates.h"
 //#include <gtkmm-2.4/gtkmm/main.h>
 
 using namespace std;
@@ -42,6 +44,8 @@ MainWindow::~MainWindow()
 void MainWindow::init(int argc, char** argv)
 {
   gtk_init(&argc, &argv);
+  mouse_clicked = false;
+  act = 0;
 }
 
 void MainWindow::build()
@@ -78,6 +82,9 @@ void MainWindow::build()
   /* connect our drawing method to the "expose" signal
    */
   g_signal_connect(G_OBJECT(canvas), "expose-event", G_CALLBACK(paint), this);
+
+  /* dodanie obsługi wydarzeń*/
+
 
   /*button = gtk_button_new_with_label("PressMy");
   g_signal_connect(G_OBJECT(button),"clicked",G_CALLBACK(buttonclicked),this);
@@ -118,11 +125,19 @@ void MainWindow::build()
   /* pack canvas widget into window
    */
   // gtk_container_add(GTK_CONTAINER(map), canvas);
-
+  /*dodanie wydarzeń na które reaguje canvvas*/
   gtk_widget_add_events(canvas,
+          GDK_POINTER_MOTION_MASK |
           GDK_BUTTON1_MOTION_MASK |
           GDK_BUTTON_PRESS_MASK |
           GDK_BUTTON_RELEASE_MASK);
+
+
+  /* łaczenie wydarzeń z funkcjami */
+
+  g_signal_connect(G_OBJECT(canvas), "button-press-event", G_CALLBACK(canvas_button_press), this);
+  g_signal_connect(G_OBJECT(canvas), "motion-notify-event", G_CALLBACK(canvas_mouse_move), this);
+  g_signal_connect(G_OBJECT(canvas), "button-release-event", G_CALLBACK(canvas_button_release), this);
 
   /**  menu*/
   menu = gtk_menu_bar_new(); // tworzymy menubar
@@ -262,16 +277,10 @@ void MainWindow::paint(GtkWidget* widget, GdkEventExpose* eev, gpointer data)
 
   /* clear background */
   MainWindow *mw = static_cast<MainWindow*> (data);
-  mw->printTree();
-  mw->model = GTK_TREE_MODEL(mw->treestore);
-  gtk_tree_view_set_model(GTK_TREE_VIEW(mw->tree), mw->model);
-  g_object_unref(mw->model);
 
-  cairo_t *cr = gdk_cairo_create(mw->canvas->window);
+  mw->drawKMLwithMap();
 
-  mw->drawKML(cr);
 
-  cairo_destroy(cr);
 }
 
 void MainWindow::showInfo(GtkWidget *widget, gpointer data)
@@ -342,37 +351,34 @@ void MainWindow::saveFile(GtkWidget* widget, gpointer data)
   gtk_widget_destroy(chooser);
 }
 
-void MainWindow::drawKML(cairo_t *cr)
+void MainWindow::drawKML()
 {
+  printTree();
+  model = GTK_TREE_MODEL(treestore);
+  gtk_tree_view_set_model(GTK_TREE_VIEW(tree), model);
+  g_object_unref(model);
+
+  cairo_t *cr = gdk_cairo_create(canvas->window);
   cairo_set_source_rgb(cr, 1, 1, 1);
   cairo_paint(cr);
 
-  if (!analiser->GetKML()) //można narysować
+  if (!analiser->GetKML()) //nie można narysować
   {
     return;
   }
 
-  double a_x, b_x, a_y, b_y;
-  double min_x, max_x, min_y, max_y;
-  int width, height;
-  min_x = min_y = DBL_MAX;
-  max_x = max_y = -DBL_MAX;
-
-  analiser->GetKML()->findHW(max_x, min_x, max_y, min_y);
-  gtk_window_get_size(GTK_WINDOW(map), &width, &height);
-
-  max_x = max_x > 0 ? max_x * 1.02 : max_x * 0.98;
-  max_y = max_y > 0 ? max_y * 1.02 : max_y * 0.98;
-  min_x = min_x > 0 ? min_x * 0.98 : min_x * 1.02;
-  min_y = min_y > 0 ? min_y * 0.98 : min_y * 1.02;
-
-  a_x = (width - TREE_SIZE) / (max_x - min_x);
-  b_x = min_x;
-  a_y = (height - MENU_SIZE) / (min_y - max_y);
-  b_y = max_y;
-
+  calcParameters();
   analiser->GetKML()->draw(cr, a_x, b_x, a_y, b_y, NULL);
+  cairo_destroy(cr);
+}
 
+void MainWindow::drawKMLwithMap()
+{
+  drawKML();
+  if (analiser->GetKML()) 
+  {
+    mapCoordinates();
+  }
 }
 
 void MainWindow::showError(const char* s, int line, MainWindow* mw)
@@ -447,4 +453,99 @@ void MainWindow::printTree()
   {
     analiser->GetKML()->makeTree(treestore, NULL);
   }
+}
+
+void MainWindow::canvas_button_press(GtkWidget* widget, GdkEventButton* event, gpointer data)
+{
+  MainWindow *mw = static_cast<MainWindow*> (data);
+  mw->mouse_clicked = true;
+  std::list<double>::iterator x, y, endx;
+  std::list<Coordinates*>::iterator cor;
+  std::list<int>::iterator cor_nr;
+  x = mw->coors_posx.begin();
+  y = mw->coors_posy.begin();
+  cor = mw->coors_ptr.begin();
+  cor_nr = mw->coors_posnr.begin();
+  endx = mw->coors_posx.end();
+  int nr = 0;
+  for (std::list<double>::iterator it = mw->coors_posx.begin(); it != endx; it++, x++, y++, cor++, cor_nr++)
+  {
+    if ((*x) - 10 < event->x && event->x < (*x) + 10 && (*y) - 10 < event->y && event->y < (*y) + 10)
+    {
+      nr++;
+      mw->act = *cor;
+      mw->act_nr = *cor_nr;
+    }
+  }
+  std::cout << "HEHE " << nr << "\n";
+  //std::cout << event->x << " " << event->y << "\n";
+  if (nr != 1)
+  {
+    mw->act = 0;
+  }
+}
+
+void MainWindow::canvas_button_release(GtkWidget* widget, GdkEventButton* event, gpointer data)
+{
+  MainWindow *mw = static_cast<MainWindow*> (data);
+  mw->mouse_clicked = false;
+  ///std::cout << "EHEH\n";
+  if (mw->act)
+  {
+    mw->act = 0;
+    mw->drawKMLwithMap();
+  }
+
+}
+
+void MainWindow::canvas_mouse_move(GtkWidget* widget, GdkEventButton* event, gpointer data)
+{
+  MainWindow *mw = static_cast<MainWindow*> (data);
+  //std::cout << "move\n";
+  if (mw->mouse_clicked && mw->act)
+  {
+    double *tmp = mw->act->getCoordinates(mw->act_nr);
+    tmp[0] = event->x / mw->a_x + mw->b_x;
+    tmp[1] = event->y / mw->a_y + mw->b_y;
+    mw->drawKML();
+    //std::cout << event->x << " " << event->y << "\n";
+  }
+}
+
+void MainWindow::mapCoordinates()
+{
+  coors_posx.clear();
+  coors_posy.clear();
+  coors_ptr.clear();
+  analiser->GetKML()->mapCoordinates(this, a_x, b_x, a_y, b_y);
+}
+
+void MainWindow::calcParameters()
+{
+  double min_x, max_x, min_y, max_y;
+  int width, height;
+  min_x = min_y = DBL_MAX;
+  max_x = max_y = -DBL_MAX;
+
+  analiser->GetKML()->findHW(max_x, min_x, max_y, min_y);
+  gtk_window_get_size(GTK_WINDOW(map), &width, &height);
+
+  max_x = max_x > 0 ? max_x * 1.02 : max_x * 0.98;
+  max_y = max_y > 0 ? max_y * 1.02 : max_y * 0.98;
+  min_x = min_x > 0 ? min_x * 0.98 : min_x * 1.02;
+  min_y = min_y > 0 ? min_y * 0.98 : min_y * 1.02;
+
+  a_x = (width - TREE_SIZE) / (max_x - min_x);
+  b_x = min_x;
+  a_y = (height - MENU_SIZE) / (min_y - max_y);
+  b_y = max_y;
+}
+
+void MainWindow::addCoordinate(double x, double y, Coordinates* cor, int nr)
+{
+  coors_posx.push_back(x);
+  coors_posy.push_back(y);
+  coors_ptr.push_back(cor);
+  coors_posnr.push_back(nr);
+
 }

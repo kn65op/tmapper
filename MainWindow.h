@@ -8,14 +8,15 @@
 #ifndef MAINWINDOW_H
 #define	MAINWINDOW_H
 
+
 #include <gtk-2.0/gtk/gtk.h>
 #include <cairo/cairo.h>
 #include <string>
+#include <list>
 
-#include "KML.h"
-#include "Analiser.h"
-
-class MainWindow;
+class Coordinates;
+class KML;
+class Analiser;
 
 class MainWindow
 {
@@ -28,6 +29,7 @@ public:
   void run();
 
   static void showError(const char *s, int line, MainWindow *mw);
+  void addCoordinate(double x, double y, Coordinates* cor, int nr);
 
   /*GtkWidget* getMap() const
   {
@@ -90,6 +92,9 @@ private:
   static gboolean delete_event(GtkWidget *widget, GdkEvent *event, gpointer data);
   static void destroy(GtkWidget *widget, gpointer data);
   static void buttonclicked(GtkWidget *widget, gpointer data);
+  static void canvas_button_press(GtkWidget *widget, GdkEventButton * event, gpointer data);
+  static void canvas_mouse_move(GtkWidget *widget, GdkEventButton * event, gpointer data);
+  static void canvas_button_release(GtkWidget *widget, GdkEventButton * event, gpointer data);
   static void showInfo(GtkWidget *widget, gpointer data);
   static void openFile(GtkWidget *widget, gpointer data);
   static void saveFile(GtkWidget *widget, gpointer data);
@@ -104,9 +109,25 @@ private:
   /*zmienne do do map*/
   //KML *kml;
   Analiser *analiser;
+  /* inne zmienne*/
+  bool mouse_clicked;
+  int width;
+  int height;
+  double a_x, b_x, a_y, b_y;
+  std::list<double> coors_posx;
+  std::list<double> coors_posy;
+  std::list<int> coors_posnr;
+  std::list<Coordinates*> coors_ptr;
+  Coordinates* act;
+  int act_nr;
+
 
   /* Funkcje inne*/
-  void drawKML(cairo_t *cr);
+  void drawKML();
+  void drawKMLwithMap();
+  void mapCoordinates();
+  void calcParameters();
+
 };
 
 #endif	/* MAINWINDOW_H */

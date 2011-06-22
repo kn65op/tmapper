@@ -57,7 +57,6 @@ void LineString::draw(cairo_t* cr, double a_x, double b_x, double a_y, double b_
     if (ls->getWidth())
     {
       def_line_width = ls->getWidth();
-      std::cout << "OK?\n";
     }
   }
 

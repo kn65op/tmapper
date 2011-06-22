@@ -15,6 +15,7 @@
 #include <gtk-2.0/gtk/gtk.h>
 
 class KML;
+class MainWindow;
 
 class node
 {
@@ -34,6 +35,7 @@ public:
   virtual void searchStyle(KML* kml);
   virtual void connectStyle(KML* kml);
   virtual void makeTree(GtkTreeStore* treestore, GtkTreeIter* parent);
+  virtual void mapCoordinates(MainWindow *mw, double a_x, double b_x, double a_y, double b_y);
 
   std::list<node*> GetChildren() const
   {

@@ -10,7 +10,8 @@
 
 #include <string>
 
-#include "KML.h"
+class KML;
+
 
 extern int yyparse();
 extern FILE * yyin;
