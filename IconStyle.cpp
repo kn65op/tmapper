@@ -13,6 +13,7 @@ using namespace std;
 
 #include "node.h"
 #include "Icon.h"
+#include "Hotspot.h"
 
 IconStyle::IconStyle()
 {
@@ -48,4 +49,60 @@ std::string IconStyle::getImage()
       return dynamic_cast<Icon*> (*it)->getImage();
     }
   }
+}
+
+double IconStyle::getX()
+{
+  std::list<node*>::const_iterator it, end;
+  end = children.end();
+  for (it = children.begin(); it != end; it++)
+  {
+    if (dynamic_cast<Hotspot*> (*it))
+    {
+      return dynamic_cast<Hotspot*> (*it)->getX();
+    }
+  }
+  return 0;
+}
+
+double IconStyle::getY()
+{
+  std::list<node*>::const_iterator it, end;
+  end = children.end();
+  for (it = children.begin(); it != end; it++)
+  {
+    if (dynamic_cast<Hotspot*> (*it))
+    {
+      return dynamic_cast<Hotspot*> (*it)->getY();
+    }
+  }
+  return 0;
+}
+
+std::string IconStyle::getXunits()
+{
+  std::list<node*>::const_iterator it, end;
+  end = children.end();
+  for (it = children.begin(); it != end; it++)
+  {
+    if (dynamic_cast<Hotspot*> (*it))
+    {
+      return dynamic_cast<Hotspot*> (*it)->getXunits();
+    }
+  }
+  return "";
+}
+
+std::string IconStyle::getYunits()
+{
+  std::list<node*>::const_iterator it, end;
+  end = children.end();
+  for (it = children.begin(); it != end; it++)
+  {
+    if (dynamic_cast<Hotspot*> (*it))
+    {
+      return dynamic_cast<Hotspot*> (*it)->getYunits();
+    }
+  }
+  return "";
 }

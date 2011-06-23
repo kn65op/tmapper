@@ -37,7 +37,8 @@ public:
 
   void setX(std::string* x)
   {
-    this->x = atoi(x->c_str());
+    if (x->find(".") != std::string::npos) x->replace(x->find("."), 1, ",");
+    this->x = atof(x->substr(1, x->size()-2).c_str());
     delete x;
   }
 
@@ -69,7 +70,8 @@ public:
 
   void setY(std::string* y)
   {
-    this->y = atoi(y->c_str());
+    if (y->find(".") != std::string::npos) y->replace(y->find("."), 1, ",");
+    this->y = atof(y->substr(1, y->size()-2).c_str());
     delete y;
   }
 

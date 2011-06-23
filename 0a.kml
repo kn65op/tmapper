@@ -6,7 +6,7 @@
 			<Icon>
 				<href>krzyz.png</href>
 			</Icon>
-			<hotSpot x="0.5" y="0" xunits="fraction" yunits="fraction"/>
+			<hotSpot x="0.5" y="0.5" xunits="fraction" yunits="fraction"/>
 		</IconStyle>
 	</Style>
 	<Style id="styl">
@@ -15,7 +15,7 @@
 			<Icon>
 				<href>kolon.png</href>
 			</Icon>
-			<hotSpot x="0.5" y="0" xunits="fraction" yunits="fraction"/>
+			<hotSpot x="0.5" y="0.5" xunits="fraction" yunits="fraction"/>
 		</IconStyle>
 	</Style>
 	<Style id="niebieski">

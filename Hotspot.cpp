@@ -37,6 +37,10 @@ Hotspot::~Hotspot()
 void Hotspot::init()
 {
   name = "hotSpot";
+  x = 0;
+  y = 0;
+  xunits = "";
+  yunits = "";
 }
 
 void Hotspot::saveToFile(std::string file, int level)

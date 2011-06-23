@@ -22,6 +22,11 @@ public:
 
   std::string getImage();
 
+  double getX();
+  double getY();
+  std::string getXunits();
+  std::string getYunits();
+
 private:
   void init();
 };
