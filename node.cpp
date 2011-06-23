@@ -221,3 +221,18 @@ void node::mapCoordinates(MainWindow* mw, double a_x, double b_x, double a_y, do
     (*it)->mapCoordinates(mw, a_x, b_x, a_y, b_y);
   }
 }
+
+std::string node::getSubName()
+{
+  std::list<node*>::const_iterator it, end;
+  end = children.end();
+
+  for (it = children.begin(); it != end; it++)
+  {
+    if (dynamic_cast<Name*> (*it))
+    {
+      return dynamic_cast<Name*> (*it)->getText();
+    }
+  }
+  return "";
+}

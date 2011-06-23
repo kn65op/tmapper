@@ -1,2 +1,191 @@
-<kml>
+<kml id="zgh">
+	<Document id="asd">
+		<name>~GE13F.kmz</name>
+
+		<Style id="ikona">
+			<IconStyle>
+				<Icon>
+					<href>krzyz.png</href>
+</Icon>
+<hotSpot x="0" y="0" xunits="fraction" yunits="fraction"/></IconStyle>
+</Style>
+
+		<Style id="styl">
+			<IconStyle>
+				<scale>1.2</scale>
+
+				<Icon>
+					<href>kolon.png</href>
+</Icon>
+<hotSpot x="0" y="0" xunits="fraction" yunits="fraction"/></IconStyle>
+</Style>
+
+		<Style id="niebieski">
+			<LineStyle>
+				<color>ff00ff00</color>
+
+				<width>3</width>
+</LineStyle>
+
+			<PolyStyle>
+				<color>80ff0000</color>
+
+				<fill>1</fill>
+
+				<outline>1</outline>
+</PolyStyle>
+</Style>
+
+		<Style id="prz">
+			<LineStyle>
+				<color>8000ff00</color>
+
+				<width>10</width>
+</LineStyle>
+</Style>
+
+		<Style id="cienka">
+			<LineStyle>
+				<color>ff0000ff</color>
+
+				<width>1.1</width>
+</LineStyle>
+</Style>
+
+		<Folder>
+			<name>Byłem tam.</name>
+
+			<visibility>0</visibility>
+
+			<description>Byłem tam osobiście.
+Samodzielnie wyszukane i dodane przeze mnie.</description>
+
+			<Placemark id="lol">
+				<name>Olkusz</name>
+
+				<visibility>0</visibility>
+
+				<description>Mój dom.</description>
+
+				<styleUrl>#styl</styleUrl>
+
+				<Point><coordinates>1,1,0
+</coordinates>
+</Point>
+</Placemark>
+
+			<Placemark>
+				<styleUrl>#ikona</styleUrl>
+
+				<Point><coordinates>0.97104,0.638842,0
+</coordinates>
+</Point>
+</Placemark>
+
+			<Placemark>
+				<Point><coordinates>-1,-1,0
+</coordinates>
+</Point>
+</Placemark>
+
+			<Placemark>
+				<Point><coordinates>-1,1,0
+</coordinates>
+</Point>
+</Placemark>
+
+			<Placemark>
+				<Point><coordinates>1,-1,0
+</coordinates>
+</Point>
+</Placemark>
+
+			<Placemark>
+				<Point><coordinates>0,0,0
+</coordinates>
+</Point>
+</Placemark>
+
+			<Placemark>
+				<name>Pentagon</name>
+
+				<styleUrl>#niebieski</styleUrl>
+
+				<LineString><coordinates>-0.45288,-0.526105,0
+0.68544,-0.794526,0
+0.71808,0.375789,0
+-0.5,0.5,0
+-0.5,-0.5,0
+</coordinates>
+</LineString>
+</Placemark>
+
+			<Placemark>
+				<name>Cienka czerwona linia</name>
+
+				<styleUrl>#cienka</styleUrl>
+
+				<LineString><coordinates>1,1,0
+0,1,0
+0.5,0.9,0
+-1,-1,0
+1,1,0
+</coordinates>
+</LineString>
+</Placemark>
+
+			<Placemark>
+				<styleUrl>#prz</styleUrl>
+
+				<LineString><coordinates>-1,-1,0
+1,0,0
+0,0,0
+1,1,0
+0,1,0
+</coordinates>
+</LineString>
+</Placemark>
+
+			<Placemark>
+				<LinearRing><coordinates>0,0,0
+0,1,0
+-1,0,0
+</coordinates>
+</LinearRing>
+</Placemark>
+
+			<Placemark>
+				<name>USArmy</name>
+
+				<styleUrl>#niebieski</styleUrl>
+
+				<Polygon>
+					<innerBoundaryIs>
+						<LinearRing><coordinates>0.46512,-0.166421,0
+0.3,-0.3,0
+0.35,-0.3,0
+0.35,-0.35,0
+</coordinates>
+</LinearRing>
+</innerBoundaryIs>
+
+					<innerBoundaryIs>
+						<LinearRing><coordinates>0.31416,-0.488526,0
+0.1,-0.2,0
+0.2,-0.1,0
+</coordinates>
+</LinearRing>
+</innerBoundaryIs>
+
+					<outerBoundaryIs>
+						<LinearRing><coordinates>-0.612,-0.144947,0
+1,0,0
+0,-1,0
+</coordinates>
+</LinearRing>
+</outerBoundaryIs>
+</Polygon>
+</Placemark>
+</Folder>
+</Document>
 </kml>

@@ -1,5 +1,5 @@
 skalowanie - oddalanie, przybliżanie
-edycja
+edycja - w widoku drzewa
 export do plików
 usunięcie scale
 dodanie obsługi hotspot
@@ -8,3 +8,4 @@ poprawić zapis do pliku
 labelki
 wyświetlanie aktualnego położenia
 pasek stanu
+segfault przy wczytywaniu z błędem

@@ -82,6 +82,7 @@ Samodzielnie wyszukane i dodane przeze mnie.</description>
 			</Point>
 		</Placemark>
 		<Placemark>
+			<name>Pentagon</name>
 			<styleUrl>#niebieski</styleUrl>
 			<LineString>
 				<coordinates>
@@ -94,6 +95,7 @@ Samodzielnie wyszukane i dodane przeze mnie.</description>
 			</LineString>
 		</Placemark>
 		<Placemark>
+			<name>Cienka czerwona linia</name>
 			<styleUrl>#cienka</styleUrl>
 			<LineString>
 				<coordinates>
@@ -127,6 +129,7 @@ Samodzielnie wyszukane i dodane przeze mnie.</description>
 			</LinearRing>
 		</Placemark>
 		<Placemark>
+			<name>USArmy</name>
 			<styleUrl>#niebieski</styleUrl>
 			<Polygon>
 				<innerBoundaryIs>

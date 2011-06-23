@@ -93,6 +93,7 @@ private:
   static gboolean delete_event(GtkWidget *widget, GdkEvent *event, gpointer data);
   static void destroy(GtkWidget *widget, gpointer data);
   static void buttonclicked(GtkWidget *widget, gpointer data);
+  static void setCoord(GtkWidget *widget, gpointer data);
   static void canvas_button_press(GtkWidget *widget, GdkEventButton * event, gpointer data);
   static void canvas_mouse_move(GtkWidget *widget, GdkEventButton * event, gpointer data);
   static void canvas_button_release(GtkWidget *widget, GdkEventButton * event, gpointer data);
@@ -122,6 +123,11 @@ private:
   Coordinates* act;
   int act_nr;
 
+  static std::vector<GtkWidget*> items;
+  static std::vector<int> tmp_nr;
+  static bool move_ok;
+  static int move_nr;
+  static GtkWidget *menu_popup;
 
   /* Funkcje inne*/
   void drawKML();

@@ -22,9 +22,16 @@
 
 #include "KML.h"
 #include "Coordinates.h"
+#include "Placemark.h"
 //#include <gtkmm-2.4/gtkmm/main.h>
 
 using namespace std;
+
+std::vector<GtkWidget*> MainWindow::items;
+std::vector<int> MainWindow::tmp_nr;
+bool MainWindow::move_ok = false;
+int MainWindow::move_nr = -1;
+GtkWidget * MainWindow::menu_popup = 0;
 
 MainWindow::MainWindow(int argc, char **argv)
 {
@@ -457,9 +464,17 @@ void MainWindow::printTree()
 
 void MainWindow::canvas_button_press(GtkWidget* widget, GdkEventButton* event, gpointer data)
 {
+  //czyszczenie staticów
+  while (!MainWindow::items.empty())
+  {
+    gtk_widget_destroy(MainWindow::items.front());
+    MainWindow::items.erase(MainWindow::items.begin());
+  }
+  MainWindow::tmp_nr.clear();
+  if (MainWindow::menu_popup) gtk_widget_destroy(menu_popup);
+
   MainWindow *mw = static_cast<MainWindow*> (data);
   mw->mouse_clicked = true;
-  std::vector<int> tmp_nr;
   std::vector<double>::iterator x, y, endx;
   std::vector<Coordinates*>::iterator cor;
   std::vector<int>::iterator cor_nr;
@@ -469,55 +484,65 @@ void MainWindow::canvas_button_press(GtkWidget* widget, GdkEventButton* event, g
   cor_nr = mw->coors_nr.begin();
   endx = mw->coors_posx.end();
   int nr = 0;
-  int i=0;
+  int i = 0;
   for (std::vector<double>::iterator it = mw->coors_posx.begin(); it != endx; it++, x++, y++, cor++, cor_nr++, i++)
   {
     if ((*x) - 10 < event->x && event->x < (*x) + 10 && (*y) - 10 < event->y && event->y < (*y) + 10)
     {
       nr++;
-      mw->act = *cor;
-      mw->act_nr = *cor_nr;
-      tmp_nr.push_back(i);
+      mw->act_nr = i;
+      MainWindow::tmp_nr.push_back(i);
     }
   }
   if (event->button == 3) // PPM - wybór
   {
-    GtkWidget *menu;
-    menu = gtk_menu_new();
+    mw->act = 0;
+    MainWindow::menu_popup = gtk_menu_new();
     std::vector<GtkWidget*> items;
-    std::vector<int>::iterator it = tmp_nr.begin();
-    std::vector<int>::iterator end = tmp_nr.end();
-    for (it = tmp_nr.begin(); it != end; it++)
+    std::vector<int>::iterator it = MainWindow::tmp_nr.begin();
+    std::vector<int>::iterator end = MainWindow::tmp_nr.end();
+    for (; it != end; it++)
     {
-      std::cout << "A\n";
-      items.push_back(gtk_menu_item_new_with_label(mw->coors_ptr[*it]->GetParent()->GetName().c_str()));
-      /*g_signal_connect(items.back(), "activate",
-                     (GCallback) setCoord, (*it));//*/
-      gtk_menu_append(menu, items.back());
+      node *n = mw->coors_ptr[*it];
+      while (!dynamic_cast<Placemark*> (n))
+      {
+        n = n->GetParent();
+      }
+      if (n->getSubName() != "")
+      {
+        items.push_back(gtk_menu_item_new_with_label(n->getSubName().c_str()));
+      }
+      else
+      {
+        items.push_back(gtk_menu_item_new_with_label(mw->coors_ptr[*it]->GetParent()->GetName().c_str()));
+      }
+      g_signal_connect(items.back(), "activate", (GCallback) setCoord, &(*it)); //*/
+      gtk_menu_append(menu_popup, items.back());
     }
-    gtk_widget_show_all(menu);
-    gtk_menu_popup(GTK_MENU(menu), NULL, NULL, NULL, NULL,
+    gtk_widget_show_all(menu_popup);
+    gtk_menu_popup(GTK_MENU(menu_popup), NULL, NULL, NULL, NULL,
             event->button, event->time);
-    /*while (!items.empty())
-    {
-      gtk_widget_destroy(items.front());
-      items.erase(items.begin());
-    }//*/
-    //gtk_widget_destroy(GTK_WIDGET(menu));
   }
-  else
+  else // LPM
   {
     // std::cout << "HEHE " << nr << "\n";
     //std::cout << event->x << " " << event->y << "\n";
-    if (nr != 1) //jeśli LPM to bierzemy jak jest jedne w okolicy //TODO zmiana
+    if (nr == 1) //jeśli LPM to bierzemy jak jest jedne w okolicy //TODO zmiana
     {
-      mw->act = 0;
+      move_ok = true;
+      move_nr = mw->act_nr;
     }
     else
     {
-      //komunikat  //
+      //TODO komunikat
     }
   }
+}
+
+void MainWindow::setCoord(GtkWidget* widget, gpointer data)
+{
+  move_ok = true;
+  move_nr = *(int*) data;
 }
 
 void MainWindow::canvas_button_release(GtkWidget* widget, GdkEventButton* event, gpointer data)
@@ -525,25 +550,26 @@ void MainWindow::canvas_button_release(GtkWidget* widget, GdkEventButton* event,
   MainWindow *mw = static_cast<MainWindow*> (data);
   mw->mouse_clicked = false;
   ///std::cout << "EHEH\n";
-  if (mw->act)
+  if (move_ok)
   {
     mw->act = 0;
     mw->drawKMLwithMap();
+    move_ok = false;
   }
-
 }
 
 void MainWindow::canvas_mouse_move(GtkWidget* widget, GdkEventButton* event, gpointer data)
 {
   MainWindow *mw = static_cast<MainWindow*> (data);
   //std::cout << "move\n";
-  if (mw->mouse_clicked && mw->act)
+  if (mw->mouse_clicked && move_ok)
   {
+    mw->act = mw->coors_ptr[MainWindow::move_nr];
+    mw->act_nr = mw->coors_nr[MainWindow::move_nr];
     double *tmp = mw->act->getCoordinates(mw->act_nr);
     tmp[0] = event->x / mw->a_x + mw->b_x;
     tmp[1] = event->y / mw->a_y + mw->b_y;
     mw->drawKML();
-    //std::cout << event->x << " " << event->y << "\n";
   }
 }
 

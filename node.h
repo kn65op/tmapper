@@ -36,6 +36,7 @@ public:
   virtual void connectStyle(KML* kml);
   virtual void makeTree(GtkTreeStore* treestore, GtkTreeIter* parent);
   virtual void mapCoordinates(MainWindow *mw, double a_x, double b_x, double a_y, double b_y);
+  std::string getSubName();
 
   std::list<node*> GetChildren() const
   {
