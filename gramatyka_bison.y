@@ -412,7 +412,6 @@ last_element = last_element->GetParent()
 
 icon_style: /* empty */
 						| icon_style color_start color color_end
-						| icon_style scale_start scale scale_end
 						| icon_style heading_start heading heading_end
 						| icon_style icon_start icon icon_end
 						| icon_style hotspot

@@ -10,6 +10,7 @@
 #include <fstream>
 #include <string>
 #include <gtk-2.0/gtk/gtk.h>
+#include <stdlib.h>
 
 #include "node.h"
 #include "textnode.h"
@@ -236,4 +237,19 @@ std::string node::getSubName()
     }
   }
   return "";
+}
+
+node* node::findFromTreeView(std::string s)
+{
+  if (s == "")
+  {
+    return this;
+  }
+  else
+  {
+    std::list<node*>::iterator it = children.begin();
+    int n = atoi(s.substr(0, s.find(":")-1).c_str());
+    for (int i=0; i<n; i++, it++);
+    return (*it)->findFromTreeView(s.substr(s.find(":")+1));
+  }
 }

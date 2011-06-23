@@ -622,4 +622,5 @@ void MainWindow::tree_row_activated(GtkTreeView* tree_view, GtkTreePath* path, G
   std::string lol(p);
   g_free(p);
   std::cout << lol << "\n";
+  std::cout << mw->getAnaliser()->GetKML()->findFromTreeView(lol)->GetName() << "\n";
 }
