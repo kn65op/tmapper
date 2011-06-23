@@ -375,7 +375,7 @@ void MainWindow::drawKML()
 void MainWindow::drawKMLwithMap()
 {
   drawKML();
-  if (analiser->GetKML()) 
+  if (analiser->GetKML())
   {
     mapCoordinates();
   }
@@ -459,29 +459,64 @@ void MainWindow::canvas_button_press(GtkWidget* widget, GdkEventButton* event, g
 {
   MainWindow *mw = static_cast<MainWindow*> (data);
   mw->mouse_clicked = true;
-  std::list<double>::iterator x, y, endx;
-  std::list<Coordinates*>::iterator cor;
-  std::list<int>::iterator cor_nr;
+  std::vector<int> tmp_nr;
+  std::vector<double>::iterator x, y, endx;
+  std::vector<Coordinates*>::iterator cor;
+  std::vector<int>::iterator cor_nr;
   x = mw->coors_posx.begin();
   y = mw->coors_posy.begin();
   cor = mw->coors_ptr.begin();
-  cor_nr = mw->coors_posnr.begin();
+  cor_nr = mw->coors_nr.begin();
   endx = mw->coors_posx.end();
   int nr = 0;
-  for (std::list<double>::iterator it = mw->coors_posx.begin(); it != endx; it++, x++, y++, cor++, cor_nr++)
+  int i=0;
+  for (std::vector<double>::iterator it = mw->coors_posx.begin(); it != endx; it++, x++, y++, cor++, cor_nr++, i++)
   {
     if ((*x) - 10 < event->x && event->x < (*x) + 10 && (*y) - 10 < event->y && event->y < (*y) + 10)
     {
       nr++;
       mw->act = *cor;
       mw->act_nr = *cor_nr;
+      tmp_nr.push_back(i);
     }
   }
-  std::cout << "HEHE " << nr << "\n";
-  //std::cout << event->x << " " << event->y << "\n";
-  if (nr != 1)
+  if (event->button == 3) // PPM - wybór
   {
-    mw->act = 0;
+    GtkWidget *menu;
+    menu = gtk_menu_new();
+    std::vector<GtkWidget*> items;
+    std::vector<int>::iterator it = tmp_nr.begin();
+    std::vector<int>::iterator end = tmp_nr.end();
+    for (it = tmp_nr.begin(); it != end; it++)
+    {
+      std::cout << "A\n";
+      items.push_back(gtk_menu_item_new_with_label(mw->coors_ptr[*it]->GetParent()->GetName().c_str()));
+      /*g_signal_connect(items.back(), "activate",
+                     (GCallback) setCoord, (*it));//*/
+      gtk_menu_append(menu, items.back());
+    }
+    gtk_widget_show_all(menu);
+    gtk_menu_popup(GTK_MENU(menu), NULL, NULL, NULL, NULL,
+            event->button, event->time);
+    /*while (!items.empty())
+    {
+      gtk_widget_destroy(items.front());
+      items.erase(items.begin());
+    }//*/
+    //gtk_widget_destroy(GTK_WIDGET(menu));
+  }
+  else
+  {
+    // std::cout << "HEHE " << nr << "\n";
+    //std::cout << event->x << " " << event->y << "\n";
+    if (nr != 1) //jeśli LPM to bierzemy jak jest jedne w okolicy //TODO zmiana
+    {
+      mw->act = 0;
+    }
+    else
+    {
+      //komunikat  //
+    }
   }
 }
 
@@ -546,6 +581,6 @@ void MainWindow::addCoordinate(double x, double y, Coordinates* cor, int nr)
   coors_posx.push_back(x);
   coors_posy.push_back(y);
   coors_ptr.push_back(cor);
-  coors_posnr.push_back(nr);
+  coors_nr.push_back(nr);
 
 }

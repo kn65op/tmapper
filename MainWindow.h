@@ -13,6 +13,7 @@
 #include <cairo/cairo.h>
 #include <string>
 #include <list>
+#include <vector>
 
 class Coordinates;
 class KML;
@@ -114,10 +115,10 @@ private:
   int width;
   int height;
   double a_x, b_x, a_y, b_y;
-  std::list<double> coors_posx;
-  std::list<double> coors_posy;
-  std::list<int> coors_posnr;
-  std::list<Coordinates*> coors_ptr;
+  std::vector<double> coors_posx;
+  std::vector<double> coors_posy;
+  std::vector<int> coors_nr;
+  std::vector<Coordinates*> coors_ptr;
   Coordinates* act;
   int act_nr;
 
@@ -131,4 +132,3 @@ private:
 };
 
 #endif	/* MAINWINDOW_H */
-
