@@ -16,6 +16,7 @@
 #include "KML.h"
 #include "Color.h"
 #include "Name.h"
+#include "MainWindow.h"
 
 node::node() : id("")
 {

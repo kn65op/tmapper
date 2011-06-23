@@ -108,12 +108,15 @@ void MainWindow::build()
   /*widok drzewa*/
   gtk_widget_set_size_request(tree, TREE_SIZE, TREE_SIZE);
   gtk_tree_view_column_set_title(col, "Drzewo pliku");
+
+  /*podpięcie activate row*/
+  g_signal_connect(G_OBJECT(tree), "row-activated", G_CALLBACK(tree_row_activated), this);
+
   gtk_tree_view_append_column(GTK_TREE_VIEW(tree), col);
 
   renderer = gtk_cell_renderer_text_new();
   gtk_tree_view_column_pack_start(col, renderer, TRUE);
-  gtk_tree_view_column_add_attribute(col, renderer,
-          "text", 0);
+  gtk_tree_view_column_add_attribute(col, renderer, "text", 0);
 
   treestore = gtk_tree_store_new(1,
           G_TYPE_STRING);
@@ -609,4 +612,14 @@ void MainWindow::addCoordinate(double x, double y, Coordinates* cor, int nr)
   coors_ptr.push_back(cor);
   coors_nr.push_back(nr);
 
+}
+
+void MainWindow::tree_row_activated(GtkTreeView* tree_view, GtkTreePath* path, GtkTreeViewColumn* column, gpointer user_data)
+{
+  MainWindow *mw = static_cast<MainWindow*> (data);
+  gchar *p;
+  p = gtk_tree_path_to_string(path);
+  std::string lol(p);
+  g_free(p);
+  std::cout << lol << "\n";
 }

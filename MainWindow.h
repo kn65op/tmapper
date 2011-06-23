@@ -94,6 +94,7 @@ private:
   static void destroy(GtkWidget *widget, gpointer data);
   static void buttonclicked(GtkWidget *widget, gpointer data);
   static void setCoord(GtkWidget *widget, gpointer data);
+  static void tree_row_activated(GtkTreeView *tree_view, GtkTreePath *path, GtkTreeViewColumn *column, gpointer user_data);
   static void canvas_button_press(GtkWidget *widget, GdkEventButton * event, gpointer data);
   static void canvas_mouse_move(GtkWidget *widget, GdkEventButton * event, gpointer data);
   static void canvas_button_release(GtkWidget *widget, GdkEventButton * event, gpointer data);
