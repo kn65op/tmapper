@@ -69,8 +69,8 @@ void Point::draw(cairo_t* cr, double a_x, double b_x, double a_y, double b_y, do
     y = a_y * (cor[1] - b_y);
     if (is->getXunits() == "\"fraction\"")
     {
-      std::cout << x << "\n";
-      std::cout << is->getX() << "\n";
+      //std::cout << x << "\n";
+      //std::cout << is->getX() << "\n";
       x -= (int)((double)width*is->getX());
     }
     else if (is->getXunits() == "\"insetPixels\"")

@@ -37,6 +37,8 @@ public:
   virtual void makeTree(GtkTreeStore* treestore, GtkTreeIter* parent);
   virtual void mapCoordinates(MainWindow *mw, double a_x, double b_x, double a_y, double b_y);
   virtual node* findFromTreeView(std::string s);
+  virtual void paintEditWindow(GtkWidget *box);
+  virtual void saveFromEditWindow(GtkWidget *box);
 
   std::string getSubName();
 

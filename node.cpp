@@ -244,19 +244,19 @@ node* node::findFromTreeView(std::string s)
   if (s.find(":") == std::string::npos)
   {
     std::list<node*>::iterator it = children.begin();
-    if (dynamic_cast<Name*>(*it))
+    if (dynamic_cast<Name*> (*it))
     {
       it++;
     }
     int n = atoi(s.c_str());
-    for (int i=0; i<n; it++)
+    for (int i = 0; i < n; it++)
     {
-      if (!dynamic_cast<Name*>(*it))
+      if (!dynamic_cast<Name*> (*it))
       {
         i++;
       }
     }
-    if (dynamic_cast<Name*>((*it)))
+    if (dynamic_cast<Name*> ((*it)))
     {
       it++;
     }
@@ -265,24 +265,34 @@ node* node::findFromTreeView(std::string s)
   else
   {
     std::list<node*>::iterator it = children.begin();
-    if (dynamic_cast<Name*>(*it))
+    if (dynamic_cast<Name*> (*it))
     {
       it++;
     }
     int n = atoi(s.substr(0, s.find(":")).c_str());
-    for (int i=0; i<n; it++)
+    for (int i = 0; i < n; it++)
     {
-      if (!dynamic_cast<Name*>(*it))
+      if (!dynamic_cast<Name*> (*it))
       {
         i++;
       }
     }
-    node *val = (*it)->findFromTreeView(s.substr(s.find(":")+1));
+    node *val = (*it)->findFromTreeView(s.substr(s.find(":") + 1));
     if (!val)
     {
       it++;
-      val = (*it)->findFromTreeView(s.substr(s.find(":")+1));
+      val = (*it)->findFromTreeView(s.substr(s.find(":") + 1));
     }
     return val;
   }
+}
+
+void node::paintEditWindow(GtkWidget* box)
+{
+
+}
+
+void node::saveFromEditWindow(GtkWidget* box)
+{
+  
 }

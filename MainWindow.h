@@ -18,6 +18,7 @@
 class Coordinates;
 class KML;
 class Analiser;
+class node;
 
 class MainWindow
 {
@@ -102,10 +103,14 @@ private:
   static void openFile(GtkWidget *widget, gpointer data);
   static void saveFile(GtkWidget *widget, gpointer data);
   static void showNoFile(MainWindow *mw);
+  static void editButtonOk(GtkWidget *widget, gpointer data);
+  static void editButtonCancel(GtkWidget *widget, gpointer data);
+  static void editButtonApply(GtkWidget *widget, gpointer data);
 
   static void paint(GtkWidget *widget, GdkEventExpose *eev, gpointer data);
 
   void printTree();
+  void showEditNode(node* n);
 
   /* do błędów*/
   static void convertToPolish(std::string &s);
@@ -130,11 +135,15 @@ private:
   static int move_nr;
   static GtkWidget *menu_popup;
 
+  static node* node_edit;
+  bool can_edit;
+
   /* Funkcje inne*/
   void drawKML();
   void drawKMLwithMap();
   void mapCoordinates();
   void calcParameters();
+
 
 };
 

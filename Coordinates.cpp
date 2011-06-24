@@ -73,7 +73,7 @@ void Coordinates::saveToFile(std::string file, int level)
   end = coordinates.end();
   for (it = coordinates.begin(); it != end; it++)
   {
-    std::cout << "?\n";
+    //std::cout << "?\n";
     of << (*it)[0] << "," << (*it)[1] << "," << (*it)[2] << "\n";
   }
 

@@ -19,10 +19,12 @@
 #include <float.h>
 #include <unistd.h>
 #include <sstream>
+#include <gtk-2.0/gtk/gtkwidget.h>
 
 #include "KML.h"
 #include "Coordinates.h"
 #include "Placemark.h"
+#include "node.h"
 //#include <gtkmm-2.4/gtkmm/main.h>
 
 using namespace std;
@@ -32,6 +34,8 @@ std::vector<int> MainWindow::tmp_nr;
 bool MainWindow::move_ok = false;
 int MainWindow::move_nr = -1;
 GtkWidget * MainWindow::menu_popup = 0;
+
+node* MainWindow::node_edit = 0;
 
 MainWindow::MainWindow(int argc, char **argv)
 {
@@ -53,6 +57,7 @@ void MainWindow::init(int argc, char** argv)
   gtk_init(&argc, &argv);
   mouse_clicked = false;
   act = 0;
+  can_edit = true;
 }
 
 void MainWindow::build()
@@ -235,7 +240,7 @@ void MainWindow::buttonclicked(GtkWidget *widget, gpointer data)
 {
   MainWindow *mw = static_cast<MainWindow*> (data);
 
-  std::cout << "LOL\n";
+  //std::cout << "LOL\n";
 
   cairo_t *cr = gdk_cairo_create(mw->canvas->window);
   /*cairo_set_source_rgb(cr, 0, 0, 255);
@@ -285,11 +290,9 @@ void MainWindow::buttonclicked(GtkWidget *widget, gpointer data)
 void MainWindow::paint(GtkWidget* widget, GdkEventExpose* eev, gpointer data)
 {
 
-  /* clear background */
   MainWindow *mw = static_cast<MainWindow*> (data);
 
   mw->drawKMLwithMap();
-
 
 }
 
@@ -353,9 +356,7 @@ void MainWindow::saveFile(GtkWidget* widget, gpointer data)
   {
     char *filename;
     filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(chooser));
-    std::cout << "A\n";
     mw->getAnaliser()->saveKMLToFile(string(filename));
-    std::cout << "A\n";
     g_free(filename);
   }
   gtk_widget_destroy(chooser);
@@ -414,7 +415,7 @@ void MainWindow::showError(const char* s, int line, MainWindow* mw)
         file.replace(file.find(" ", i), 1, "\\ ");
         i = file.find(" ", i) + 1;
       }
-      std::cout << "gedit " << ss.str().c_str() << " " << file.c_str() << "\n";
+      //std::cout << "gedit " << ss.str().c_str() << " " << file.c_str() << "\n";
       execlp("gedit", "gedit", ss.str().c_str(), file.c_str(), 0); //FIXME: do zmiany kiedyś może //TODO: do poprawy
     }
   }
@@ -429,7 +430,7 @@ void MainWindow::convertToPolish(std::string& s) //TODO: Zmienić na pobranie i 
   {
     return;
   }
-  std::cout << file.eof() << "\n";
+  //std::cout << file.eof() << "\n";
   std::string what;
   std::string to;
   while (!file.eof())
@@ -617,10 +618,70 @@ void MainWindow::addCoordinate(double x, double y, Coordinates* cor, int nr)
 void MainWindow::tree_row_activated(GtkTreeView* tree_view, GtkTreePath* path, GtkTreeViewColumn* column, gpointer user_data)
 {
   MainWindow *mw = static_cast<MainWindow*> (user_data);
+  if (!mw->can_edit)
+  {
+    return;
+  }
+  mw->can_edit = false;
   gchar *p;
   p = gtk_tree_path_to_string(path);
-  std::string lol(p);
+  std::string spath(p);
   g_free(p);
-  std::cout << lol << "\n";
-  std::cout << mw->getAnaliser()->GetKML()->findFromTreeView(lol)->GetName() << "\n";
+  mw->showEditNode(mw->getAnaliser()->GetKML()->findFromTreeView(spath));
+}
+
+void MainWindow::showEditNode(node* n)
+{
+  MainWindow::node_edit = n;
+  GtkWidget *edit = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+  std::string window_name = ("Edycja obiektu " + n->getSubName() + " typu " + n->GetName());
+  gtk_window_set_title(GTK_WINDOW(edit), window_name.c_str());
+  gtk_widget_set_size_request(edit, 500, 100);
+
+
+  /* ustawienie 1*/
+  GtkWidget *hbox, *vbox;
+  vbox = gtk_vbox_new(GTK_ORIENTATION_VERTICAL, 1);
+  hbox = gtk_hbox_new(GTK_ORIENTATION_HORIZONTAL, 1);
+  gtk_container_add(GTK_CONTAINER(edit), vbox);
+
+  n->paintEditWindow(vbox);
+  gtk_box_pack_end(GTK_BOX(vbox), hbox, TRUE, TRUE, 4);
+
+  /*przyciski*/
+  GtkWidget *button_ok, *button_cancel, *button_apply;
+  button_ok = gtk_button_new_with_label("OK");
+  button_cancel = gtk_button_new_with_label("Anuluj");
+  button_apply = gtk_button_new_with_label("Zastosuj");
+  g_signal_connect(G_OBJECT(button_apply), "clicked", G_CALLBACK(editButtonApply), this);
+  g_signal_connect(G_OBJECT(button_ok), "clicked", G_CALLBACK(editButtonOk), this);
+  g_signal_connect(G_OBJECT(button_cancel), "clicked", G_CALLBACK(editButtonCancel), this);
+
+  /*ustawienie*/
+  gtk_box_pack_start(GTK_BOX(hbox), button_cancel, TRUE, TRUE, 5);
+  gtk_box_pack_start(GTK_BOX(hbox), button_apply, TRUE, TRUE, 5);
+  gtk_box_pack_start(GTK_BOX(hbox), button_ok, TRUE, TRUE, 5);
+
+  gtk_widget_show_all(edit);
+}
+
+void MainWindow::editButtonApply(GtkWidget* widget, gpointer data)
+{
+  MainWindow *mw = static_cast<MainWindow*> (data);
+  node_edit->saveFromEditWindow(widget->parent->parent);
+}
+
+void MainWindow::editButtonCancel(GtkWidget* widget, gpointer data)
+{
+  MainWindow *mw = static_cast<MainWindow*> (data);
+  mw->can_edit = true;
+  gtk_widget_destroy(widget->parent->parent->parent);
+}
+
+void MainWindow::editButtonOk(GtkWidget* widget, gpointer data)
+{
+  MainWindow *mw = static_cast<MainWindow*> (data);
+  mw->can_edit = true;
+  node_edit->saveFromEditWindow(widget->parent->parent);
+  gtk_widget_destroy(widget->parent->parent->parent);
 }
