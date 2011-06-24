@@ -106,3 +106,34 @@ std::string IconStyle::getYunits()
   }
   return "";
 }
+
+void IconStyle::paintEditWindow(GtkWidget* box)
+{
+  paintColor();
+  paintIcon();
+}
+
+void IconStyle::saveFromEditWindow(GtkWidget* box)
+{
+  GList * list;
+  GtkWidget *hbox;
+  GtkWidget *entry;
+  std::string text;
+
+  /*id*/
+  list = gtk_container_get_children(GTK_CONTAINER(box));
+  hbox = GTK_WIDGET(g_list_nth_data(list, 0));
+  list = gtk_container_get_children(GTK_CONTAINER(hbox));
+  entry = GTK_WIDGET(g_list_nth_data(list, 1));
+  text = gtk_entry_get_text(GTK_ENTRY(entry));
+  setColor(text);
+  
+  /* name*/
+  list = gtk_container_get_children(GTK_CONTAINER(box));
+  hbox = GTK_WIDGET(g_list_nth_data(list, 1));
+  list = gtk_container_get_children(GTK_CONTAINER(hbox));
+  entry = GTK_WIDGET(g_list_nth_data(list, 1));
+  text = gtk_entry_get_text(GTK_ENTRY(entry));
+  setIcon(text);
+
+}

@@ -558,3 +558,123 @@ void node::paintId(GtkWidget* box)
   gtk_entry_set_text(GTK_ENTRY(entry), id.c_str());
   gtk_box_pack_end(GTK_BOX(hbox), entry, 1, 1, 2);
 }
+
+void node::paintColor(GtkWidget* box)
+{
+  std::list<node*>::const_iterator it, end;
+  end = children.end();
+
+  Color *color = 0;
+
+  for (it = children.begin(); it != end; it++)
+  {
+    if (dynamic_cast<Color*> (*it))
+    {
+      color = dynamic_cast<Color*> (*it);
+    }
+  }
+  GtkWidget *hbox = gtk_hbox_new(GTK_ORIENTATION_VERTICAL, 1);
+  gtk_box_pack_start(GTK_BOX(box), hbox, 1, 1, 2);
+  GtkWidget *label = gtk_label_new("Color: ");
+  gtk_box_pack_start(GTK_BOX(hbox), label, 1, 1, 2);
+  GtkWidget *entry = gtk_entry_new();
+  if (color)
+  {
+    gtk_entry_set_text(GTK_ENTRY(entry), color->getText().c_str());
+  }
+  else
+  {
+    gtk_entry_set_text(GTK_ENTRY(entry), "");
+  }
+  gtk_box_pack_end(GTK_BOX(hbox), entry, 1, 1, 2);
+  return;
+}
+
+void node::paintIcon(GtkWidget* box)
+{
+  std::list<node*>::const_iterator it, end;
+  end = children.end();
+
+  Icon *icon = 0;
+
+  for (it = children.begin(); it != end; it++)
+  {
+    if (dynamic_cast<Icon*> (*it))
+    {
+      icon = dynamic_cast<Icon*> (*it);
+    }
+  }
+  GtkWidget *hbox = gtk_hbox_new(GTK_ORIENTATION_VERTICAL, 1);
+  gtk_box_pack_start(GTK_BOX(box), hbox, 1, 1, 2);
+  GtkWidget *label = gtk_label_new("Icon: ");
+  gtk_box_pack_start(GTK_BOX(hbox), label, 1, 1, 2);
+  GtkWidget *entry = gtk_entry_new();
+  if (icon)
+  {
+    gtk_entry_set_text(GTK_ENTRY(entry), icon->getText().c_str());
+  }
+  else
+  {
+    gtk_entry_set_text(GTK_ENTRY(entry), "");
+  }
+  gtk_box_pack_end(GTK_BOX(hbox), entry, 1, 1, 2);
+  return;
+}
+
+void node::setSubColor(std::string n)
+{
+  std::list<node*>::iterator it, end;
+  end = children.end();
+  if (n == "")
+  {
+    for (it = children.begin(); it != end; it++)
+    {
+      if (dynamic_cast<Color*> (*it))
+      {
+        delete (*it);
+        children.erase(it);
+        return;
+      }
+    }
+    return;
+  }
+
+  for (it = children.begin(); it != end; it++)
+  {
+    if (dynamic_cast<Color*> (*it))
+    {
+      dynamic_cast<Color*> (*it)->setText(n);
+      return;
+    }
+  }
+  AddChild(new Color(n));
+}
+
+void node::setSubIcon(std::string n)
+{
+  std::list<node*>::iterator it, end;
+  end = children.end();
+  if (n == "")
+  {
+    for (it = children.begin(); it != end; it++)
+    {
+      if (dynamic_cast<Icon*> (*it))
+      {
+        delete (*it);
+        children.erase(it);
+        return;
+      }
+    }
+    return;
+  }
+
+  for (it = children.begin(); it != end; it++)
+  {
+    if (dynamic_cast<Icon*> (*it))
+    {
+      dynamic_cast<Icon*> (*it)->setText(n);
+      return;
+    }
+  }
+  AddChild(new Icon(n));
+}

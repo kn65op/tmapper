@@ -46,6 +46,8 @@ public:
   void setDescription(std::string n);
   void setVisibility(std::string n);
   void setStyleUrl(std::string n);
+  void setColor(std::string n);
+  void setIcon(std::string n);
 
   std::list<node*> GetChildren() const
   {
@@ -117,6 +119,8 @@ protected:
   void drawChildren(cairo_t* cr, double a_x, double b_x, double a_y, double b_y, double *color);
 
   void paintName(GtkWidget *box);
+  void paintColor(GtkWidget *box);
+  void paintIcon(GtkWidget *box);
   void paintDescription(GtkWidget *box);
   void paintVisibility(GtkWidget *box);
   void paintStyleUrl(GtkWidget *box);

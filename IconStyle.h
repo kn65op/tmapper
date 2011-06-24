@@ -9,6 +9,7 @@
 #define	ICONSTYLE_H
 
 #include <string>
+#include <gtk-2.0/gtk/gtk.h>
 
 #include "node.h"
 

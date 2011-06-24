@@ -47,5 +47,8 @@ private:
   void init();
 };
 
+void editAddCor(GtkWidget *widget, gpointer data);
+void editRemCor(GtkWidget *widget, gpointer data);
+
 #endif	/* COORDINATES_H */
 

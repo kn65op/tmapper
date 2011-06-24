@@ -539,7 +539,7 @@ void MainWindow::canvas_button_press(GtkWidget* widget, GdkEventButton* event, g
   {
     // std::cout << "HEHE " << nr << "\n";
     //std::cout << event->x << " " << event->y << "\n";
-    if (nr == 1) //jeśli LPM to bierzemy jak jest jedne w okolicy //TODO zmiana
+    if (nr == 1) //jeśli LPM to bierzemy jak jest jedne w okolicy 
     {
       move_ok = true;
       move_nr = mw->act_nr;
@@ -555,6 +555,7 @@ void MainWindow::setCoord(GtkWidget* widget, gpointer data)
 {
   move_ok = true;
   move_nr = *(int*) data;
+  gtk_widget_destroy(widget->parent);
 }
 
 void MainWindow::canvas_button_release(GtkWidget* widget, GdkEventButton* event, gpointer data)
@@ -590,6 +591,7 @@ void MainWindow::mapCoordinates()
   coors_posx.clear();
   coors_posy.clear();
   coors_ptr.clear();
+  coors_nr.clear();
   analiser->GetKML()->mapCoordinates(this, a_x, b_x, a_y, b_y);
 }
 
@@ -620,7 +622,6 @@ void MainWindow::addCoordinate(double x, double y, Coordinates* cor, int nr)
   coors_posy.push_back(y);
   coors_ptr.push_back(cor);
   coors_nr.push_back(nr);
-
 }
 
 void MainWindow::tree_row_activated(GtkTreeView* tree_view, GtkTreePath* path, GtkTreeViewColumn* column, gpointer user_data)
@@ -644,7 +645,7 @@ void MainWindow::showEditNode(node* n)
   GtkWidget *edit = gtk_window_new(GTK_WINDOW_TOPLEVEL);
   std::string window_name = ("Edycja obiektu " + n->getSubName() + " typu " + n->GetName());
   gtk_window_set_title(GTK_WINDOW(edit), window_name.c_str());
-  gtk_widget_set_size_request(edit, 500, 100);
+  gtk_widget_set_size_request(edit, 800, 400);
   gtk_window_set_deletable(GTK_WINDOW(edit), FALSE);
 
 
