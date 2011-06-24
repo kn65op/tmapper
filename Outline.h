@@ -21,8 +21,8 @@ public:
   Outline(const Outline& orig);
   virtual ~Outline();
   
-  void setText(std::string t);
-  std::string getText();
+  void setVal(bool t);
+  bool getVal();
 
   bool getOutline();
 private:

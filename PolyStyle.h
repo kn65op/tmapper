@@ -19,9 +19,15 @@ public:
   PolyStyle(std::string *s);
   PolyStyle(const PolyStyle& orig);
   virtual ~PolyStyle();
+  
+  void paintEditWindow(GtkWidget *box);
+  void saveFromEditWindow(GtkWidget *box);
 
   bool getFill();
   bool getOutline();
+  
+  void noFillOk();
+  void noOutlineOk();
 
 private:
   void init();

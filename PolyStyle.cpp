@@ -88,3 +88,52 @@ bool PolyStyle::getOutline()
   outline = 0;
   return outline;
 }
+
+void PolyStyle::paintEditWindow(GtkWidget* box)
+{
+  paintColor(box);
+  paintFill(box);
+  paintOutline(box);
+}
+
+void PolyStyle::saveFromEditWindow(GtkWidget* box)
+{
+  GList * list;
+  GtkWidget *hbox;
+  GtkWidget *entry;
+  std::string text;
+
+  /*coloe*/
+  list = gtk_container_get_children(GTK_CONTAINER(box));
+  hbox = GTK_WIDGET(g_list_nth_data(list, 0));
+  list = gtk_container_get_children(GTK_CONTAINER(hbox));
+  entry = GTK_WIDGET(g_list_nth_data(list, 1));
+  text = gtk_entry_get_text(GTK_ENTRY(entry));
+  setColor(text);
+  
+  /* fill*/
+  list = gtk_container_get_children(GTK_CONTAINER(box));
+  hbox = GTK_WIDGET(g_list_nth_data(list, 1));
+  list = gtk_container_get_children(GTK_CONTAINER(hbox));
+  entry = GTK_WIDGET(g_list_nth_data(list, 1));
+  text = gtk_entry_get_text(GTK_ENTRY(entry));
+  setFill(text);
+
+  /*outline*/
+  list = gtk_container_get_children(GTK_CONTAINER(box));
+  hbox = GTK_WIDGET(g_list_nth_data(list, 2));
+  list = gtk_container_get_children(GTK_CONTAINER(hbox));
+  entry = GTK_WIDGET(g_list_nth_data(list, 1));
+  text = gtk_entry_get_text(GTK_ENTRY(entry));
+  setOutline(text);
+
+}
+void PolyStyle::noFillOk()
+{
+  fill_ok = false;
+}
+
+void PolyStyle::noOutlineOk()
+{
+  outline_ok = false;
+}

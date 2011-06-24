@@ -109,8 +109,9 @@ std::string IconStyle::getYunits()
 
 void IconStyle::paintEditWindow(GtkWidget* box)
 {
-  paintColor();
-  paintIcon();
+  paintColor(box);
+  paintIcon(box);
+  paintHotspot(box);
 }
 
 void IconStyle::saveFromEditWindow(GtkWidget* box)
@@ -120,7 +121,7 @@ void IconStyle::saveFromEditWindow(GtkWidget* box)
   GtkWidget *entry;
   std::string text;
 
-  /*id*/
+  /*color*/
   list = gtk_container_get_children(GTK_CONTAINER(box));
   hbox = GTK_WIDGET(g_list_nth_data(list, 0));
   list = gtk_container_get_children(GTK_CONTAINER(hbox));
@@ -136,4 +137,28 @@ void IconStyle::saveFromEditWindow(GtkWidget* box)
   text = gtk_entry_get_text(GTK_ENTRY(entry));
   setIcon(text);
 
+  /* hotspot */
+  std::string x, y, xunits, yunits;
+  list = gtk_container_get_children(GTK_CONTAINER(box));
+  hbox = GTK_WIDGET(g_list_nth_data(list, 2));
+  list = gtk_container_get_children(GTK_CONTAINER(hbox));
+  entry = GTK_WIDGET(g_list_nth_data(list, 1));
+  x = gtk_entry_get_text(GTK_ENTRY(entry));
+  list = gtk_container_get_children(GTK_CONTAINER(box));
+  hbox = GTK_WIDGET(g_list_nth_data(list, 3));
+  list = gtk_container_get_children(GTK_CONTAINER(hbox));
+  entry = GTK_WIDGET(g_list_nth_data(list, 1));
+  y = gtk_entry_get_text(GTK_ENTRY(entry));
+  list = gtk_container_get_children(GTK_CONTAINER(box));
+  hbox = GTK_WIDGET(g_list_nth_data(list, 4));
+  list = gtk_container_get_children(GTK_CONTAINER(hbox));
+  entry = GTK_WIDGET(g_list_nth_data(list, 1));
+  xunits = gtk_entry_get_text(GTK_ENTRY(entry));
+  list = gtk_container_get_children(GTK_CONTAINER(box));
+  hbox = GTK_WIDGET(g_list_nth_data(list, 5));
+  list = gtk_container_get_children(GTK_CONTAINER(hbox));
+  entry = GTK_WIDGET(g_list_nth_data(list, 1));
+  yunits = gtk_entry_get_text(GTK_ENTRY(entry));
+  setHotspot(x, y, xunits, yunits);
+  
 }

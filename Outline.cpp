@@ -14,6 +14,7 @@ using namespace std;
 #include "node.h"
 #include "boolnode.h"
 #include "textnode.h"
+#include "PolyStyle.h"
 
 Outline::Outline()
 {
@@ -49,12 +50,14 @@ bool Outline::getOutline()
   return dynamic_cast<boolnode*>(children.front())->getVal();
 }
 
-std::string Outline::getText()
+bool Outline::getVal()
 {
-  return dynamic_cast<textnode*>(children.front())->getText();
+  return dynamic_cast<boolnode*>(children.front())->getVal
+          ();
 }
 
-void Outline::setText(std::string t)
+void Outline::setVal(bool t)
 {
-  return dynamic_cast<textnode*>(children.front())->setText(t);
+  dynamic_cast<PolyStyle*>(parent)->noOutlineOk();
+  return dynamic_cast<boolnode*>(children.front())->setVal(t);
 }

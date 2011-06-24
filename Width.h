@@ -21,10 +21,11 @@ public:
   Width(const Width& orig);
   virtual ~Width();
   
-  void setText(std::string t);
-  std::string getText();
+  
+  double getVal();
 
   double getWidth();
+  void setWidth(std::string w);
 private:
   void init();
 };

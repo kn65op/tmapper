@@ -30,6 +30,15 @@ Hotspot::Hotspot(const Hotspot& orig)
 {
 }
 
+Hotspot::Hotspot(std::string x, std::string y, std::string xunits, std::string yunits)
+{
+  setX(x);
+  setY(y);
+  setXunits(xunits);
+  setYunits(yunits);
+  init();
+}
+
 Hotspot::~Hotspot()
 {
 }
@@ -73,4 +82,12 @@ void Hotspot::makeTree(GtkTreeStore* treestore, GtkTreeIter* parent)
   gtk_tree_store_set(treestore, next, 0, ss3.str().c_str(), -1);
   delete next;
   delete t;
+}
+
+void Hotspot::setAll(std::string x, std::string y, std::string xunits, std::string yunits)
+{
+  setX(x);
+  setY(y);
+  setXunits(xunits);
+  setYunits(yunits);
 }

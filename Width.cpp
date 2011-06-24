@@ -14,6 +14,7 @@ using namespace std;
 #include "node.h"
 #include "numbernode.h"
 #include "textnode.h"
+#include "LineStyle.h"
 
 Width::Width()
 {
@@ -27,7 +28,7 @@ Width::Width(std::string *s) : node(s)
 
 Width::Width(std::string s)
 {
-  AddChild(new textnode(s));
+  AddChild(new numbernode(s));
   init();
 }
 
@@ -49,12 +50,13 @@ double Width::getWidth()
   return dynamic_cast<numbernode*>(children.front())->getVal();
 }
 
-std::string Width::getText()
+double Width::getVal()
 {
-  return dynamic_cast<textnode*>(children.front())->getText();
+  return dynamic_cast<numbernode*>(children.front())->getVal();
 }
 
-void Width::setText(std::string t)
+void Width::setWidth(std::string w)
 {
-  return dynamic_cast<textnode*>(children.front())->setText(t);
+  dynamic_cast<LineStyle*>(parent)->noWidthOk();
+  return dynamic_cast<numbernode*>(children.front())->setVal(w);
 }

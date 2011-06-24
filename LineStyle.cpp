@@ -63,3 +63,38 @@ double LineStyle::getWidth()
   width = 0;
   return width;
 }
+
+void LineStyle::paintEditWindow(GtkWidget* box)
+{
+  paintColor(box);
+  paintWidth(box);
+}
+
+void LineStyle::saveFromEditWindow(GtkWidget* box)
+{
+  GList * list;
+  GtkWidget *hbox;
+  GtkWidget *entry;
+  std::string text;
+
+  /*color*/
+  list = gtk_container_get_children(GTK_CONTAINER(box));
+  hbox = GTK_WIDGET(g_list_nth_data(list, 0));
+  list = gtk_container_get_children(GTK_CONTAINER(hbox));
+  entry = GTK_WIDGET(g_list_nth_data(list, 1));
+  text = gtk_entry_get_text(GTK_ENTRY(entry));
+  setColor(text);
+  
+  /* width*/
+  list = gtk_container_get_children(GTK_CONTAINER(box));
+  hbox = GTK_WIDGET(g_list_nth_data(list, 1));
+  list = gtk_container_get_children(GTK_CONTAINER(hbox));
+  entry = GTK_WIDGET(g_list_nth_data(list, 1));
+  text = gtk_entry_get_text(GTK_ENTRY(entry));
+  setWidth(text);
+}
+
+void LineStyle::noWidthOk()
+{
+  width_ok = false;
+}

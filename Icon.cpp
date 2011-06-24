@@ -27,7 +27,7 @@ Icon::Icon(std::string *s) : node(s)
 
 Icon::Icon(std::string s)
 {
-  AddChild(new textnode(s));
+  AddChild(new Href(s));
   init();
 }
 
@@ -58,12 +58,15 @@ std::string Icon::getImage()
   return "";
 }
 
-std::string Icon::getText()
+void Icon::setImage(std::string i)
 {
-  return dynamic_cast<textnode*>(children.front())->getText();
-}
-
-void Icon::setText(std::string t)
-{
-  return dynamic_cast<textnode*>(children.front())->setText(t);
+  std::list<node*>::const_iterator it, end;
+  end = children.end();
+  for (it = children.begin(); it != end; it++)
+  {
+    if (dynamic_cast<Href*>(*it))
+    {
+      dynamic_cast<Href*>(*it)->setText(i);
+    }
+  }
 }

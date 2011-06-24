@@ -1,13 +1,19 @@
 skalowanie - oddalanie, przybliżanie
 edycja - w widoku drzewa
-, icon_style +
 , line_style +
-, poly_style +
 , folder,  +
+style - id
 export do plików
 obsługa błedów - język
 poprawić zapis do pliku
 pasek stanu, wyświetlanie aktualnego położenia
+kolor dla icon
+visibility
+
+width 
+outline b
+fill b
+
 
 Usuwanie:
 usunięcie scale - na razie tylko w icon jest jeszcze label

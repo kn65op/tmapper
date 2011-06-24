@@ -49,10 +49,10 @@ void Point::draw(cairo_t* cr, double a_x, double b_x, double a_y, double b_y, do
     tmp = tmp->GetParent();
   }
 
-    IconStyle *is = dynamic_cast<Placemark*> (tmp)->getIconstyle();
+  IconStyle *is = dynamic_cast<Placemark*> (tmp)->getIconstyle();
 
   double *cor = (dynamic_cast<Coordinates*> (children.front()))->getCoordinates(0);
-
+  bool no_ic;
   //std::cout << a_x * (cor[0] - b_x) << " " << a_y * (cor[1] - b_y) << "\n";
 
   if (is) //jest ikona do pokazania
@@ -62,42 +62,51 @@ void Point::draw(cairo_t* cr, double a_x, double b_x, double a_y, double b_y, do
     cairo_surface_t *image;
     gint width, height;
     image = cairo_image_surface_create_from_png(is->getImage().c_str());
-    width = cairo_image_surface_get_width(image);
-    height = cairo_image_surface_get_height(image);
-    double x, y;
-    x = a_x * (cor[0] - b_x);
-    y = a_y * (cor[1] - b_y);
-    if (is->getXunits() == "\"fraction\"")
+    if (cairo_surface_status(image) != CAIRO_STATUS_FILE_NOT_FOUND)
     {
-      //std::cout << x << "\n";
-      //std::cout << is->getX() << "\n";
-      x -= (int)((double)width*is->getX());
+      no_ic = false;
+      width = cairo_image_surface_get_width(image);
+      height = cairo_image_surface_get_height(image);
+      double x, y;
+      x = a_x * (cor[0] - b_x);
+      y = a_y * (cor[1] - b_y);
+      if (is->getXunits() == "\"fraction\"")
+      {
+        //std::cout << x << "\n";
+        //std::cout << is->getX() << "\n";
+        x -= (int) ((double) width * is->getX());
+      }
+      else if (is->getXunits() == "\"insetPixels\"")
+      {
+        x += (int) is->getX() + width;
+      }
+      else if (is->getXunits() == "\"pixels\"")
+      {
+        x += (int) is->getX();
+      }
+      if (is->getYunits() == "\"fraction\"")
+      {
+        y -= (int) ((double) height * is->getY());
+      }
+      else if (is->getYunits() == "\"insetPixels\"")
+      {
+        y += (int) is->getY() + height;
+      }
+      else if (is->getYunits() == "\"pixels\"")
+      {
+        y += (int) is->getY();
+      }
+      cairo_set_source_surface(cr, image, x, y);
+      cairo_paint(cr);
+      cairo_surface_destroy(image);
     }
-    else if (is->getXunits() == "\"insetPixels\"")
+    else
     {
-      x += (int)is->getX() + width;
+      
+      no_ic = true;
     }
-    else if (is->getXunits() == "\"pixels\"")
-    {
-      x += (int)is->getX();
-    }
-    if (is->getYunits() == "\"fraction\"")
-    {
-      y -= (int)((double)height*is->getY());
-    }
-    else if (is->getYunits() == "\"insetPixels\"")
-    {
-      y += (int)is->getY() + height;
-    }
-    else if (is->getYunits() == "\"pixels\"")
-    {
-      y += (int)is->getY();
-    }
-    cairo_set_source_surface(cr, image, x, y);
-    cairo_paint(cr);
-    cairo_surface_destroy(image);
   }
-  else //nie ma ikony do pokazania
+  if (no_ic)
   {
     if (!color) //jak nie ma koloru to domyślny czarny
     {

@@ -19,11 +19,13 @@ class Hotspot : public node
 public:
   Hotspot();
   Hotspot(std::string *s);
+  Hotspot(std::string x, std::string y, std::string xunits, std::string yunits);
   Hotspot(const Hotspot& orig);
   virtual ~Hotspot();
 
   void saveToFile(std::string file, int level);
   void makeTree(GtkTreeStore* treestore, GtkTreeIter* parent);
+  void setAll(std::string x, std::string y, std::string xunits, std::string yunits);
 
   double getX() const
   {
@@ -40,6 +42,12 @@ public:
     if (x->find(".") != std::string::npos) x->replace(x->find("."), 1, ",");
     this->x = atof(x->substr(1, x->size()-2).c_str());
     delete x;
+  }
+  
+  void setX(std::string x)
+  {
+    if (x.find(".") != std::string::npos) x.replace(x.find("."), 1, ",");
+    this->x = atof(x.c_str());
   }
 
   std::string getXunits() const
@@ -73,6 +81,12 @@ public:
     if (y->find(".") != std::string::npos) y->replace(y->find("."), 1, ",");
     this->y = atof(y->substr(1, y->size()-2).c_str());
     delete y;
+  }
+
+  void setY(std::string y)
+  {
+    if (y.find(".") != std::string::npos) y.replace(y.find("."), 1, ",");
+    this->y = atof(y.c_str());
   }
 
   std::string getYunits() const

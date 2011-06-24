@@ -26,6 +26,12 @@
 #include "Description.h"
 #include "Visibility.h"
 #include "StyleURL.h"
+#include "Icon.h"
+#include "Color.h"
+#include "Hotspot.h"
+#include "Outline.h"
+#include "Fill.h"
+#include "Width.h"
 
 node::node() : id("")
 {
@@ -367,6 +373,7 @@ void node::paintDescription(GtkWidget* box)
   return;
 }
 
+
 void node::paintVisibility(GtkWidget* box)
 {
   std::list<node*>::const_iterator it, end;
@@ -611,17 +618,18 @@ void node::paintIcon(GtkWidget* box)
   GtkWidget *entry = gtk_entry_new();
   if (icon)
   {
-    gtk_entry_set_text(GTK_ENTRY(entry), icon->getText().c_str());
+    gtk_entry_set_text(GTK_ENTRY(entry), icon->getImage().c_str());
   }
   else
   {
     gtk_entry_set_text(GTK_ENTRY(entry), "");
   }
   gtk_box_pack_end(GTK_BOX(hbox), entry, 1, 1, 2);
+  std::cout << "Ai\n";
   return;
 }
 
-void node::setSubColor(std::string n)
+void node::setColor(std::string n)
 {
   std::list<node*>::iterator it, end;
   end = children.end();
@@ -650,7 +658,7 @@ void node::setSubColor(std::string n)
   AddChild(new Color(n));
 }
 
-void node::setSubIcon(std::string n)
+void node::setIcon(std::string n)
 {
   std::list<node*>::iterator it, end;
   end = children.end();
@@ -672,9 +680,299 @@ void node::setSubIcon(std::string n)
   {
     if (dynamic_cast<Icon*> (*it))
     {
-      dynamic_cast<Icon*> (*it)->setText(n);
+      dynamic_cast<Icon*> (*it)->setImage(n);
       return;
     }
   }
   AddChild(new Icon(n));
+}
+
+void node::paintHotspot(GtkWidget* box)
+{
+  std::list<node*>::const_iterator it, end;
+  end = children.end();
+
+  Hotspot *hotspot = 0;
+
+  for (it = children.begin(); it != end; it++)
+  {
+    if (dynamic_cast<Hotspot*> (*it))
+    {
+      hotspot = dynamic_cast<Hotspot*> (*it);
+    }
+  }
+  GtkWidget *hbox, *label, *entry;
+  //x
+  hbox = gtk_hbox_new(GTK_ORIENTATION_VERTICAL, 1);
+  gtk_box_pack_start(GTK_BOX(box), hbox, 1, 1, 2);
+  label = gtk_label_new("Hotspot x: ");
+  gtk_box_pack_start(GTK_BOX(hbox), label, 1, 1, 2);
+  entry = gtk_entry_new();
+  if (hotspot)
+  {
+    std::stringstream x;
+    x << hotspot->getX();
+    gtk_entry_set_text(GTK_ENTRY(entry), x.str().c_str());
+  }
+  else
+  {
+    gtk_entry_set_text(GTK_ENTRY(entry), "");
+  }
+  gtk_box_pack_end(GTK_BOX(hbox), entry, 1, 1, 2);
+  //y
+  hbox = gtk_hbox_new(GTK_ORIENTATION_VERTICAL, 1);
+  gtk_box_pack_start(GTK_BOX(box), hbox, 1, 1, 2);
+  label = gtk_label_new("Hotspot y: ");
+  gtk_box_pack_start(GTK_BOX(hbox), label, 1, 1, 2);
+  entry = gtk_entry_new();
+  if (hotspot)
+  {
+    std::stringstream x;
+    x << hotspot->getY();
+    gtk_entry_set_text(GTK_ENTRY(entry), x.str().c_str());
+  }
+  else
+  {
+    gtk_entry_set_text(GTK_ENTRY(entry), "");
+  }
+  gtk_box_pack_end(GTK_BOX(hbox), entry, 1, 1, 2);
+
+  //xunits
+  hbox = gtk_hbox_new(GTK_ORIENTATION_VERTICAL, 1);
+  gtk_box_pack_start(GTK_BOX(box), hbox, 1, 1, 2);
+  label = gtk_label_new("Hotspot xunits: ");
+  gtk_box_pack_start(GTK_BOX(hbox), label, 1, 1, 2);
+  entry = gtk_entry_new();
+  if (hotspot)
+  {
+    gtk_entry_set_text(GTK_ENTRY(entry), hotspot->getXunits().c_str());
+  }
+  else
+  {
+    gtk_entry_set_text(GTK_ENTRY(entry), "");
+  }
+  gtk_box_pack_end(GTK_BOX(hbox), entry, 1, 1, 2);
+
+  //yunits
+  hbox = gtk_hbox_new(GTK_ORIENTATION_VERTICAL, 1);
+  gtk_box_pack_start(GTK_BOX(box), hbox, 1, 1, 2);
+  label = gtk_label_new("Hotspot xunits: ");
+  gtk_box_pack_start(GTK_BOX(hbox), label, 1, 1, 2);
+  entry = gtk_entry_new();
+  if (hotspot)
+  {
+    gtk_entry_set_text(GTK_ENTRY(entry), hotspot->getYunits().c_str());
+  }
+  else
+  {
+    gtk_entry_set_text(GTK_ENTRY(entry), "");
+  }
+  gtk_box_pack_end(GTK_BOX(hbox), entry, 1, 1, 2);
+
+  std::cout << "Ai\n";
+  return;
+}
+
+void node::setHotspot(std::string x, std::string y, std::string xunits, std::string yunits)
+{
+  std::list<node*>::iterator it, end;
+  end = children.end();
+
+  for (it = children.begin(); it != end; it++)
+  {
+    if (dynamic_cast<Hotspot*> (*it))
+    {
+      dynamic_cast<Hotspot*> (*it)->setAll(x, y, xunits, yunits);
+      return;
+    }
+  }
+  AddChild(new Hotspot(x, y, xunits, yunits));
+}
+
+void node::setFill(std::string n)
+{
+  std::list<node*>::iterator it, end;
+  end = children.end();
+  if (n == "")
+  {
+    for (it = children.begin(); it != end; it++)
+    {
+      if (dynamic_cast<Fill*> (*it))
+      {
+        delete (*it);
+        children.erase(it);
+        return;
+      }
+    }
+    return;
+  }
+
+  for (it = children.begin(); it != end; it++)
+  {
+    if (dynamic_cast<Fill*> (*it))
+    {
+      bool b = atoi(n.c_str());
+      dynamic_cast<Fill*> (*it)->setVal(b);
+      return;
+    }
+  }
+  AddChild(new Fill(n));
+}
+
+void node::setOutline(std::string n)
+{
+  std::list<node*>::iterator it, end;
+  end = children.end();
+  if (n == "")
+  {
+    for (it = children.begin(); it != end; it++)
+    {
+      if (dynamic_cast<Outline*> (*it))
+      {
+        delete (*it);
+        children.erase(it);
+        return;
+      }
+    }
+    return;
+  }
+
+  for (it = children.begin(); it != end; it++)
+  {
+    if (dynamic_cast<Outline*> (*it))
+    {
+      bool b = atoi(n.c_str());
+      dynamic_cast<Outline*> (*it)->setVal(b);
+      return;
+    }
+  }
+  AddChild(new Outline(n));
+}
+
+void node::paintOutline(GtkWidget* box)
+{
+  std::list<node*>::const_iterator it, end;
+  end = children.end();
+
+  Outline *outline = 0;
+
+  for (it = children.begin(); it != end; it++)
+  {
+    if (dynamic_cast<Outline*> (*it))
+    {
+      outline = dynamic_cast<Outline*> (*it);
+    }
+  }
+  GtkWidget *hbox = gtk_hbox_new(GTK_ORIENTATION_VERTICAL, 1);
+  gtk_box_pack_start(GTK_BOX(box), hbox, 1, 1, 2);
+  GtkWidget *label = gtk_label_new("Outline: ");
+  gtk_box_pack_start(GTK_BOX(hbox), label, 1, 1, 2);
+  GtkWidget *entry = gtk_entry_new();
+  if (outline)
+  {
+    std::stringstream b;
+    b << outline->getVal();
+    gtk_entry_set_text(GTK_ENTRY(entry), b.str().c_str());
+  }
+  else
+  {
+    gtk_entry_set_text(GTK_ENTRY(entry), "");
+  }
+  gtk_box_pack_end(GTK_BOX(hbox), entry, 1, 1, 2);
+  return;
+}
+
+void node::paintFill(GtkWidget* box)
+{
+  std::list<node*>::const_iterator it, end;
+  end = children.end();
+
+  Fill *fill = 0;
+
+  for (it = children.begin(); it != end; it++)
+  {
+    if (dynamic_cast<Fill*> (*it))
+    {
+      fill = dynamic_cast<Fill*> (*it);
+    }
+  }
+  GtkWidget *hbox = gtk_hbox_new(GTK_ORIENTATION_VERTICAL, 1);
+  gtk_box_pack_start(GTK_BOX(box), hbox, 1, 1, 2);
+  GtkWidget *label = gtk_label_new("Fill: ");
+  gtk_box_pack_start(GTK_BOX(hbox), label, 1, 1, 2);
+  GtkWidget *entry = gtk_entry_new();
+  if (fill)
+  {
+    std::stringstream b;
+    b << fill->getVal();
+    gtk_entry_set_text(GTK_ENTRY(entry), b.str().c_str());
+  }
+  else
+  {
+    gtk_entry_set_text(GTK_ENTRY(entry), "");
+  }
+  gtk_box_pack_end(GTK_BOX(hbox), entry, 1, 1, 2);
+  return;
+}
+
+void node::paintWidth(GtkWidget* box)
+{
+  std::list<node*>::const_iterator it, end;
+  end = children.end();
+
+  Width *width = 0;
+
+  for (it = children.begin(); it != end; it++)
+  {
+    if (dynamic_cast<Width*> (*it))
+    {
+      width = dynamic_cast<Width*> (*it);
+    }
+  }
+  GtkWidget *hbox = gtk_hbox_new(GTK_ORIENTATION_VERTICAL, 1);
+  gtk_box_pack_start(GTK_BOX(box), hbox, 1, 1, 2);
+  GtkWidget *label = gtk_label_new("Width: ");
+  gtk_box_pack_start(GTK_BOX(hbox), label, 1, 1, 2);
+  GtkWidget *entry = gtk_entry_new();
+  if (width)
+  {
+    std::stringstream b;
+    b << width->getWidth();
+    gtk_entry_set_text(GTK_ENTRY(entry), b.str().c_str());
+  }
+  else
+  {
+    gtk_entry_set_text(GTK_ENTRY(entry), "");
+  }
+  gtk_box_pack_end(GTK_BOX(hbox), entry, 1, 1, 2);
+  return;
+}
+
+void node::setWidth(std::string n)
+{
+  std::list<node*>::iterator it, end;
+  end = children.end();
+  if (n == "")
+  {
+    for (it = children.begin(); it != end; it++)
+    {
+      if (dynamic_cast<Width*> (*it))
+      {
+        delete (*it);
+        children.erase(it);
+        return;
+      }
+    }
+    return;
+  }
+
+  for (it = children.begin(); it != end; it++)
+  {
+    if (dynamic_cast<Width*> (*it))
+    {
+      dynamic_cast<Width*> (*it)->setWidth(n);
+      return;
+    }
+  }
+  AddChild(new Width(n));
 }

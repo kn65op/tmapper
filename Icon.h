@@ -21,10 +21,8 @@ public:
   Icon(const Icon& orig);
   virtual ~Icon();
   
-  void setText(std::string t);
-  std::string getText();
-
   std::string getImage();
+  void setImage(std::string i);
 private:
   void init();
 };

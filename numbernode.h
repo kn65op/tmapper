@@ -18,18 +18,21 @@ class numbernode : public node
 public:
   numbernode();
   numbernode(std::string *s);
+  numbernode(std::string s);
   numbernode(const numbernode& orig);
   virtual ~numbernode();
 
   void saveToFile(std::string file, int level);
   void makeTree(GtkTreeStore* treestore, GtkTreeIter* parent);
+  
+  void setVal(std::string val);
 
-  int getVal() const
+  double getVal() const
   {
     return val;
   }
 
-  void setVal(int val)
+  void setVal(double val)
   {
     this->val = val;
   }

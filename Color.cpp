@@ -61,12 +61,6 @@ double* Color::getColor()
     //std::cout << col[i] << " int\n";
     color[3-i] = col[i]/255.0; // zamiana kolorów
   }
-  //for (int i = 0; i < 4; i++) std::cout << color[i] << "double";
-  //zamiana kolorów
-  /**color[0] = col[3]/255;
-  color[1] = col[2]/255;
-  color[2] = col[1]/255;
-  color[3] = col[0]/255;//*/
   color_ok = true;
   return color;
 }
@@ -78,5 +72,6 @@ std::string Color::getText()
 
 void Color::setText(std::string t)
 {
+  color_ok = false;
   return dynamic_cast<textnode*>(children.front())->setText(t);
 }

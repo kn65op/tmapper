@@ -14,6 +14,7 @@ using namespace std;
 #include "node.h"
 #include "boolnode.h"
 #include "textnode.h"
+#include "PolyStyle.h"
 
 Fill::Fill()
 {
@@ -49,12 +50,13 @@ bool Fill::getFill()
   return dynamic_cast<boolnode*>(children.front())->getVal();
 }
 
-std::string Fill::getText()
+bool Fill::getVal()
 {
-  return dynamic_cast<textnode*>(children.front())->getText();
+  return dynamic_cast<boolnode*>(children.front())->getVal();
 }
 
-void Fill::setText(std::string t)
+void Fill::setVal(bool t)
 {
-  return dynamic_cast<textnode*>(children.front())->setText(t);
+  dynamic_cast<PolyStyle*>(parent)->noFillOk();
+  return dynamic_cast<boolnode*>(children.front())->setVal(t);
 }

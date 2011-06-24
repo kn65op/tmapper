@@ -17,10 +17,12 @@ class Href : public node
 public:
   Href();
   Href(std::string *s);
+  Href(std::string s);
   Href(const Href& orig);
   virtual ~Href();
 
   std::string getText();
+  void setText(std::string t);
 private:
   void init();
 };

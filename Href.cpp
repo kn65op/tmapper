@@ -24,6 +24,12 @@ Href::Href(std::string *s) : node(s)
   init();
 }
 
+Href::Href(std::string s)
+{
+  AddChild(new textnode(s));
+  init();
+}
+
 Href::Href(const Href& orig)
 {
 }
@@ -40,4 +46,9 @@ void Href::init()
 std::string Href::getText()
 {
   return dynamic_cast<textnode*> (children.front())->getText();
+}
+
+void Href::setText(std::string t)
+{
+  return dynamic_cast<textnode*>(children.front())->setText(t);
 }

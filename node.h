@@ -45,9 +45,13 @@ public:
   
   void setDescription(std::string n);
   void setVisibility(std::string n);
+  void setOutline(std::string n);
+  void setFill(std::string n);
   void setStyleUrl(std::string n);
   void setColor(std::string n);
   void setIcon(std::string n);
+  void setWidth(std::string n);
+  void setHotspot(std::string x, std::string y, std::string xunits, std::string yunits);
 
   std::list<node*> GetChildren() const
   {
@@ -125,6 +129,10 @@ protected:
   void paintVisibility(GtkWidget *box);
   void paintStyleUrl(GtkWidget *box);
   void paintId(GtkWidget *box);
+  void paintHotspot(GtkWidget *box);
+  void paintFill(GtkWidget *box);
+  void paintOutline(GtkWidget *box);
+  void paintWidth(GtkWidget *box);
 };
 
 #endif	/* NODE_H */

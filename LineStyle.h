@@ -19,8 +19,13 @@ public:
   LineStyle(std::string *s);
   LineStyle(const LineStyle& orig);
   virtual ~LineStyle();
-
+  
+  void paintEditWindow(GtkWidget *box);
+  void saveFromEditWindow(GtkWidget *box);
+  
   double getWidth();
+  
+  void noWidthOk();
 
 private:
   void init();

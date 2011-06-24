@@ -30,6 +30,13 @@ numbernode::numbernode(std::string *s)
   init();
 }
 
+numbernode::numbernode(std::string s)
+{
+  if (s.find(".") != std::string::npos) s.replace(s.find("."), 1, ",");
+  val = atof(s.c_str());
+  init();
+}
+
 numbernode::numbernode(const numbernode& orig)
 {
 }
@@ -58,4 +65,11 @@ void numbernode::makeTree(GtkTreeStore* treestore, GtkTreeIter* parent)
   gtk_tree_store_append(treestore, next, parent);
   gtk_tree_store_set(treestore, next, 0, ss.str().c_str(), -1);
   delete next;
+}
+
+void numbernode::setVal(std::string val)
+{
+  if (val.find(".") != std::string::npos) val.replace(val.find("."), 1, ",");
+  this->val = atof(val.c_str());
+  std::cout << this->val << "\n";
 }

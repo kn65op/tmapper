@@ -21,8 +21,8 @@ public:
   Fill(const Fill& orig);
   virtual ~Fill();
   
-  void setText(std::string t);
-  std::string getText();
+  void setVal(bool t);
+  bool getVal();
 
   bool getFill();
 private:
