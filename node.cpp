@@ -138,7 +138,21 @@ void node::saveOpeningTag(std::ofstream& of)
 
 void node::draw(cairo_t* cr, double a_x, double b_x, double a_y, double b_y, double *color)
 {
-  drawChildren(cr, a_x, b_x, a_y, b_y, color);
+  bool vis = true;
+  std::list<node*>::const_iterator it, end;
+  end = children.end();
+  for (it = children.begin(); it != end; it++)
+  {
+    if (dynamic_cast<Visibility*> (*it))
+    {
+      vis = dynamic_cast<Visibility*> (*it)->getVal();
+    }
+  }
+  std::cout << name << " " << vis << "\n";
+  if (vis)
+  {
+    drawChildren(cr, a_x, b_x, a_y, b_y, color);
+  }
 }
 
 void node::findHW(double& max_x, double& min_x, double& max_y, double& min_y)
@@ -372,7 +386,6 @@ void node::paintDescription(GtkWidget* box)
   gtk_box_pack_end(GTK_BOX(hbox), entry, 1, 1, 2);
   return;
 }
-
 
 void node::paintVisibility(GtkWidget* box)
 {

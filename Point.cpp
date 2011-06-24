@@ -108,7 +108,12 @@ void Point::draw(cairo_t* cr, double a_x, double b_x, double a_y, double b_y, do
   }
   if (no_ic)
   {
-    if (!color) //jak nie ma koloru to domyślny czarny
+    if (is && is->getColor())
+    {
+      double *col = is->getColor();
+      cairo_set_source_rgba(cr, col[0], col[1], col[2], col[3]);
+    }
+    else if (!color) //jak nie ma koloru to domyślny czarny
     {
       cairo_set_source_rgb(cr, 0, 0, 0);
     }
