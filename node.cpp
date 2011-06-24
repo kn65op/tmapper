@@ -555,15 +555,6 @@ void node::paintId(GtkWidget* box)
   GtkWidget *label = gtk_label_new("Id: ");
   gtk_box_pack_start(GTK_BOX(hbox), label, 1, 1, 2);
   GtkWidget *entry = gtk_entry_new();
-  if (id != "")
-  {
-    std::stringstream b;
-    b << visibility->getVal();
-    gtk_entry_set_text(GTK_ENTRY(entry), b.str().c_str());
-  }
-  else
-  {
-    gtk_entry_set_text(GTK_ENTRY(entry), "");
-  }
+  gtk_entry_set_text(GTK_ENTRY(entry), id.c_str());
   gtk_box_pack_end(GTK_BOX(hbox), entry, 1, 1, 2);
 }

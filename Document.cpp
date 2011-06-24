@@ -19,7 +19,7 @@ Document::Document()
   init();
 }
 
-Document::Document(std::string* s) :node(s)
+Document::Document(std::string* s) : node(s)
 {
   init();
 }
@@ -44,6 +44,7 @@ void Document::init()
 
 void Document::paintEditWindow(GtkWidget* box)
 {
+  paintId(box);
   paintName(box);
   paintDescription(box);
   paintVisibility(box);
@@ -55,26 +56,34 @@ void Document::saveFromEditWindow(GtkWidget* box)
   GtkWidget *hbox;
   GtkWidget *entry;
   std::string text;
-    
-  /* name*/
+
+  /*id*/
   list = gtk_container_get_children(GTK_CONTAINER(box));
   hbox = GTK_WIDGET(g_list_nth_data(list, 0));
   list = gtk_container_get_children(GTK_CONTAINER(hbox));
   entry = GTK_WIDGET(g_list_nth_data(list, 1));
   text = gtk_entry_get_text(GTK_ENTRY(entry));
-  setSubName(text);
+  SetId(text);
   
-  /*description*/
+  /* name*/
   list = gtk_container_get_children(GTK_CONTAINER(box));
   hbox = GTK_WIDGET(g_list_nth_data(list, 1));
   list = gtk_container_get_children(GTK_CONTAINER(hbox));
   entry = GTK_WIDGET(g_list_nth_data(list, 1));
   text = gtk_entry_get_text(GTK_ENTRY(entry));
-  setDescription(text);
-  
-  /*visibility*/
+  setSubName(text);
+
+  /*description*/
   list = gtk_container_get_children(GTK_CONTAINER(box));
   hbox = GTK_WIDGET(g_list_nth_data(list, 2));
+  list = gtk_container_get_children(GTK_CONTAINER(hbox));
+  entry = GTK_WIDGET(g_list_nth_data(list, 1));
+  text = gtk_entry_get_text(GTK_ENTRY(entry));
+  setDescription(text);
+
+  /*visibility*/
+  list = gtk_container_get_children(GTK_CONTAINER(box));
+  hbox = GTK_WIDGET(g_list_nth_data(list, 3));
   list = gtk_container_get_children(GTK_CONTAINER(hbox));
   entry = GTK_WIDGET(g_list_nth_data(list, 1));
   text = gtk_entry_get_text(GTK_ENTRY(entry));

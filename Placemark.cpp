@@ -38,6 +38,7 @@ void Placemark::init()
 
 void Placemark::paintEditWindow(GtkWidget* box)
 {
+  paintId(box);
   paintName(box);
   paintDescription(box);
   paintVisibility(box);
@@ -50,10 +51,18 @@ void Placemark::saveFromEditWindow(GtkWidget* box)
   GtkWidget *hbox;
   GtkWidget *entry;
   std::string text;
-    
-  /* name*/
+  
+  /* id*/
   list = gtk_container_get_children(GTK_CONTAINER(box));
   hbox = GTK_WIDGET(g_list_nth_data(list, 0));
+  list = gtk_container_get_children(GTK_CONTAINER(hbox));
+  entry = GTK_WIDGET(g_list_nth_data(list, 1));
+  text = gtk_entry_get_text(GTK_ENTRY(entry));
+  SetId(text);
+  
+  /* name*/
+  list = gtk_container_get_children(GTK_CONTAINER(box));
+  hbox = GTK_WIDGET(g_list_nth_data(list, 1));
   list = gtk_container_get_children(GTK_CONTAINER(hbox));
   entry = GTK_WIDGET(g_list_nth_data(list, 1));
   text = gtk_entry_get_text(GTK_ENTRY(entry));
@@ -61,7 +70,7 @@ void Placemark::saveFromEditWindow(GtkWidget* box)
   
   /*description*/
   list = gtk_container_get_children(GTK_CONTAINER(box));
-  hbox = GTK_WIDGET(g_list_nth_data(list, 1));
+  hbox = GTK_WIDGET(g_list_nth_data(list, 2));
   list = gtk_container_get_children(GTK_CONTAINER(hbox));
   entry = GTK_WIDGET(g_list_nth_data(list, 1));
   text = gtk_entry_get_text(GTK_ENTRY(entry));
@@ -69,7 +78,7 @@ void Placemark::saveFromEditWindow(GtkWidget* box)
   
   /*visibility*/
   list = gtk_container_get_children(GTK_CONTAINER(box));
-  hbox = GTK_WIDGET(g_list_nth_data(list, 2));
+  hbox = GTK_WIDGET(g_list_nth_data(list, 3));
   list = gtk_container_get_children(GTK_CONTAINER(hbox));
   entry = GTK_WIDGET(g_list_nth_data(list, 1));
   text = gtk_entry_get_text(GTK_ENTRY(entry));
@@ -77,7 +86,7 @@ void Placemark::saveFromEditWindow(GtkWidget* box)
   
   /*styleurl*/
   list = gtk_container_get_children(GTK_CONTAINER(box));
-  hbox = GTK_WIDGET(g_list_nth_data(list, 3));
+  hbox = GTK_WIDGET(g_list_nth_data(list, 4));
   list = gtk_container_get_children(GTK_CONTAINER(hbox));
   entry = GTK_WIDGET(g_list_nth_data(list, 1));
   text = gtk_entry_get_text(GTK_ENTRY(entry));
