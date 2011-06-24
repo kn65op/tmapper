@@ -9,11 +9,13 @@
 #define	PLACEMARK_H
 
 #include "node.h"
-#include "LabelStyle.h"
-#include "IconStyle.h"
-#include "LineStyle.h"
-#include "PolyStyle.h"
-#include "Icon.h"
+
+class LabelStyle;
+class IconStyle;
+class LineStyle;
+class PolyStyle;
+class Icon;
+class KML;
 
 #include <string>
 #include <gtk-2.0/gtk/gtk.h>
@@ -26,8 +28,11 @@ public:
   Placemark(const Placemark& orig);
   virtual ~Placemark();
   
+  void removeStyle(KML *kml);
+  
   void paintEditWindow(GtkWidget *box);
   void saveFromEditWindow(GtkWidget *box);
+  
   
   IconStyle* getIconstyle() const
   {

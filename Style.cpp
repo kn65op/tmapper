@@ -43,6 +43,10 @@ void Style::init()
 
 void Style::searchStyle(KML* kml)
 {
+  labelstyle = 0;
+  polystyle = 0;
+  iconstyle = 0;
+  linestyle = 0;
   kml->addStyle(id, this);
   std::list<node*>::const_iterator it, end;
   end = children.end();
@@ -65,4 +69,25 @@ void Style::searchStyle(KML* kml)
       linestyle = dynamic_cast<LineStyle*> (*it);
     }
   }
+}
+
+void Style::paintEditWindow(GtkWidget* box)
+{
+  paintId(box);
+}
+
+void Style::saveFromEditWindow(GtkWidget* box)
+{
+  GList * list;
+  GtkWidget *hbox;
+  GtkWidget *entry;
+  std::string text;
+
+  /*id*/
+  list = gtk_container_get_children(GTK_CONTAINER(box));
+  hbox = GTK_WIDGET(g_list_nth_data(list, 0));
+  list = gtk_container_get_children(GTK_CONTAINER(hbox));
+  entry = GTK_WIDGET(g_list_nth_data(list, 1));
+  text = gtk_entry_get_text(GTK_ENTRY(entry));
+  SetId(text);
 }

@@ -52,7 +52,7 @@ void Point::draw(cairo_t* cr, double a_x, double b_x, double a_y, double b_y, do
   IconStyle *is = dynamic_cast<Placemark*> (tmp)->getIconstyle();
 
   double *cor = (dynamic_cast<Coordinates*> (children.front()))->getCoordinates(0);
-  bool no_ic;
+  bool no_ic =true;
   //std::cout << a_x * (cor[0] - b_x) << " " << a_y * (cor[1] - b_y) << "\n";
 
   if (is) //jest ikona do pokazania

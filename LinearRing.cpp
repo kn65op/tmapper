@@ -11,6 +11,7 @@
 #include "Coordinates.h"
 #include "PolyStyle.h"
 #include "Placemark.h"
+#include "LineStyle.h"
 
 #include <cairo/cairo.h>
 

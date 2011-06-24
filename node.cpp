@@ -976,3 +976,13 @@ void node::setWidth(std::string n)
   }
   AddChild(new Width(n));
 }
+
+void node::removeStyle(KML* kml)
+{
+  std::list<node*>::const_iterator it, end;
+  end = children.end();
+  for (it = children.begin(); it != end; it++)
+  {
+    (*it)->removeStyle(kml);
+  }
+}

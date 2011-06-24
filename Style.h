@@ -17,13 +17,16 @@
 #include "PolyStyle.h"
 #include "KML.h"
 
-class Style :public node
+class Style : public node
 {
 public:
   Style();
   Style(std::string *s);
   Style(const Style& orig);
   virtual ~Style();
+
+  void paintEditWindow(GtkWidget *box);
+  void saveFromEditWindow(GtkWidget *box);
 
   void searchStyle(KML *kml);
 

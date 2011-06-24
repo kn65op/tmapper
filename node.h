@@ -33,6 +33,7 @@ public:
   virtual void draw(cairo_t* cr, double a_x, double b_x, double a_y, double b_y, double *color);
   virtual void findHW(double& max_x, double& min_x, double& max_y, double& min_y);
   virtual void searchStyle(KML* kml);
+  virtual void removeStyle(KML* kml);
   virtual void connectStyle(KML* kml);
   virtual void makeTree(GtkTreeStore* treestore, GtkTreeIter* parent);
   virtual void mapCoordinates(MainWindow *mw, double a_x, double b_x, double a_y, double b_y);

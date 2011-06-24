@@ -25,6 +25,7 @@
 #include "Coordinates.h"
 #include "Placemark.h"
 #include "node.h"
+#include "Style.h"
 //#include <gtkmm-2.4/gtkmm/main.h>
 
 using namespace std;

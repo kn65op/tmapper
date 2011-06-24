@@ -48,6 +48,9 @@ void KML::init()
 
 void KML::connectStyles()
 {
+  styles.clear();
+  //usuwanie starych
+  this->removeStyle(this);
   //wyszukiwanie styli
   this->searchStyle(this);
   //łaczenie styli z placemarkami

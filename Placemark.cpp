@@ -14,7 +14,7 @@ Placemark::Placemark()
   init();
 }
 
-Placemark::Placemark(std::string* s) :node(s)
+Placemark::Placemark(std::string* s) : node(s)
 {
   init();
 }
@@ -51,7 +51,7 @@ void Placemark::saveFromEditWindow(GtkWidget* box)
   GtkWidget *hbox;
   GtkWidget *entry;
   std::string text;
-  
+
   /* id*/
   list = gtk_container_get_children(GTK_CONTAINER(box));
   hbox = GTK_WIDGET(g_list_nth_data(list, 0));
@@ -59,7 +59,7 @@ void Placemark::saveFromEditWindow(GtkWidget* box)
   entry = GTK_WIDGET(g_list_nth_data(list, 1));
   text = gtk_entry_get_text(GTK_ENTRY(entry));
   SetId(text);
-  
+
   /* name*/
   list = gtk_container_get_children(GTK_CONTAINER(box));
   hbox = GTK_WIDGET(g_list_nth_data(list, 1));
@@ -67,7 +67,7 @@ void Placemark::saveFromEditWindow(GtkWidget* box)
   entry = GTK_WIDGET(g_list_nth_data(list, 1));
   text = gtk_entry_get_text(GTK_ENTRY(entry));
   setSubName(text);
-  
+
   /*description*/
   list = gtk_container_get_children(GTK_CONTAINER(box));
   hbox = GTK_WIDGET(g_list_nth_data(list, 2));
@@ -75,7 +75,7 @@ void Placemark::saveFromEditWindow(GtkWidget* box)
   entry = GTK_WIDGET(g_list_nth_data(list, 1));
   text = gtk_entry_get_text(GTK_ENTRY(entry));
   setDescription(text);
-  
+
   /*visibility*/
   list = gtk_container_get_children(GTK_CONTAINER(box));
   hbox = GTK_WIDGET(g_list_nth_data(list, 3));
@@ -83,7 +83,7 @@ void Placemark::saveFromEditWindow(GtkWidget* box)
   entry = GTK_WIDGET(g_list_nth_data(list, 1));
   text = gtk_entry_get_text(GTK_ENTRY(entry));
   setVisibility(text);
-  
+
   /*styleurl*/
   list = gtk_container_get_children(GTK_CONTAINER(box));
   hbox = GTK_WIDGET(g_list_nth_data(list, 4));
@@ -91,4 +91,12 @@ void Placemark::saveFromEditWindow(GtkWidget* box)
   entry = GTK_WIDGET(g_list_nth_data(list, 1));
   text = gtk_entry_get_text(GTK_ENTRY(entry));
   setStyleUrl(text);
+}
+
+void Placemark::removeStyle(KML* kml)
+{
+  labelstyle = 0;
+  polystyle = 0;
+  iconstyle = 0;
+  linestyle = 0;
 }
