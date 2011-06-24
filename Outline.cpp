@@ -13,6 +13,7 @@ using namespace std;
 
 #include "node.h"
 #include "boolnode.h"
+#include "textnode.h"
 
 Outline::Outline()
 {
@@ -21,6 +22,12 @@ Outline::Outline()
 
 Outline::Outline(std::string *s) : node(s)
 {
+  init();
+}
+
+Outline::Outline(std::string s)
+{
+  AddChild(new textnode(s));
   init();
 }
 
@@ -40,4 +47,14 @@ void Outline::init()
 bool Outline::getOutline()
 {
   return dynamic_cast<boolnode*>(children.front())->getVal();
+}
+
+std::string Outline::getText()
+{
+  return dynamic_cast<textnode*>(children.front())->getText();
+}
+
+void Outline::setText(std::string t)
+{
+  return dynamic_cast<textnode*>(children.front())->setText(t);
 }

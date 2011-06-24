@@ -13,6 +13,7 @@ using namespace std;
 
 #include "node.h"
 #include "boolnode.h"
+#include "textnode.h"
 
 Fill::Fill()
 {
@@ -21,6 +22,12 @@ Fill::Fill()
 
 Fill::Fill(std::string *s) : node(s)
 {
+  init();
+}
+
+Fill::Fill(std::string s)
+{
+  AddChild(new textnode(s));
   init();
 }
 
@@ -40,4 +47,14 @@ void Fill::init()
 bool Fill::getFill()
 {
   return dynamic_cast<boolnode*>(children.front())->getVal();
+}
+
+std::string Fill::getText()
+{
+  return dynamic_cast<textnode*>(children.front())->getText();
+}
+
+void Fill::setText(std::string t)
+{
+  return dynamic_cast<textnode*>(children.front())->setText(t);
 }

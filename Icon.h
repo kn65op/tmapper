@@ -17,8 +17,12 @@ class Icon : public node
 public:
   Icon();
   Icon(std::string *s);
+  Icon(std::string s);
   Icon(const Icon& orig);
   virtual ~Icon();
+  
+  void setText(std::string t);
+  std::string getText();
 
   std::string getImage();
 private:

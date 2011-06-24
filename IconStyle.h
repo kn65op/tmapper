@@ -19,6 +19,9 @@ public:
   IconStyle(std::string *s);
   IconStyle(const IconStyle& orig);
   virtual ~IconStyle();
+  
+  void paintEditWindow(GtkWidget *box);
+  void saveFromEditWindow(GtkWidget *box);
 
   std::string getImage();
 

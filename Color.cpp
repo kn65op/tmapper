@@ -25,6 +25,12 @@ Color::Color(std::string *s) : node(s)
   init();
 }
 
+Color::Color(std::string s)
+{
+  AddChild(new textnode(s));
+  init();
+}
+
 Color::Color(const Color& orig)
 {
 }
@@ -63,4 +69,14 @@ double* Color::getColor()
   color[3] = col[0]/255;//*/
   color_ok = true;
   return color;
+}
+
+std::string Color::getText()
+{
+  return dynamic_cast<textnode*>(children.front())->getText();
+}
+
+void Color::setText(std::string t)
+{
+  return dynamic_cast<textnode*>(children.front())->setText(t);
 }

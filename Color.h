@@ -17,8 +17,12 @@ class Color : public node
 public:
   Color();
   Color(std::string *s);
+  Color(std::string s);
   Color(const Color& orig);
   virtual ~Color();
+  
+  void setText(std::string t);
+  std::string getText();
 
   double* getColor();
 

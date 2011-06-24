@@ -36,7 +36,7 @@ Coordinates::Coordinates(const Coordinates& orig)
 
 Coordinates::~Coordinates()
 {
-  for (int i=0; i<coordinates.size(); i++)
+  for (int i = 0; i < coordinates.size(); i++)
   {
     delete [] coordinates[i];
   }
@@ -135,7 +135,7 @@ void Coordinates::mapCoordinates(MainWindow* mw, double a_x, double b_x, double 
 {
   vector<double*>::iterator it, end;
   end = coordinates.end();
-  int i=0;
+  int i = 0;
   for (it = coordinates.begin(); it != end; it++)
   {
     mw->addCoordinate(a_x * ((*it)[0] - b_x), a_y * ((*it)[1] - b_y), this, i);
@@ -146,4 +146,51 @@ void Coordinates::mapCoordinates(MainWindow* mw, double a_x, double b_x, double 
 node* Coordinates::findFromTreeView(std::string s)
 {
   return this;
+}
+
+void Coordinates::paintEditWindow(GtkWidget* box)
+{
+  vector<double*>::iterator it, end;
+  end = coordinates.end();
+  int i = 0;
+  for (it = coordinates.begin(); it != end; it++)
+  {
+    GtkWidget *hbox = gtk_hbox_new(GTK_ORIENTATION_VERTICAL, 1);
+    gtk_box_pack_start(GTK_BOX(box), hbox, 1, 1, 2);
+    for (int i = 0; i < 3; i++)
+    {
+      GtkWidget *entry = gtk_entry_new();
+      stringstream ss;
+      ss << (*it)[i];
+      gtk_entry_set_text(GTK_ENTRY(entry), ss.str().c_str());
+      gtk_box_pack_start(GTK_BOX(hbox), entry, 1, 1, 2);
+    }
+    GtkWidget *label = gtk_label_new("Coordinate: ");
+    gtk_box_pack_start(GTK_BOX(hbox), label, 1, 1, 2);
+  }
+}
+
+void Coordinates::saveFromEditWindow(GtkWidget* box)
+{
+  GList * list;
+  GtkWidget *hbox;
+  GtkWidget *entry;
+  std::string text;
+
+  vector<double*>::iterator it, end;
+  end = coordinates.end();
+  int i = 0;
+  for (it = coordinates.begin(); it != end; it++)
+  {
+    list = gtk_container_get_children(GTK_CONTAINER(box));
+    hbox = GTK_WIDGET(g_list_nth_data(list, 0));
+    list = gtk_container_get_children(GTK_CONTAINER(hbox));
+    for (int i = 0; i < 3; i++)
+    {
+      entry = GTK_WIDGET(g_list_nth_data(list, i));
+      text = gtk_entry_get_text(GTK_ENTRY(entry));
+      if (text.find(".") != std::string::npos) text.replace(text.find("."), 1, ",");
+      (*it)[i] = atof(text.c_str());
+    }
+  }
 }

@@ -30,6 +30,9 @@ public:
   void makeTree(GtkTreeStore* treestore, GtkTreeIter* parent);
   void mapCoordinates(MainWindow *mw,  double a_x, double b_x, double a_y, double b_y);
   node* findFromTreeView(std::string s);
+  
+  void paintEditWindow(GtkWidget* box);
+  void saveFromEditWindow(GtkWidget* box);
 
   int getSize() const;
 

@@ -17,8 +17,12 @@ class Outline : public node
 public:
   Outline();
   Outline(std::string *s);
+  Outline(std::string s);
   Outline(const Outline& orig);
   virtual ~Outline();
+  
+  void setText(std::string t);
+  std::string getText();
 
   bool getOutline();
 private:

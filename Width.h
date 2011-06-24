@@ -17,8 +17,12 @@ class Width : public node
 public:
   Width();
   Width(std::string *s);
+  Width(std::string s);
   Width(const Width& orig);
   virtual ~Width();
+  
+  void setText(std::string t);
+  std::string getText();
 
   double getWidth();
 private:

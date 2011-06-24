@@ -17,8 +17,12 @@ class Fill : public node
 public:
   Fill();
   Fill(std::string *s);
+  Fill(std::string s);
   Fill(const Fill& orig);
   virtual ~Fill();
+  
+  void setText(std::string t);
+  std::string getText();
 
   bool getFill();
 private:

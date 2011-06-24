@@ -13,6 +13,7 @@ using namespace std;
 
 #include "node.h"
 #include "Href.h"
+#include "textnode.h"
 
 Icon::Icon()
 {
@@ -21,6 +22,12 @@ Icon::Icon()
 
 Icon::Icon(std::string *s) : node(s)
 {
+  init();
+}
+
+Icon::Icon(std::string s)
+{
+  AddChild(new textnode(s));
   init();
 }
 
@@ -49,4 +56,14 @@ std::string Icon::getImage()
     }
   }
   return "";
+}
+
+std::string Icon::getText()
+{
+  return dynamic_cast<textnode*>(children.front())->getText();
+}
+
+void Icon::setText(std::string t)
+{
+  return dynamic_cast<textnode*>(children.front())->setText(t);
 }

@@ -100,7 +100,6 @@ void makeHotspot()
 %token ICON_STYLE_SYM
 %token LINEAR_RING_SYM
 %token HREF_SYM
-%token HEADING_SYM
 %token VISIBILITY_SYM
 %token WIDTH_SYM
 %token TAG_OPEN // '<'
@@ -416,28 +415,8 @@ last_element = last_element->GetParent()
 
 icon_style: /* empty */
 						| icon_style color_start color color_end
-						| icon_style heading_start heading heading_end
 						| icon_style icon_start icon icon_end
 						| icon_style hotspot
-;
-
-heading_start: TAG_OPEN HEADING_SYM options TAG_CLOSE
-{
-last_element->AddChild(new Heading($3));
-last_element = last_element->GetLastChild();
-}
-;
-
-heading: NUMBER
-{
-last_element->AddChild(new numbernode($1));
-}
-;
-
-heading_end: TAG_OPEN TAG_END HEADING_SYM TAG_CLOSE
-{
-last_element = last_element->GetParent()
-}
 ;
 
 icon_start: TAG_OPEN ICON_SYM options TAG_CLOSE

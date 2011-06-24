@@ -1,11 +1,9 @@
 skalowanie - oddalanie, przybliżanie
 edycja - w widoku drzewa - :coordinates
-, icon
-, hotspot
-, line_style
-, poly_style
-, folder, 
-id
+, icon_style +
+, line_style +
+, poly_style +
+, folder,  +
 export do plików
 obsługa błedów - język
 poprawić zapis do pliku
