@@ -18,8 +18,13 @@ class Visibility : public node
 public:
   Visibility();
   Visibility(std::string *s);
+  Visibility(std::string s);
   Visibility(const Visibility& orig);
   virtual ~Visibility();
+  
+  bool getVal();
+  void setVal(bool b);
+  
 private:
   void init();
 };

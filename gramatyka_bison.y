@@ -46,6 +46,7 @@
 
 	extern int yylex();
         extern int flush_lex(void);
+        extern void restart(void);
 	void yyerror(const char *s) { MainWindow::showError(s, flush_lex(), gui);/*std::cout << "ERROR: " << s << " in line: " << flush_lex() << "\n" ;*/}
 
 void makeHotspot()
@@ -116,6 +117,9 @@ void makeHotspot()
 %%
 
 input: kml_start kml kml_end 
+{
+restart();
+}
 ;
 
 kml_start: TAG_OPEN KML_SYM options TAG_CLOSE

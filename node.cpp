@@ -11,6 +11,11 @@
 #include <string>
 #include <gtk-2.0/gtk/gtk.h>
 #include <stdlib.h>
+#include <gtk-2.0/gtk/gtkhbox.h>
+#include <gtk-2.0/gtk/gtklabel.h>
+#include <gtk-2.0/gtk/gtkbox.h>
+#include <gtk-2.0/gtk/gtkentry.h>
+#include <sstream>
 
 #include "node.h"
 #include "textnode.h"
@@ -18,6 +23,9 @@
 #include "Color.h"
 #include "Name.h"
 #include "MainWindow.h"
+#include "Description.h"
+#include "Visibility.h"
+#include "StyleURL.h"
 
 node::node() : id("")
 {
@@ -294,5 +302,268 @@ void node::paintEditWindow(GtkWidget* box)
 
 void node::saveFromEditWindow(GtkWidget* box)
 {
-  
+
+}
+
+void node::paintName(GtkWidget* box)
+{
+  std::list<node*>::const_iterator it, end;
+  end = children.end();
+
+  Name *name = 0;
+
+  for (it = children.begin(); it != end; it++)
+  {
+    if (dynamic_cast<Name*> (*it))
+    {
+      name = dynamic_cast<Name*> (*it);
+    }
+  }
+  GtkWidget *hbox = gtk_hbox_new(GTK_ORIENTATION_VERTICAL, 1);
+  gtk_box_pack_start(GTK_BOX(box), hbox, 1, 1, 2);
+  GtkWidget *label = gtk_label_new("Name: ");
+  gtk_box_pack_start(GTK_BOX(hbox), label, 1, 1, 2);
+  GtkWidget *entry = gtk_entry_new();
+  if (name)
+  {
+    gtk_entry_set_text(GTK_ENTRY(entry), name->getText().c_str());
+  }
+  else
+  {
+    gtk_entry_set_text(GTK_ENTRY(entry), "");
+  }
+  gtk_box_pack_end(GTK_BOX(hbox), entry, 1, 1, 2);
+  return;
+}
+
+void node::paintDescription(GtkWidget* box)
+{
+  std::list<node*>::const_iterator it, end;
+  end = children.end();
+
+  Description *desc = 0;
+
+  for (it = children.begin(); it != end; it++)
+  {
+    if (dynamic_cast<Description*> (*it))
+    {
+      desc = dynamic_cast<Description*> (*it);
+    }
+  }
+  GtkWidget *hbox = gtk_hbox_new(GTK_ORIENTATION_VERTICAL, 1);
+  gtk_box_pack_start(GTK_BOX(box), hbox, 1, 1, 2);
+  GtkWidget *label = gtk_label_new("Description: ");
+  gtk_box_pack_start(GTK_BOX(hbox), label, 1, 1, 2);
+  GtkWidget *entry = gtk_entry_new();
+  if (desc)
+  {
+    gtk_entry_set_text(GTK_ENTRY(entry), desc->getText().c_str());
+  }
+  else
+  {
+    gtk_entry_set_text(GTK_ENTRY(entry), "");
+  }
+  gtk_box_pack_end(GTK_BOX(hbox), entry, 1, 1, 2);
+  return;
+}
+
+void node::paintVisibility(GtkWidget* box)
+{
+  std::list<node*>::const_iterator it, end;
+  end = children.end();
+
+  Visibility *visibility = 0;
+
+  for (it = children.begin(); it != end; it++)
+  {
+    if (dynamic_cast<Visibility*> (*it))
+    {
+      visibility = dynamic_cast<Visibility*> (*it);
+    }
+  }
+  GtkWidget *hbox = gtk_hbox_new(GTK_ORIENTATION_VERTICAL, 1);
+  gtk_box_pack_start(GTK_BOX(box), hbox, 1, 1, 2);
+  GtkWidget *label = gtk_label_new("Visibility: ");
+  gtk_box_pack_start(GTK_BOX(hbox), label, 1, 1, 2);
+  GtkWidget *entry = gtk_entry_new();
+  if (visibility)
+  {
+    std::stringstream b;
+    b << visibility->getVal();
+    gtk_entry_set_text(GTK_ENTRY(entry), b.str().c_str());
+  }
+  else
+  {
+    gtk_entry_set_text(GTK_ENTRY(entry), "");
+  }
+  gtk_box_pack_end(GTK_BOX(hbox), entry, 1, 1, 2);
+  return;
+}
+
+void node::paintStyleUrl(GtkWidget* box)
+{
+  std::list<node*>::const_iterator it, end;
+  end = children.end();
+
+  StyleURL *styleURL = 0;
+
+  for (it = children.begin(); it != end; it++)
+  {
+    if (dynamic_cast<StyleURL*> (*it))
+    {
+      styleURL = dynamic_cast<StyleURL*> (*it);
+    }
+  }
+  GtkWidget *hbox = gtk_hbox_new(GTK_ORIENTATION_VERTICAL, 1);
+  gtk_box_pack_start(GTK_BOX(box), hbox, 1, 1, 2);
+  GtkWidget *label = gtk_label_new("StyleURL: ");
+  gtk_box_pack_start(GTK_BOX(hbox), label, 1, 1, 2);
+  GtkWidget *entry = gtk_entry_new();
+  if (styleURL)
+  {
+    gtk_entry_set_text(GTK_ENTRY(entry), styleURL->getText().c_str());
+  }
+  else
+  {
+    gtk_entry_set_text(GTK_ENTRY(entry), "");
+  }
+  gtk_box_pack_end(GTK_BOX(hbox), entry, 1, 1, 2);
+  return;
+}
+
+void node::setSubName(std::string n)
+{
+  std::list<node*>::iterator it, end;
+  end = children.end();
+  if (n == "")
+  {
+    for (it = children.begin(); it != end; it++)
+    {
+      if (dynamic_cast<Name*> (*it))
+      {
+        delete (*it);
+        children.erase(it);
+        return;
+      }
+    }
+    return;
+  }
+
+  for (it = children.begin(); it != end; it++)
+  {
+    if (dynamic_cast<Name*> (*it))
+    {
+      dynamic_cast<Name*> (*it)->setText(n);
+      return;
+    }
+  }
+  AddChild(new Name(n));
+}
+
+void node::setDescription(std::string n)
+{
+  std::list<node*>::iterator it, end;
+  end = children.end();
+  if (n == "")
+  {
+    for (it = children.begin(); it != end; it++)
+    {
+      if (dynamic_cast<Description*> (*it))
+      {
+        delete (*it);
+        children.erase(it);
+        return;
+      }
+    }
+    return;
+  }
+
+  for (it = children.begin(); it != end; it++)
+  {
+    if (dynamic_cast<Description*> (*it))
+    {
+      dynamic_cast<Description*> (*it)->setText(n);
+      return;
+    }
+  }
+  AddChild(new Description(n));
+}
+
+void node::setVisibility(std::string n)
+{
+  std::list<node*>::iterator it, end;
+  end = children.end();
+  if (n == "")
+  {
+    for (it = children.begin(); it != end; it++)
+    {
+      if (dynamic_cast<Visibility*> (*it))
+      {
+        delete (*it);
+        children.erase(it);
+        return;
+      }
+    }
+    return;
+  }
+
+  for (it = children.begin(); it != end; it++)
+  {
+    if (dynamic_cast<Visibility*> (*it))
+    {
+      bool b = atoi(n.c_str());
+      dynamic_cast<Visibility*> (*it)->setVal(b);
+      return;
+    }
+  }
+  AddChild(new Visibility(n));
+}
+
+void node::setStyleUrl(std::string n)
+{
+  std::list<node*>::iterator it, end;
+  end = children.end();
+  if (n == "")
+  {
+    for (it = children.begin(); it != end; it++)
+    {
+      if (dynamic_cast<StyleURL*> (*it))
+      {
+        delete (*it);
+        children.erase(it);
+        return;
+      }
+    }
+    return;
+  }
+
+  for (it = children.begin(); it != end; it++)
+  {
+    if (dynamic_cast<StyleURL*> (*it))
+    {
+      dynamic_cast<StyleURL*> (*it)->setText(n);
+      return;
+    }
+  }
+  AddChild(new StyleURL(n));
+}
+
+void node::paintId(GtkWidget* box)
+{
+  GtkWidget *hbox = gtk_hbox_new(GTK_ORIENTATION_VERTICAL, 1);
+  gtk_box_pack_start(GTK_BOX(box), hbox, 1, 1, 2);
+  GtkWidget *label = gtk_label_new("Id: ");
+  gtk_box_pack_start(GTK_BOX(hbox), label, 1, 1, 2);
+  GtkWidget *entry = gtk_entry_new();
+  if (id != "")
+  {
+    std::stringstream b;
+    b << visibility->getVal();
+    gtk_entry_set_text(GTK_ENTRY(entry), b.str().c_str());
+  }
+  else
+  {
+    gtk_entry_set_text(GTK_ENTRY(entry), "");
+  }
+  gtk_box_pack_end(GTK_BOX(hbox), entry, 1, 1, 2);
 }

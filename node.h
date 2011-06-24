@@ -41,6 +41,11 @@ public:
   virtual void saveFromEditWindow(GtkWidget *box);
 
   std::string getSubName();
+  void setSubName(std::string n);
+  
+  void setDescription(std::string n);
+  void setVisibility(std::string n);
+  void setStyleUrl(std::string n);
 
   std::list<node*> GetChildren() const
   {
@@ -111,6 +116,11 @@ protected:
   void saveClosingTag(std::ofstream& of);
   void drawChildren(cairo_t* cr, double a_x, double b_x, double a_y, double b_y, double *color);
 
+  void paintName(GtkWidget *box);
+  void paintDescription(GtkWidget *box);
+  void paintVisibility(GtkWidget *box);
+  void paintStyleUrl(GtkWidget *box);
+  void paintId(GtkWidget *box);
 };
 
 #endif	/* NODE_H */

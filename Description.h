@@ -17,8 +17,13 @@ class Description : public node
 public:
   Description();
   Description(std::string* s);
+  Description(std::string s);
   Description(const Description& orig);
   virtual ~Description();
+  
+  void setText(std::string t);
+  std::string getText();
+  
 private:
   void init();
 };

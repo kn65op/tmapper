@@ -31,6 +31,12 @@ StyleURL::StyleURL(std::string* s) : node(s)
   init();
 }
 
+StyleURL::StyleURL(std::string s)
+{
+  AddChild(new textnode(s));
+  init();
+}
+
 StyleURL::StyleURL(const StyleURL& orig)
 {
 }
@@ -46,8 +52,12 @@ void StyleURL::init()
 
 void StyleURL::connectStyle(KML* kml)
 {
-  Style *style =dynamic_cast<Style*> (kml->getStyle(dynamic_cast<textnode*> (children.front())->getText().substr(1)));
-  if(!style)
+  dynamic_cast<Placemark*> (parent)->setIconstyle(0);
+  dynamic_cast<Placemark*> (parent)->setLabelstyle(0);
+  dynamic_cast<Placemark*> (parent)->setLinestyle(0);
+  dynamic_cast<Placemark*> (parent)->setPolystyle(0);
+  Style *style = dynamic_cast<Style*> (kml->getStyle(dynamic_cast<textnode*> (children.front())->getText().substr(1)));
+  if (!style)
   {
     return;
   }
@@ -67,4 +77,14 @@ void StyleURL::connectStyle(KML* kml)
   {
     dynamic_cast<Placemark*> (parent)->setLinestyle(style->getLinestyle());
   }
+}
+
+std::string StyleURL::getText()
+{
+  return dynamic_cast<textnode*> (children.front())->getText();
+}
+
+void StyleURL::setText(std::string t)
+{
+  return dynamic_cast<textnode*> (children.front())->setText(t);
 }

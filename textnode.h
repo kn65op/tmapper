@@ -18,6 +18,7 @@ class textnode :public node
 public:
   textnode();
   textnode(std::string *t);
+  textnode(std::string t);
   textnode(const textnode& orig);
   virtual ~textnode();
 

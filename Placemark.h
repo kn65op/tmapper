@@ -16,6 +16,7 @@
 #include "Icon.h"
 
 #include <string>
+#include <gtk-2.0/gtk/gtk.h>
 
 class Placemark: public node
 {
@@ -24,6 +25,9 @@ public:
   Placemark(std::string *s);
   Placemark(const Placemark& orig);
   virtual ~Placemark();
+  
+  void paintEditWindow(GtkWidget *box);
+  void saveFromEditWindow(GtkWidget *box);
   
   IconStyle* getIconstyle() const
   {

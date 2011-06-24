@@ -117,6 +117,7 @@
 
 	extern int yylex();
         extern int flush_lex(void);
+        extern void restart(void);
 	void yyerror(const char *s) { MainWindow::showError(s, flush_lex(), gui);/*std::cout << "ERROR: " << s << " in line: " << flush_lex() << "\n" ;*/}
 
 void makeHotspot()
@@ -130,7 +131,7 @@ void makeHotspot()
 
 
 /* Line 189 of yacc.c  */
-#line 134 "parser.cpp"
+#line 135 "parser.cpp"
 
 /* Enabling traces.  */
 #ifndef YYDEBUG
@@ -212,14 +213,14 @@ typedef union YYSTYPE
 {
 
 /* Line 214 of yacc.c  */
-#line 63 "gramatyka_bison.y"
+#line 64 "gramatyka_bison.y"
 
 		std::string *str;
 
 
 
 /* Line 214 of yacc.c  */
-#line 223 "parser.cpp"
+#line 224 "parser.cpp"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
@@ -231,7 +232,7 @@ typedef union YYSTYPE
 
 
 /* Line 264 of yacc.c  */
-#line 235 "parser.cpp"
+#line 236 "parser.cpp"
 
 #ifdef short
 # undef short
@@ -593,21 +594,21 @@ static const yytype_int16 yyrhs[] =
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint16 yyrline[] =
 {
-       0,   118,   118,   121,   132,   135,   136,   137,   138,   141,
-     148,   154,   155,   156,   157,   158,   159,   160,   163,   170,
-     176,   177,   178,   179,   180,   181,   182,   183,   184,   185,
-     188,   195,   201,   209,   216,   219,   226,   227,   230,   239,
-     245,   251,   258,   261,   267,   274,   277,   283,   290,   296,
-     302,   303,   306,   313,   316,   322,   329,   332,   339,   346,
-     347,   348,   349,   350,   351,   354,   360,   367,   373,   380,
-     387,   393,   394,   395,   396,   397,   400,   407,   413,   414,
-     415,   416,   417,   420,   427,   433,   439,   446,   447,   450,
-     456,   463,   469,   475,   481,   482,   487,   492,   497,   504,
-     511,   517,   518,   519,   522,   529,   535,   541,   548,   554,
-     555,   556,   559,   566,   572,   578,   585,   591,   592,   593,
-     594,   597,   604,   610,   616,   624,   630,   636,   643,   649,
-     655,   662,   668,   669,   670,   671,   672,   676,   683,   689,
-     697,   704,   710,   716,   717,   720,   721
+       0,   119,   119,   125,   136,   139,   140,   141,   142,   145,
+     152,   158,   159,   160,   161,   162,   163,   164,   167,   174,
+     180,   181,   182,   183,   184,   185,   186,   187,   188,   189,
+     192,   199,   205,   213,   220,   223,   230,   231,   234,   243,
+     249,   255,   262,   265,   271,   278,   281,   287,   294,   300,
+     306,   307,   310,   317,   320,   326,   333,   336,   343,   350,
+     351,   352,   353,   354,   355,   358,   364,   371,   377,   384,
+     391,   397,   398,   399,   400,   401,   404,   411,   417,   418,
+     419,   420,   421,   424,   431,   437,   443,   450,   451,   454,
+     460,   467,   473,   479,   485,   486,   491,   496,   501,   508,
+     515,   521,   522,   523,   526,   533,   539,   545,   552,   558,
+     559,   560,   563,   570,   576,   582,   589,   595,   596,   597,
+     598,   601,   608,   614,   620,   628,   634,   640,   647,   653,
+     659,   666,   672,   673,   674,   675,   676,   680,   687,   693,
+     701,   708,   714,   720,   721,   724,   725
 };
 #endif
 
@@ -1769,10 +1770,19 @@ yyreduce:
   YY_REDUCE_PRINT (yyn);
   switch (yyn)
     {
-        case 3:
+        case 2:
 
 /* Line 1455 of yacc.c  */
-#line 122 "gramatyka_bison.y"
+#line 120 "gramatyka_bison.y"
+    {
+restart();
+;}
+    break;
+
+  case 3:
+
+/* Line 1455 of yacc.c  */
+#line 126 "gramatyka_bison.y"
     {
   if (tree)
   {
@@ -1786,7 +1796,7 @@ yyreduce:
   case 9:
 
 /* Line 1455 of yacc.c  */
-#line 142 "gramatyka_bison.y"
+#line 146 "gramatyka_bison.y"
     {
 last_element->AddChild(new Document((yyvsp[(3) - (4)].str)));
 last_element = last_element->GetLastChild();
@@ -1796,7 +1806,7 @@ last_element = last_element->GetLastChild();
   case 10:
 
 /* Line 1455 of yacc.c  */
-#line 149 "gramatyka_bison.y"
+#line 153 "gramatyka_bison.y"
     {
 last_element = last_element->GetParent()
 ;}
@@ -1805,7 +1815,7 @@ last_element = last_element->GetParent()
   case 18:
 
 /* Line 1455 of yacc.c  */
-#line 164 "gramatyka_bison.y"
+#line 168 "gramatyka_bison.y"
     {
 last_element->AddChild(new Placemark((yyvsp[(3) - (4)].str)));
 last_element = last_element->GetLastChild();
@@ -1815,7 +1825,7 @@ last_element = last_element->GetLastChild();
   case 19:
 
 /* Line 1455 of yacc.c  */
-#line 171 "gramatyka_bison.y"
+#line 175 "gramatyka_bison.y"
     {
 last_element = last_element->GetParent();
 ;}
@@ -1824,7 +1834,7 @@ last_element = last_element->GetParent();
   case 30:
 
 /* Line 1455 of yacc.c  */
-#line 189 "gramatyka_bison.y"
+#line 193 "gramatyka_bison.y"
     {
 last_element->AddChild(new StyleURL((yyvsp[(3) - (4)].str)));
 last_element = last_element->GetLastChild();
@@ -1834,7 +1844,7 @@ last_element = last_element->GetLastChild();
   case 31:
 
 /* Line 1455 of yacc.c  */
-#line 196 "gramatyka_bison.y"
+#line 200 "gramatyka_bison.y"
     {
 last_element->AddChild(new textnode((yyvsp[(1) - (1)].str)));
 ;}
@@ -1843,7 +1853,7 @@ last_element->AddChild(new textnode((yyvsp[(1) - (1)].str)));
   case 32:
 
 /* Line 1455 of yacc.c  */
-#line 202 "gramatyka_bison.y"
+#line 206 "gramatyka_bison.y"
     {
 last_element = last_element->GetParent()
 ;}
@@ -1852,7 +1862,7 @@ last_element = last_element->GetParent()
   case 33:
 
 /* Line 1455 of yacc.c  */
-#line 210 "gramatyka_bison.y"
+#line 214 "gramatyka_bison.y"
     {
 last_element->AddChild(new Point((yyvsp[(3) - (4)].str)));
 last_element = last_element->GetLastChild();
@@ -1862,7 +1872,7 @@ last_element = last_element->GetLastChild();
   case 35:
 
 /* Line 1455 of yacc.c  */
-#line 220 "gramatyka_bison.y"
+#line 224 "gramatyka_bison.y"
     {
 last_element->AddChild(new Coordinates((yyvsp[(3) - (4)].str)));
 last_element = last_element->GetLastChild();
@@ -1872,7 +1882,7 @@ last_element = last_element->GetLastChild();
   case 38:
 
 /* Line 1455 of yacc.c  */
-#line 231 "gramatyka_bison.y"
+#line 235 "gramatyka_bison.y"
     {
 if (dynamic_cast<Coordinates*>(last_element))
 {
@@ -1884,7 +1894,7 @@ if (dynamic_cast<Coordinates*>(last_element))
   case 39:
 
 /* Line 1455 of yacc.c  */
-#line 240 "gramatyka_bison.y"
+#line 244 "gramatyka_bison.y"
     {
 last_element = last_element->GetParent()
 ;}
@@ -1893,7 +1903,7 @@ last_element = last_element->GetParent()
   case 40:
 
 /* Line 1455 of yacc.c  */
-#line 246 "gramatyka_bison.y"
+#line 250 "gramatyka_bison.y"
     {
 last_element = last_element->GetParent()
 ;}
@@ -1902,7 +1912,7 @@ last_element = last_element->GetParent()
   case 41:
 
 /* Line 1455 of yacc.c  */
-#line 252 "gramatyka_bison.y"
+#line 256 "gramatyka_bison.y"
     {
 last_element->AddChild(new LineString((yyvsp[(3) - (4)].str)));
 last_element = last_element->GetLastChild();
@@ -1912,7 +1922,7 @@ last_element = last_element->GetLastChild();
   case 43:
 
 /* Line 1455 of yacc.c  */
-#line 262 "gramatyka_bison.y"
+#line 266 "gramatyka_bison.y"
     {
 last_element = last_element->GetParent()
 ;}
@@ -1921,7 +1931,7 @@ last_element = last_element->GetParent()
   case 44:
 
 /* Line 1455 of yacc.c  */
-#line 268 "gramatyka_bison.y"
+#line 272 "gramatyka_bison.y"
     {
 last_element->AddChild(new LinearRing((yyvsp[(3) - (4)].str)));
 last_element = last_element->GetLastChild();
@@ -1931,7 +1941,7 @@ last_element = last_element->GetLastChild();
   case 46:
 
 /* Line 1455 of yacc.c  */
-#line 278 "gramatyka_bison.y"
+#line 282 "gramatyka_bison.y"
     {
 last_element = last_element->GetParent()
 ;}
@@ -1940,7 +1950,7 @@ last_element = last_element->GetParent()
   case 47:
 
 /* Line 1455 of yacc.c  */
-#line 284 "gramatyka_bison.y"
+#line 288 "gramatyka_bison.y"
     {
 last_element->AddChild(new Polygon((yyvsp[(3) - (4)].str)));
 last_element = last_element->GetLastChild();
@@ -1950,7 +1960,7 @@ last_element = last_element->GetLastChild();
   case 49:
 
 /* Line 1455 of yacc.c  */
-#line 297 "gramatyka_bison.y"
+#line 301 "gramatyka_bison.y"
     {
 last_element = last_element->GetParent()
 ;}
@@ -1959,7 +1969,7 @@ last_element = last_element->GetParent()
   case 52:
 
 /* Line 1455 of yacc.c  */
-#line 307 "gramatyka_bison.y"
+#line 311 "gramatyka_bison.y"
     {
 last_element->AddChild(new OuterBoundaryIs((yyvsp[(3) - (4)].str)));
 last_element = last_element->GetLastChild();
@@ -1969,7 +1979,7 @@ last_element = last_element->GetLastChild();
   case 54:
 
 /* Line 1455 of yacc.c  */
-#line 317 "gramatyka_bison.y"
+#line 321 "gramatyka_bison.y"
     {
 last_element = last_element->GetParent()
 ;}
@@ -1978,7 +1988,7 @@ last_element = last_element->GetParent()
   case 55:
 
 /* Line 1455 of yacc.c  */
-#line 323 "gramatyka_bison.y"
+#line 327 "gramatyka_bison.y"
     {
 last_element->AddChild(new InnerBoundaryIs((yyvsp[(3) - (4)].str)));
 last_element = last_element->GetLastChild();
@@ -1988,7 +1998,7 @@ last_element = last_element->GetLastChild();
   case 57:
 
 /* Line 1455 of yacc.c  */
-#line 333 "gramatyka_bison.y"
+#line 337 "gramatyka_bison.y"
     {
 last_element = last_element->GetParent()
 ;}
@@ -1997,7 +2007,7 @@ last_element = last_element->GetParent()
   case 58:
 
 /* Line 1455 of yacc.c  */
-#line 340 "gramatyka_bison.y"
+#line 344 "gramatyka_bison.y"
     {
 last_element->AddChild(new Multigeometry((yyvsp[(3) - (4)].str)));
 last_element = last_element->GetLastChild();
@@ -2007,7 +2017,7 @@ last_element = last_element->GetLastChild();
   case 65:
 
 /* Line 1455 of yacc.c  */
-#line 355 "gramatyka_bison.y"
+#line 359 "gramatyka_bison.y"
     {
 last_element = last_element->GetParent()
 ;}
@@ -2016,7 +2026,7 @@ last_element = last_element->GetParent()
   case 66:
 
 /* Line 1455 of yacc.c  */
-#line 361 "gramatyka_bison.y"
+#line 365 "gramatyka_bison.y"
     {
 last_element->AddChild(new Name((yyvsp[(3) - (4)].str)));
 last_element = last_element->GetLastChild();
@@ -2026,7 +2036,7 @@ last_element = last_element->GetLastChild();
   case 67:
 
 /* Line 1455 of yacc.c  */
-#line 368 "gramatyka_bison.y"
+#line 372 "gramatyka_bison.y"
     {
 last_element = last_element->GetParent()
 ;}
@@ -2035,7 +2045,7 @@ last_element = last_element->GetParent()
   case 68:
 
 /* Line 1455 of yacc.c  */
-#line 374 "gramatyka_bison.y"
+#line 378 "gramatyka_bison.y"
     {
 last_element->AddChild(new textnode((yyvsp[(1) - (1)].str)));
 ;}
@@ -2044,7 +2054,7 @@ last_element->AddChild(new textnode((yyvsp[(1) - (1)].str)));
   case 69:
 
 /* Line 1455 of yacc.c  */
-#line 381 "gramatyka_bison.y"
+#line 385 "gramatyka_bison.y"
     {
 last_element->AddChild(new Style((yyvsp[(3) - (4)].str)));
 last_element = last_element->GetLastChild();
@@ -2054,7 +2064,7 @@ last_element = last_element->GetLastChild();
   case 70:
 
 /* Line 1455 of yacc.c  */
-#line 388 "gramatyka_bison.y"
+#line 392 "gramatyka_bison.y"
     {
 last_element = last_element->GetParent()
 ;}
@@ -2063,7 +2073,7 @@ last_element = last_element->GetParent()
   case 76:
 
 /* Line 1455 of yacc.c  */
-#line 401 "gramatyka_bison.y"
+#line 405 "gramatyka_bison.y"
     {
 last_element->AddChild(new IconStyle((yyvsp[(3) - (4)].str)));
 last_element = last_element->GetLastChild();
@@ -2073,7 +2083,7 @@ last_element = last_element->GetLastChild();
   case 77:
 
 /* Line 1455 of yacc.c  */
-#line 408 "gramatyka_bison.y"
+#line 412 "gramatyka_bison.y"
     {
 last_element = last_element->GetParent()
 ;}
@@ -2082,7 +2092,7 @@ last_element = last_element->GetParent()
   case 83:
 
 /* Line 1455 of yacc.c  */
-#line 421 "gramatyka_bison.y"
+#line 425 "gramatyka_bison.y"
     {
 last_element->AddChild(new Heading((yyvsp[(3) - (4)].str)));
 last_element = last_element->GetLastChild();
@@ -2092,7 +2102,7 @@ last_element = last_element->GetLastChild();
   case 84:
 
 /* Line 1455 of yacc.c  */
-#line 428 "gramatyka_bison.y"
+#line 432 "gramatyka_bison.y"
     {
 last_element->AddChild(new numbernode((yyvsp[(1) - (1)].str)));
 ;}
@@ -2101,7 +2111,7 @@ last_element->AddChild(new numbernode((yyvsp[(1) - (1)].str)));
   case 85:
 
 /* Line 1455 of yacc.c  */
-#line 434 "gramatyka_bison.y"
+#line 438 "gramatyka_bison.y"
     {
 last_element = last_element->GetParent()
 ;}
@@ -2110,7 +2120,7 @@ last_element = last_element->GetParent()
   case 86:
 
 /* Line 1455 of yacc.c  */
-#line 440 "gramatyka_bison.y"
+#line 444 "gramatyka_bison.y"
     {
 last_element->AddChild(new Icon((yyvsp[(3) - (4)].str)));
 last_element = last_element->GetLastChild();
@@ -2120,7 +2130,7 @@ last_element = last_element->GetLastChild();
   case 89:
 
 /* Line 1455 of yacc.c  */
-#line 451 "gramatyka_bison.y"
+#line 455 "gramatyka_bison.y"
     {
 last_element = last_element->GetParent()
 ;}
@@ -2129,7 +2139,7 @@ last_element = last_element->GetParent()
   case 90:
 
 /* Line 1455 of yacc.c  */
-#line 457 "gramatyka_bison.y"
+#line 461 "gramatyka_bison.y"
     {
 last_element->AddChild(new Href((yyvsp[(3) - (4)].str)));
 last_element = last_element->GetLastChild();
@@ -2139,7 +2149,7 @@ last_element = last_element->GetLastChild();
   case 91:
 
 /* Line 1455 of yacc.c  */
-#line 464 "gramatyka_bison.y"
+#line 468 "gramatyka_bison.y"
     {
 last_element->AddChild(new textnode((yyvsp[(1) - (1)].str)));
 ;}
@@ -2148,7 +2158,7 @@ last_element->AddChild(new textnode((yyvsp[(1) - (1)].str)));
   case 92:
 
 /* Line 1455 of yacc.c  */
-#line 470 "gramatyka_bison.y"
+#line 474 "gramatyka_bison.y"
     {
 last_element = last_element->GetParent()
 ;}
@@ -2157,7 +2167,7 @@ last_element = last_element->GetParent()
   case 93:
 
 /* Line 1455 of yacc.c  */
-#line 476 "gramatyka_bison.y"
+#line 480 "gramatyka_bison.y"
     {
 last_element = last_element->GetParent()
 ;}
@@ -2166,7 +2176,7 @@ last_element = last_element->GetParent()
   case 95:
 
 /* Line 1455 of yacc.c  */
-#line 483 "gramatyka_bison.y"
+#line 487 "gramatyka_bison.y"
     {
 makeHotspot();
 dynamic_cast<Hotspot*>(last_element)->setX((yyvsp[(4) - (4)].str));
@@ -2176,7 +2186,7 @@ dynamic_cast<Hotspot*>(last_element)->setX((yyvsp[(4) - (4)].str));
   case 96:
 
 /* Line 1455 of yacc.c  */
-#line 488 "gramatyka_bison.y"
+#line 492 "gramatyka_bison.y"
     {
 makeHotspot();
 dynamic_cast<Hotspot*>(last_element)->setY((yyvsp[(4) - (4)].str));
@@ -2186,7 +2196,7 @@ dynamic_cast<Hotspot*>(last_element)->setY((yyvsp[(4) - (4)].str));
   case 97:
 
 /* Line 1455 of yacc.c  */
-#line 493 "gramatyka_bison.y"
+#line 497 "gramatyka_bison.y"
     {
 makeHotspot();
 dynamic_cast<Hotspot*>(last_element)->setXunits((yyvsp[(4) - (4)].str));
@@ -2196,7 +2206,7 @@ dynamic_cast<Hotspot*>(last_element)->setXunits((yyvsp[(4) - (4)].str));
   case 98:
 
 /* Line 1455 of yacc.c  */
-#line 498 "gramatyka_bison.y"
+#line 502 "gramatyka_bison.y"
     {
 makeHotspot();
 dynamic_cast<Hotspot*>(last_element)->setYunits((yyvsp[(4) - (4)].str));
@@ -2206,7 +2216,7 @@ dynamic_cast<Hotspot*>(last_element)->setYunits((yyvsp[(4) - (4)].str));
   case 99:
 
 /* Line 1455 of yacc.c  */
-#line 505 "gramatyka_bison.y"
+#line 509 "gramatyka_bison.y"
     {
 last_element->AddChild(new LabelStyle((yyvsp[(3) - (4)].str)));
 last_element = last_element->GetLastChild();
@@ -2216,7 +2226,7 @@ last_element = last_element->GetLastChild();
   case 100:
 
 /* Line 1455 of yacc.c  */
-#line 512 "gramatyka_bison.y"
+#line 516 "gramatyka_bison.y"
     {
 last_element = last_element->GetParent()
 ;}
@@ -2225,7 +2235,7 @@ last_element = last_element->GetParent()
   case 104:
 
 /* Line 1455 of yacc.c  */
-#line 523 "gramatyka_bison.y"
+#line 527 "gramatyka_bison.y"
     {
 last_element->AddChild(new Scale((yyvsp[(3) - (4)].str)));
 last_element = last_element->GetLastChild();
@@ -2235,7 +2245,7 @@ last_element = last_element->GetLastChild();
   case 105:
 
 /* Line 1455 of yacc.c  */
-#line 530 "gramatyka_bison.y"
+#line 534 "gramatyka_bison.y"
     {
 last_element->AddChild(new numbernode((yyvsp[(1) - (1)].str)));
 ;}
@@ -2244,7 +2254,7 @@ last_element->AddChild(new numbernode((yyvsp[(1) - (1)].str)));
   case 106:
 
 /* Line 1455 of yacc.c  */
-#line 536 "gramatyka_bison.y"
+#line 540 "gramatyka_bison.y"
     {
 last_element = last_element->GetParent()
 ;}
@@ -2253,7 +2263,7 @@ last_element = last_element->GetParent()
   case 107:
 
 /* Line 1455 of yacc.c  */
-#line 542 "gramatyka_bison.y"
+#line 546 "gramatyka_bison.y"
     {
 last_element->AddChild(new LineStyle((yyvsp[(3) - (4)].str)));
 last_element = last_element->GetLastChild();
@@ -2263,7 +2273,7 @@ last_element = last_element->GetLastChild();
   case 108:
 
 /* Line 1455 of yacc.c  */
-#line 549 "gramatyka_bison.y"
+#line 553 "gramatyka_bison.y"
     {
 last_element = last_element->GetParent()
 ;}
@@ -2272,7 +2282,7 @@ last_element = last_element->GetParent()
   case 112:
 
 /* Line 1455 of yacc.c  */
-#line 560 "gramatyka_bison.y"
+#line 564 "gramatyka_bison.y"
     {
 last_element->AddChild(new Width((yyvsp[(3) - (4)].str)));
 last_element = last_element->GetLastChild();
@@ -2282,7 +2292,7 @@ last_element = last_element->GetLastChild();
   case 113:
 
 /* Line 1455 of yacc.c  */
-#line 567 "gramatyka_bison.y"
+#line 571 "gramatyka_bison.y"
     {
 last_element->AddChild(new numbernode((yyvsp[(1) - (1)].str)));
 ;}
@@ -2291,7 +2301,7 @@ last_element->AddChild(new numbernode((yyvsp[(1) - (1)].str)));
   case 114:
 
 /* Line 1455 of yacc.c  */
-#line 573 "gramatyka_bison.y"
+#line 577 "gramatyka_bison.y"
     {
 last_element = last_element->GetParent()
 ;}
@@ -2300,7 +2310,7 @@ last_element = last_element->GetParent()
   case 115:
 
 /* Line 1455 of yacc.c  */
-#line 579 "gramatyka_bison.y"
+#line 583 "gramatyka_bison.y"
     {
 last_element->AddChild(new PolyStyle((yyvsp[(3) - (4)].str)));
 last_element = last_element->GetLastChild();
@@ -2310,7 +2320,7 @@ last_element = last_element->GetLastChild();
   case 116:
 
 /* Line 1455 of yacc.c  */
-#line 586 "gramatyka_bison.y"
+#line 590 "gramatyka_bison.y"
     {
 last_element = last_element->GetParent()
 ;}
@@ -2319,7 +2329,7 @@ last_element = last_element->GetParent()
   case 121:
 
 /* Line 1455 of yacc.c  */
-#line 598 "gramatyka_bison.y"
+#line 602 "gramatyka_bison.y"
     {
 last_element->AddChild(new Color((yyvsp[(3) - (4)].str)));
 last_element = last_element->GetLastChild();
@@ -2329,7 +2339,7 @@ last_element = last_element->GetLastChild();
   case 122:
 
 /* Line 1455 of yacc.c  */
-#line 605 "gramatyka_bison.y"
+#line 609 "gramatyka_bison.y"
     {
 last_element->AddChild(new textnode((yyvsp[(1) - (1)].str)));
 ;}
@@ -2338,7 +2348,7 @@ last_element->AddChild(new textnode((yyvsp[(1) - (1)].str)));
   case 123:
 
 /* Line 1455 of yacc.c  */
-#line 611 "gramatyka_bison.y"
+#line 615 "gramatyka_bison.y"
     {
 last_element = last_element->GetParent()
 ;}
@@ -2347,7 +2357,7 @@ last_element = last_element->GetParent()
   case 124:
 
 /* Line 1455 of yacc.c  */
-#line 617 "gramatyka_bison.y"
+#line 621 "gramatyka_bison.y"
     {
 last_element->AddChild(new Fill((yyvsp[(3) - (4)].str)));
 last_element = last_element->GetLastChild();
@@ -2357,7 +2367,7 @@ last_element = last_element->GetLastChild();
   case 125:
 
 /* Line 1455 of yacc.c  */
-#line 625 "gramatyka_bison.y"
+#line 629 "gramatyka_bison.y"
     {
 last_element->AddChild(new boolnode((yyvsp[(1) - (1)].str)));
 ;}
@@ -2366,7 +2376,7 @@ last_element->AddChild(new boolnode((yyvsp[(1) - (1)].str)));
   case 126:
 
 /* Line 1455 of yacc.c  */
-#line 631 "gramatyka_bison.y"
+#line 635 "gramatyka_bison.y"
     {
 last_element = last_element->GetParent()
 ;}
@@ -2375,7 +2385,7 @@ last_element = last_element->GetParent()
   case 127:
 
 /* Line 1455 of yacc.c  */
-#line 637 "gramatyka_bison.y"
+#line 641 "gramatyka_bison.y"
     {
 last_element->AddChild(new Outline((yyvsp[(3) - (4)].str)));
 last_element = last_element->GetLastChild();
@@ -2385,7 +2395,7 @@ last_element = last_element->GetLastChild();
   case 128:
 
 /* Line 1455 of yacc.c  */
-#line 644 "gramatyka_bison.y"
+#line 648 "gramatyka_bison.y"
     {
 last_element->AddChild(new boolnode((yyvsp[(1) - (1)].str)));
 ;}
@@ -2394,7 +2404,7 @@ last_element->AddChild(new boolnode((yyvsp[(1) - (1)].str)));
   case 129:
 
 /* Line 1455 of yacc.c  */
-#line 650 "gramatyka_bison.y"
+#line 654 "gramatyka_bison.y"
     {
 last_element = last_element->GetParent()
 ;}
@@ -2403,7 +2413,7 @@ last_element = last_element->GetParent()
   case 130:
 
 /* Line 1455 of yacc.c  */
-#line 656 "gramatyka_bison.y"
+#line 660 "gramatyka_bison.y"
     {
 last_element->AddChild(new Folder((yyvsp[(3) - (4)].str)));
 last_element = last_element->GetLastChild();
@@ -2413,7 +2423,7 @@ last_element = last_element->GetLastChild();
   case 131:
 
 /* Line 1455 of yacc.c  */
-#line 663 "gramatyka_bison.y"
+#line 667 "gramatyka_bison.y"
     {
 last_element = last_element->GetParent()
 ;}
@@ -2422,7 +2432,7 @@ last_element = last_element->GetParent()
   case 137:
 
 /* Line 1455 of yacc.c  */
-#line 677 "gramatyka_bison.y"
+#line 681 "gramatyka_bison.y"
     {
 last_element->AddChild(new Visibility((yyvsp[(3) - (4)].str)));
 last_element = last_element->GetLastChild();
@@ -2432,7 +2442,7 @@ last_element = last_element->GetLastChild();
   case 138:
 
 /* Line 1455 of yacc.c  */
-#line 684 "gramatyka_bison.y"
+#line 688 "gramatyka_bison.y"
     {
 last_element->AddChild(new boolnode((yyvsp[(1) - (1)].str)));
 ;}
@@ -2441,7 +2451,7 @@ last_element->AddChild(new boolnode((yyvsp[(1) - (1)].str)));
   case 139:
 
 /* Line 1455 of yacc.c  */
-#line 690 "gramatyka_bison.y"
+#line 694 "gramatyka_bison.y"
     {
 last_element = last_element->GetParent()
 ;}
@@ -2450,7 +2460,7 @@ last_element = last_element->GetParent()
   case 140:
 
 /* Line 1455 of yacc.c  */
-#line 698 "gramatyka_bison.y"
+#line 702 "gramatyka_bison.y"
     {
 last_element->AddChild(new Description((yyvsp[(3) - (4)].str)));
 last_element = last_element->GetLastChild();
@@ -2460,7 +2470,7 @@ last_element = last_element->GetLastChild();
   case 141:
 
 /* Line 1455 of yacc.c  */
-#line 705 "gramatyka_bison.y"
+#line 709 "gramatyka_bison.y"
     {
 last_element->AddChild(new textnode((yyvsp[(1) - (1)].str)));
 ;}
@@ -2469,7 +2479,7 @@ last_element->AddChild(new textnode((yyvsp[(1) - (1)].str)));
   case 142:
 
 /* Line 1455 of yacc.c  */
-#line 711 "gramatyka_bison.y"
+#line 715 "gramatyka_bison.y"
     {
 last_element = last_element->GetParent()
 ;}
@@ -2478,21 +2488,21 @@ last_element = last_element->GetParent()
   case 143:
 
 /* Line 1455 of yacc.c  */
-#line 716 "gramatyka_bison.y"
+#line 720 "gramatyka_bison.y"
     {(yyval.str) = NULL;}
     break;
 
   case 144:
 
 /* Line 1455 of yacc.c  */
-#line 717 "gramatyka_bison.y"
+#line 721 "gramatyka_bison.y"
     {(yyval.str) = (yyvsp[(4) - (4)].str);}
     break;
 
 
 
 /* Line 1455 of yacc.c  */
-#line 2496 "parser.cpp"
+#line 2506 "parser.cpp"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);

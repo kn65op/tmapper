@@ -9,6 +9,7 @@
 #define	DOCUMENT_H
 
 #include <string>
+#include <gtk-2.0/gtk/gtk.h>
 
 #include "node.h"
 
@@ -20,6 +21,9 @@ public:
   Document(const Document& orig);
   virtual ~Document();
 
+  void paintEditWindow(GtkWidget *box);
+  void saveFromEditWindow(GtkWidget *box);
+  
   //void saveToFile(std::string fill, int level);
 private:
   void init();

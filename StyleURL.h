@@ -18,10 +18,14 @@ class StyleURL : public node
 public:
   StyleURL();
   StyleURL(std::string *s);
+  StyleURL(std::string s);
   StyleURL(const StyleURL& orig);
   virtual ~StyleURL();
 
   void connectStyle(KML *kml);
+
+  void setText(std::string t);
+  std::string getText();
 
 private:
   void init();

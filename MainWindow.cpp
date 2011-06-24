@@ -336,6 +336,10 @@ void MainWindow::openFile(GtkWidget* widget, gpointer data)
     if (mw->getAnaliser()->GetKML())
     {
       mw->getAnaliser()->GetKML()->connectStyles();
+      std::string ff = "TMapper (";
+      ff += filename;
+      ff += ")";
+      gtk_window_set_title(GTK_WINDOW(mw->map), ff.c_str());
     }
     g_free(filename);
   }
@@ -357,6 +361,10 @@ void MainWindow::saveFile(GtkWidget* widget, gpointer data)
     char *filename;
     filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(chooser));
     mw->getAnaliser()->saveKMLToFile(string(filename));
+    std::string ff = "TMapper (";
+    ff += filename;
+    ff += ")";
+    gtk_window_set_title(GTK_WINDOW(mw->map), ff.c_str());
     g_free(filename);
   }
   gtk_widget_destroy(chooser);
@@ -637,6 +645,7 @@ void MainWindow::showEditNode(node* n)
   std::string window_name = ("Edycja obiektu " + n->getSubName() + " typu " + n->GetName());
   gtk_window_set_title(GTK_WINDOW(edit), window_name.c_str());
   gtk_widget_set_size_request(edit, 500, 100);
+  gtk_window_set_deletable(GTK_WINDOW(edit), FALSE);
 
 
   /* ustawienie 1*/
@@ -669,6 +678,8 @@ void MainWindow::editButtonApply(GtkWidget* widget, gpointer data)
 {
   MainWindow *mw = static_cast<MainWindow*> (data);
   node_edit->saveFromEditWindow(widget->parent->parent);
+  mw->getAnaliser()->GetKML()->connectStyles();
+  mw->drawKMLwithMap();
 }
 
 void MainWindow::editButtonCancel(GtkWidget* widget, gpointer data)
@@ -683,5 +694,7 @@ void MainWindow::editButtonOk(GtkWidget* widget, gpointer data)
   MainWindow *mw = static_cast<MainWindow*> (data);
   mw->can_edit = true;
   node_edit->saveFromEditWindow(widget->parent->parent);
+  mw->getAnaliser()->GetKML()->connectStyles();
   gtk_widget_destroy(widget->parent->parent->parent);
+  mw->drawKMLwithMap();
 }

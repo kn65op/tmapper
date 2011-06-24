@@ -644,6 +644,7 @@ char *yytext;
 extern "C" int yywrap() { };
 
 int lines = 1;
+void restart() {lines = 1;}
 int flush_lex(void) {YY_FLUSH_BUFFER; int tmp = lines; lines = 1; return tmp;}
 int text_able = 0;
 int bool_able = 0;
@@ -652,7 +653,7 @@ int bool_able = 0;
 
 
 
-#line 656 "skaner.cpp"
+#line 657 "skaner.cpp"
 
 #define INITIAL 0
 #define TAG 1
@@ -842,11 +843,11 @@ YY_DECL
 	register char *yy_cp, *yy_bp;
 	register int yy_act;
     
-#line 21 "skaner.l"
+#line 22 "skaner.l"
 
 
 
-#line 850 "skaner.cpp"
+#line 851 "skaner.cpp"
 
 	if ( !(yy_init) )
 		{
@@ -931,248 +932,248 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 24 "skaner.l"
+#line 25 "skaner.l"
 ;
 	YY_BREAK
 case 2:
 /* rule 2 can match eol */
 YY_RULE_SETUP
-#line 25 "skaner.l"
+#line 26 "skaner.l"
 {/*std::cout << "nwoalinia" << "\n";*/lines++;}
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 26 "skaner.l"
+#line 27 "skaner.l"
 {/*std::cout << yytext << " `\n";*/ return KML_SYM;}
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 27 "skaner.l"
+#line 28 "skaner.l"
 {/*std::cout << yytext << " ~\n";*/ return ID_SYM;}
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 28 "skaner.l"
+#line 29 "skaner.l"
 {/*std::cout << yytext << " .\n";*/ return DOCUMENT_SYM;}
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 29 "skaner.l"
+#line 30 "skaner.l"
 {/*std::cout << yytext << " ,\n";*/ return PLACEMARK_SYM;}
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 30 "skaner.l"
+#line 31 "skaner.l"
 {/*std::cout << yytext << " " << text_able  << " m\n";*/ if (!text_able) BEGIN(TI); text_able = !text_able; return NAME_SYM;}
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 31 "skaner.l"
+#line 32 "skaner.l"
 {/*std::cout << yytext << " n\n";*/ return STYLE_SYM;}
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 32 "skaner.l"
+#line 33 "skaner.l"
 {/*std::cout << yytext << " b\n";*/ return FOLDER_SYM;}
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 33 "skaner.l"
+#line 34 "skaner.l"
 {/*std::cout << yytext << " " << text_able  << " v\n";*/ if (!text_able) BEGIN(TI); text_able = !text_able; return DESCRIPTION_SYM;}
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 34 "skaner.l"
+#line 35 "skaner.l"
 {/*std::cout << yytext << " c\n";*/ if (!bool_able) BEGIN(BOOL); bool_able = !bool_able; return FILL_SYM;}
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 35 "skaner.l"
+#line 36 "skaner.l"
 {/*std::cout << yytext << " x\n";*/ return POINT_SYM;}
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 36 "skaner.l"
+#line 37 "skaner.l"
 {/*std::cout << yytext << " z\n";*/ return MULTIGEOMETRY_SYM;}
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 37 "skaner.l"
+#line 38 "skaner.l"
 {/*std::cout << yytext << " ;\n";*/ return INNER_BOUNDARY_IS_SYM;}
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 38 "skaner.l"
+#line 39 "skaner.l"
 {/*std::cout << yytext << " l\n";*/ return OUTER_BOUNDARY_IS_SYM;}
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 39 "skaner.l"
+#line 40 "skaner.l"
 {/*std::cout << yytext << " k\n";*/ return LINE_STRING_SYM;}
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 40 "skaner.l"
+#line 41 "skaner.l"
 {/*std::cout << yytext << " j\n";*/ return POLYGON_SYM;}
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 41 "skaner.l"
+#line 42 "skaner.l"
 {/*std::cout << yytext << " h\n";*/ return COORDINATES_SYM;}
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 42 "skaner.l"
+#line 43 "skaner.l"
 {/*std::cout << yytext << " g\n";*/ return HOTSPOT_SYM;}
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 43 "skaner.l"
+#line 44 "skaner.l"
 {/*std::cout << yytext << " f\n";*/ return XUNITS_SYM;}
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 44 "skaner.l"
+#line 45 "skaner.l"
 {/*std::cout << yytext << " d\n";*/ return YUNITS_SYM;}
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 45 "skaner.l"
+#line 46 "skaner.l"
 {/*std::cout << yytext << " s\n";*/ return X_SYM;}
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 46 "skaner.l"
+#line 47 "skaner.l"
 {/*std::cout << yytext << " a\n";*/ return Y_SYM;}
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 47 "skaner.l"
+#line 48 "skaner.l"
 {/*std::cout << yytext << " ]\n";*/ return ICON_SYM;}
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 48 "skaner.l"
+#line 49 "skaner.l"
 {/*std::cout << yytext << " [\n";*/ return SCALE_SYM;}
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 49 "skaner.l"
+#line 50 "skaner.l"
 {/*std::cout << yytext << " p\n";*/ if (!bool_able) BEGIN(BOOL); bool_able = !bool_able; return OUTLINE_SYM;}
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 50 "skaner.l"
+#line 51 "skaner.l"
 {/*std::cout << yytext << " o\n";*/ if (!text_able) BEGIN(TI); text_able = !text_able; return COLOR_SYM;}
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 51 "skaner.l"
+#line 52 "skaner.l"
 {/*std::cout << yytext << " i\n";*/ return LABEL_STYLE_SYM;}
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 52 "skaner.l"
+#line 53 "skaner.l"
 {/*std::cout << yytext << " u\n";*/ if (!text_able) BEGIN(TI); text_able = !text_able; return STYLE_URL_SYM;}
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 53 "skaner.l"
+#line 54 "skaner.l"
 {/*std::cout << yytext << " y\n";*/ return LINE_STYLE_SYM;}
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 54 "skaner.l"
+#line 55 "skaner.l"
 {/*std::cout << yytext << " t\n";*/ return POLY_STYLE_SYM;}
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 55 "skaner.l"
+#line 56 "skaner.l"
 {/*std::cout << yytext << " r\n";*/ return ICON_STYLE_SYM;}
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 56 "skaner.l"
+#line 57 "skaner.l"
 {/*std::cout << yytext << " e\n";*/ return LINEAR_RING_SYM;}
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
-#line 57 "skaner.l"
+#line 58 "skaner.l"
 {/*std::cout << yytext << " " << text_able  << " w\n";*/ if (!text_able) BEGIN(TI); text_able = !text_able; return HREF_SYM;}
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
-#line 58 "skaner.l"
+#line 59 "skaner.l"
 {/*std::cout << yytext << " q\n";*/ return HEADING_SYM;}
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
-#line 59 "skaner.l"
+#line 60 "skaner.l"
 {/*std::cout << yytext << " 0\n";*/ if (!bool_able) BEGIN(BOOL); bool_able = !bool_able; return VISIBILITY_SYM;}
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
-#line 60 "skaner.l"
+#line 61 "skaner.l"
 {/*std::cout << yytext << " 9\n";*/ return WIDTH_SYM;}
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
-#line 61 "skaner.l"
+#line 62 "skaner.l"
 {/*std::cout << yytext << " 8\n";*/ SAVE_TOKEN; BEGIN(0); return BOOLEAN_VAL;}
 	YY_BREAK
 case 39:
 /* rule 39 can match eol */
 YY_RULE_SETUP
-#line 62 "skaner.l"
+#line 63 "skaner.l"
 {/*std::cout << yytext << " 1\n";*/ SAVE_TOKEN; BEGIN(0); return TEXT;}
 	YY_BREAK
 case 40:
 YY_RULE_SETUP
-#line 63 "skaner.l"
+#line 64 "skaner.l"
 {/*std::cout << yytext << " 7\n";*/ SAVE_TOKEN; return NUMBER;}
 	YY_BREAK
 case 41:
 /* rule 41 can match eol */
 YY_RULE_SETUP
-#line 64 "skaner.l"
+#line 65 "skaner.l"
 {/*std::cout << yytext << " 6\n";*/ SAVE_TOKEN; return STRING;}
 	YY_BREAK
 case 42:
 YY_RULE_SETUP
-#line 65 "skaner.l"
+#line 66 "skaner.l"
 {/*std::cout << yytext << " 5\n";*/ BEGIN(TAG); return TAG_OPEN;}
 	YY_BREAK
 case 43:
 YY_RULE_SETUP
-#line 66 "skaner.l"
+#line 67 "skaner.l"
 {/*std::cout << yytext << " 4\n";*/ return TAG_CLOSE;}
 	YY_BREAK
 case 44:
 YY_RULE_SETUP
-#line 67 "skaner.l"
+#line 68 "skaner.l"
 {/*std::cout << yytext << " 3\n";*/ return TAG_END;}
 	YY_BREAK
 case 45:
 YY_RULE_SETUP
-#line 68 "skaner.l"
+#line 69 "skaner.l"
 {/*std::cout << yytext << " 2\n";*/ return COMMA;}
 	YY_BREAK
 case 46:
 YY_RULE_SETUP
-#line 69 "skaner.l"
+#line 70 "skaner.l"
 {/*std::cout << yytext << " =\n";*/ return EQ;}
 	YY_BREAK
 case 47:
 YY_RULE_SETUP
-#line 70 "skaner.l"
+#line 71 "skaner.l"
 {/*std::cout << "Niedozwolony znak!\n";*/ return SYM_NOT_VALID;}
 	YY_BREAK
 case 48:
 YY_RULE_SETUP
-#line 72 "skaner.l"
+#line 73 "skaner.l"
 ECHO;
 	YY_BREAK
-#line 1176 "skaner.cpp"
+#line 1177 "skaner.cpp"
 case YY_STATE_EOF(INITIAL):
 case YY_STATE_EOF(TAG):
 case YY_STATE_EOF(TI):
@@ -2173,7 +2174,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 72 "skaner.l"
+#line 73 "skaner.l"
 
 
 

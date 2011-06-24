@@ -9,6 +9,8 @@
 
 #include <string>
 
+#include "textnode.h"
+
 using namespace std;
 
 Description::Description()
@@ -18,6 +20,12 @@ Description::Description()
 
 Description::Description(std::string* s) : node(s)
 {
+  init();
+}
+
+Description::Description(std::string s)
+{
+  AddChild(new textnode(s));
   init();
 }
 
@@ -32,4 +40,14 @@ Description::~Description()
 void Description::init()
 {
   name = "description";
+}
+
+std::string Description::getText()
+{
+  return dynamic_cast<textnode*>(children.front())->getText();
+}
+
+void Description::setText(std::string t)
+{
+  return dynamic_cast<textnode*>(children.front())->setText(t);
 }

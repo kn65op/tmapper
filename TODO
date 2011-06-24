@@ -1,10 +1,16 @@
 skalowanie - oddalanie, przybliżanie
-edycja - w widoku drzewa
+edycja - w widoku drzewa - :coordinates
+, icon
+, hotspot
+, line_style
+, poly_style
+, folder, 
+id
 export do plików
-usunięcie scale - na razie tylko w icon jest jeszcze label
 obsługa błedów - język
 poprawić zapis do pliku
+pasek stanu, wyświetlanie aktualnego położenia
+
+Usuwanie:
+usunięcie scale - na razie tylko w icon jest jeszcze label
 labelki
-wyświetlanie aktualnego położenia
-pasek stanu
-segfault przy wczytywaniu z błędem

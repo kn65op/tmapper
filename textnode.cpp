@@ -25,6 +25,12 @@ textnode::textnode(std::string* t)
   delete t;
 }
 
+textnode::textnode(std::string t)
+{
+  init();
+  Text = t;
+}
+
 textnode::textnode(const textnode& orig)
 {
   init();

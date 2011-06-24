@@ -21,6 +21,12 @@ Name::Name(std::string *s) : node(s)
   init();
 }
 
+Name::Name(std::string s)
+{
+  AddChild(new textnode(s));
+  init();
+}
+
 Name::Name(const Name& orig)
 {
 }
@@ -42,4 +48,9 @@ std::string Name::getText()
 node* Name::findFromTreeView(std::string s)
 {
   return NULL;
+}
+
+void Name::setText(std::string t)
+{
+  return dynamic_cast<textnode*>(children.front())->setText(t);
 }

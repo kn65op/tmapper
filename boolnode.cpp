@@ -29,6 +29,12 @@ boolnode::boolnode(std::string * b)
   init();
 }
 
+boolnode::boolnode(bool b)
+{
+  val = b;
+  init();
+}
+
 boolnode::boolnode(const boolnode& orig)
 {
 }
