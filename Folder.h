@@ -11,13 +11,17 @@
 #include "node.h"
 #include <string>
 
-class Folder :public node
+class Folder : public node
 {
 public:
   Folder();
   Folder(std::string *s);
   Folder(const Folder& orig);
   virtual ~Folder();
+
+  void paintEditWindow(GtkWidget *box);
+  void saveFromEditWindow(GtkWidget *box);
+
 private:
   void init();
 };
