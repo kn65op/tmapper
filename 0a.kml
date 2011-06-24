@@ -11,7 +11,6 @@
 	</Style>
 	<Style id="styl">
 		<IconStyle>
-			<scale>1.2</scale>
 			<Icon>
 				<href>kolon.png</href>
 			</Icon>

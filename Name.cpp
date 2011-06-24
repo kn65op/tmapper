@@ -38,3 +38,8 @@ std::string Name::getText()
 {
   return dynamic_cast<textnode*>(children.front())->getText();
 }
+
+node* Name::findFromTreeView(std::string s)
+{
+  return NULL;
+}

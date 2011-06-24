@@ -20,6 +20,8 @@ public:
   Name(const Name& orig);
   virtual ~Name();
 
+  node* findFromTreeView(std::string s);
+
   std::string getText();
   
 private:

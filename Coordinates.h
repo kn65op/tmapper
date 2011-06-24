@@ -29,6 +29,7 @@ public:
   void findHW(double& max_x, double& min_x, double& max_y, double& min_y);
   void makeTree(GtkTreeStore* treestore, GtkTreeIter* parent);
   void mapCoordinates(MainWindow *mw,  double a_x, double b_x, double a_y, double b_y);
+  node* findFromTreeView(std::string s);
 
   int getSize() const;
 

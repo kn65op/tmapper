@@ -241,15 +241,48 @@ std::string node::getSubName()
 
 node* node::findFromTreeView(std::string s)
 {
-  if (s == "")
+  if (s.find(":") == std::string::npos)
   {
-    return this;
+    std::list<node*>::iterator it = children.begin();
+    if (dynamic_cast<Name*>(*it))
+    {
+      it++;
+    }
+    int n = atoi(s.c_str());
+    for (int i=0; i<n; it++)
+    {
+      if (!dynamic_cast<Name*>(*it))
+      {
+        i++;
+      }
+    }
+    if (dynamic_cast<Name*>((*it)))
+    {
+      it++;
+    }
+    return *it;
   }
   else
   {
     std::list<node*>::iterator it = children.begin();
-    int n = atoi(s.substr(0, s.find(":")-1).c_str());
-    for (int i=0; i<n; i++, it++);
-    return (*it)->findFromTreeView(s.substr(s.find(":")+1));
+    if (dynamic_cast<Name*>(*it))
+    {
+      it++;
+    }
+    int n = atoi(s.substr(0, s.find(":")).c_str());
+    for (int i=0; i<n; it++)
+    {
+      if (!dynamic_cast<Name*>(*it))
+      {
+        i++;
+      }
+    }
+    node *val = (*it)->findFromTreeView(s.substr(s.find(":")+1));
+    if (!val)
+    {
+      it++;
+      val = (*it)->findFromTreeView(s.substr(s.find(":")+1));
+    }
+    return val;
   }
 }

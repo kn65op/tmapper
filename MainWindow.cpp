@@ -616,7 +616,7 @@ void MainWindow::addCoordinate(double x, double y, Coordinates* cor, int nr)
 
 void MainWindow::tree_row_activated(GtkTreeView* tree_view, GtkTreePath* path, GtkTreeViewColumn* column, gpointer user_data)
 {
-  MainWindow *mw = static_cast<MainWindow*> (data);
+  MainWindow *mw = static_cast<MainWindow*> (user_data);
   gchar *p;
   p = gtk_tree_path_to_string(path);
   std::string lol(p);

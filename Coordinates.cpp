@@ -18,6 +18,7 @@ using namespace std;
 
 #include "node.h"
 #include "MainWindow.h"
+#include "Color.h"
 
 Coordinates::Coordinates()
 {
@@ -140,4 +141,9 @@ void Coordinates::mapCoordinates(MainWindow* mw, double a_x, double b_x, double 
     mw->addCoordinate(a_x * ((*it)[0] - b_x), a_y * ((*it)[1] - b_y), this, i);
     i++;
   }
+}
+
+node* Coordinates::findFromTreeView(std::string s)
+{
+  return this;
 }
