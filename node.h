@@ -40,6 +40,7 @@ public:
   virtual node* findFromTreeView(std::string s);
   virtual void paintEditWindow(GtkWidget *box);
   virtual void saveFromEditWindow(GtkWidget *box);
+  virtual std::list<std::string>* getPosibilities();
 
   std::string getSubName();
   void setSubName(std::string n);

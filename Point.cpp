@@ -15,12 +15,16 @@
 #include "Coordinates.h"
 #include "IconStyle.h"
 #include "Placemark.h"
+#include "MainWindow.h"
 
 using namespace std;
 
 Point::Point()
 {
   init();
+  Coordinates* tmp = new Coordinates();
+  tmp->addCoordinate(0.0, 0.0, 0.0);
+  AddChild(tmp);
 }
 
 Point::Point(std::string* s) : node(s)

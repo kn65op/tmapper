@@ -20,6 +20,8 @@ public:
   Polygon(const Polygon& orig);
   virtual ~Polygon();
 
+  std::list<std::string>* getPosibilities();
+  
   void draw(cairo_t* cr, double a_x, double b_x, double a_y, double b_y, double *color);
 private:
   void init();

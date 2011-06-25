@@ -18,6 +18,8 @@ public:
   Folder(std::string *s);
   Folder(const Folder& orig);
   virtual ~Folder();
+  
+  std::list<std::string>* getPosibilities();
 
   void paintEditWindow(GtkWidget *box);
   void saveFromEditWindow(GtkWidget *box);

@@ -9,6 +9,7 @@
 #define	STYLE_H
 
 #include <string>
+#include <list>
 
 #include "node.h"
 #include "LabelStyle.h"
@@ -27,6 +28,8 @@ public:
 
   void paintEditWindow(GtkWidget *box);
   void saveFromEditWindow(GtkWidget *box);
+  
+  std::list<std::string>* getPosibilities();
 
   void searchStyle(KML *kml);
 

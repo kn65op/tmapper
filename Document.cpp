@@ -89,3 +89,12 @@ void Document::saveFromEditWindow(GtkWidget* box)
   text = gtk_entry_get_text(GTK_ENTRY(entry));
   setVisibility(text);
 }
+
+std::list<std::string>* Document::getPosibilities()
+{
+  std::list<std::string> *tmp = new std::list<std::string>();
+  tmp->push_back("Folder");
+  tmp->push_back("Placemark");
+  tmp->push_back("Style");
+  return tmp;
+}

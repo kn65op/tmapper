@@ -64,3 +64,11 @@ void Polygon::draw(cairo_t* cr, double a_x, double b_x, double a_y, double b_y, 
   }
   delete [] c2;
 }
+
+std::list<std::string>* Polygon::getPosibilities()
+{
+  std::list<std::string> *tmp = new std::list<std::string>();
+  tmp->push_back("InnerBoundaryIs");
+  tmp->push_back("OuterBoundaryIs");
+  return tmp;
+}

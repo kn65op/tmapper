@@ -91,3 +91,12 @@ void Style::saveFromEditWindow(GtkWidget* box)
   text = gtk_entry_get_text(GTK_ENTRY(entry));
   SetId(text);
 }
+
+std::list<std::string>* Style::getPosibilities()
+{
+  std::list<std::string> *tmp = new std::list<std::string>();
+  tmp->push_back("IconStyle");
+  tmp->push_back("LineStyle");
+  tmp->push_back("PolyStyle");
+  return tmp;
+}

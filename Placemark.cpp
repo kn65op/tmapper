@@ -100,3 +100,14 @@ void Placemark::removeStyle(KML* kml)
   iconstyle = 0;
   linestyle = 0;
 }
+
+std::list<std::string>* Placemark::getPosibilities()
+{
+  std::list<std::string> *tmp = new std::list<std::string>();
+  tmp->push_back("LinearRing");
+  tmp->push_back("LineString");
+  tmp->push_back("Multigeometry");
+  tmp->push_back("Point");
+  tmp->push_back("Polygon");
+  return tmp;
+}

@@ -62,6 +62,15 @@ void Coordinates::addCoordinate(std::string* x, std::string* y, std::string* z)
   delete z;
 }
 
+void Coordinates::addCoordinate(double x, double y, double z)
+{
+  double *tmp = new double[3];
+  tmp[0] = x;
+  tmp[1] = y;
+  tmp[2] = z;
+  coordinates.push_back(tmp);
+}
+
 void Coordinates::init()
 {
   name = "coordinates";

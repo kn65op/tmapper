@@ -28,6 +28,8 @@ public:
   Placemark(const Placemark& orig);
   virtual ~Placemark();
   
+  std::list<std::string>* getPosibilities();
+  
   void removeStyle(KML *kml);
   
   void paintEditWindow(GtkWidget *box);

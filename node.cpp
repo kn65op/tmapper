@@ -148,7 +148,6 @@ void node::draw(cairo_t* cr, double a_x, double b_x, double a_y, double b_y, dou
       vis = dynamic_cast<Visibility*> (*it)->getVal();
     }
   }
-  std::cout << name << " " << vis << "\n";
   if (vis)
   {
     drawChildren(cr, a_x, b_x, a_y, b_y, color);
@@ -638,7 +637,6 @@ void node::paintIcon(GtkWidget* box)
     gtk_entry_set_text(GTK_ENTRY(entry), "");
   }
   gtk_box_pack_end(GTK_BOX(hbox), entry, 1, 1, 2);
-  std::cout << "Ai\n";
   return;
 }
 
@@ -782,7 +780,6 @@ void node::paintHotspot(GtkWidget* box)
   }
   gtk_box_pack_end(GTK_BOX(hbox), entry, 1, 1, 2);
 
-  std::cout << "Ai\n";
   return;
 }
 
@@ -998,4 +995,9 @@ void node::removeStyle(KML* kml)
   {
     (*it)->removeStyle(kml);
   }
+}
+
+std::list<std::string>* node::getPosibilities()
+{
+  return NULL;
 }

@@ -74,3 +74,9 @@ void Analiser::saveKMLToFile(std::string file)
     kml->saveToFile(file, 0);
   }
 }
+
+void Analiser::createKML()
+{
+  if (kml) delete kml;
+  kml = new KML();
+}

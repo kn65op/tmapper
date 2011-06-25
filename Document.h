@@ -9,6 +9,7 @@
 #define	DOCUMENT_H
 
 #include <string>
+#include <list>
 #include <gtk-2.0/gtk/gtk.h>
 
 #include "node.h"
@@ -20,6 +21,8 @@ public:
   Document(std::string* s);
   Document(const Document& orig);
   virtual ~Document();
+  
+  std::list<std::string>* getPosibilities();
 
   void paintEditWindow(GtkWidget *box);
   void saveFromEditWindow(GtkWidget *box);

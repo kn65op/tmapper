@@ -20,12 +20,23 @@
 #include <unistd.h>
 #include <sstream>
 #include <gtk-2.0/gtk/gtkwidget.h>
+#include <gtk-2.0/gtk/gtktreemodel.h>
+#include <gtk-2.0/gtk/gtkimagemenuitem.h>
 
 #include "KML.h"
 #include "Coordinates.h"
 #include "Placemark.h"
 #include "node.h"
 #include "Style.h"
+#include "Document.h"
+#include "InnerBoundaryIs.h"
+#include "LinearRing.h"
+#include "LineString.h"
+#include "Multigeometry.h"
+#include "OuterBoundaryIs.h"
+#include "Point.h"
+#include "Polygon.h"
+#include "Folder.h"
 //#include <gtkmm-2.4/gtkmm/main.h>
 
 using namespace std;
@@ -37,6 +48,7 @@ int MainWindow::move_nr = -1;
 GtkWidget * MainWindow::menu_popup = 0;
 
 node* MainWindow::node_edit = 0;
+node* MainWindow::node_add = 0;
 
 MainWindow::MainWindow(int argc, char **argv)
 {
@@ -117,6 +129,7 @@ void MainWindow::build()
 
   /*podpięcie activate row*/
   g_signal_connect(G_OBJECT(tree), "row-activated", G_CALLBACK(tree_row_activated), this);
+  g_signal_connect(G_OBJECT(tree), "cursor-changed", G_CALLBACK(tree_row_selected), this);
 
   gtk_tree_view_append_column(GTK_TREE_VIEW(tree), col);
 
@@ -161,9 +174,11 @@ void MainWindow::build()
 
   file_menu = gtk_menu_new(); //tworzymy kategorie
   help_menu = gtk_menu_new();
+  add_menu = gtk_menu_new();
 
   file = gtk_menu_item_new_with_mnemonic("_Plik"); // tworzymy nazwy kategorii
   help = gtk_menu_item_new_with_mnemonic("P_omoc");
+  add = gtk_menu_item_new_with_mnemonic("_Dodaj");
 
   open = gtk_image_menu_item_new_from_stock(GTK_STOCK_OPEN, NULL); //tworzymy opcje menu
   newf = gtk_image_menu_item_new_from_stock(GTK_STOCK_NEW, NULL);
@@ -171,11 +186,40 @@ void MainWindow::build()
   quit = gtk_image_menu_item_new_from_stock(GTK_STOCK_QUIT, NULL);
   about = gtk_image_menu_item_new_from_stock(GTK_STOCK_ABOUT, NULL);
   sep = gtk_separator_menu_item_new();
+  document = gtk_menu_item_new_with_label("Document");
+  folder = gtk_menu_item_new_with_label("Folder");
+  iconStyle = gtk_menu_item_new_with_label("IconStyle");
+  innerBoundaryIs = gtk_menu_item_new_with_label("InnerBoundaryIs");
+  linearRing = gtk_menu_item_new_with_label("LinearRing");
+  lineString = gtk_menu_item_new_with_label("LineString");
+  lineStyle = gtk_menu_item_new_with_label("LineStyle");
+  mulitgeometry = gtk_menu_item_new_with_label("Mulitgeometry");
+  outerBoundaryIs = gtk_menu_item_new_with_label("OuterBoundaryIs");
+  placemark = gtk_menu_item_new_with_label("Placemark");
+  point = gtk_menu_item_new_with_label("Point");
+  polygon = gtk_menu_item_new_with_label("Polygon");
+  polyStyle = gtk_menu_item_new_with_label("PolyStyle");
+  style = gtk_menu_item_new_with_label("Style");
 
   g_signal_connect(G_OBJECT(quit), "activate", G_CALLBACK(gtk_main_quit), NULL); //łączymy opcje z działaniem aplikacji
   g_signal_connect(G_OBJECT(about), "activate", G_CALLBACK(showInfo), NULL);
+  g_signal_connect(G_OBJECT(newf), "activate", G_CALLBACK(createKML), this);
   g_signal_connect(G_OBJECT(open), "activate", G_CALLBACK(openFile), this);
   g_signal_connect(G_OBJECT(save_as), "activate", G_CALLBACK(saveFile), this);
+  g_signal_connect(G_OBJECT(document), "activate", G_CALLBACK(addDocument), this);
+  g_signal_connect(G_OBJECT(folder), "activate", G_CALLBACK(addFolder), this);
+  g_signal_connect(G_OBJECT(iconStyle), "activate", G_CALLBACK(addIconStyle), this);
+  g_signal_connect(G_OBJECT(innerBoundaryIs), "activate", G_CALLBACK(addInnerBoundaryIs), this);
+  g_signal_connect(G_OBJECT(linearRing), "activate", G_CALLBACK(addLinearRing), this);
+  g_signal_connect(G_OBJECT(lineString), "activate", G_CALLBACK(addLineString), this);
+  g_signal_connect(G_OBJECT(lineStyle), "activate", G_CALLBACK(addLineStyle), this);
+  g_signal_connect(G_OBJECT(mulitgeometry), "activate", G_CALLBACK(addMulitgeometry), this);
+  g_signal_connect(G_OBJECT(outerBoundaryIs), "activate", G_CALLBACK(addOuterBoundaryIs), this);
+  g_signal_connect(G_OBJECT(placemark), "activate", G_CALLBACK(addPlacemark), this);
+  g_signal_connect(G_OBJECT(point), "activate", G_CALLBACK(addPoint), this);
+  g_signal_connect(G_OBJECT(polygon), "activate", G_CALLBACK(addPolygon), this);
+  g_signal_connect(G_OBJECT(polyStyle), "activate", G_CALLBACK(addPolyStyle), this);
+  g_signal_connect(G_OBJECT(style), "activate", G_CALLBACK(addStyle), this);
 
   /*skróty klawiszowe*/
   gtk_widget_add_accelerator(quit, "activate", accel_group, GDK_q, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE); //skróty klawiszowe
@@ -183,18 +227,39 @@ void MainWindow::build()
   gtk_widget_add_accelerator(save_as, "activate", accel_group, GDK_s, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
   gtk_widget_add_accelerator(newf, "activate", accel_group, GDK_n, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
 
+  /**/
   gtk_menu_item_set_submenu(GTK_MENU_ITEM(file), file_menu); // łączymy kategorie z nazwami
+  gtk_menu_item_set_submenu(GTK_MENU_ITEM(add), add_menu);
   gtk_menu_item_set_submenu(GTK_MENU_ITEM(help), help_menu);
 
+  /**/
   gtk_menu_shell_append(GTK_MENU_SHELL(file_menu), newf); // łączymy kategorie z opcjami
   gtk_menu_shell_append(GTK_MENU_SHELL(file_menu), open);
   gtk_menu_shell_append(GTK_MENU_SHELL(file_menu), save_as);
   gtk_menu_shell_append(GTK_MENU_SHELL(file_menu), sep);
   gtk_menu_shell_append(GTK_MENU_SHELL(file_menu), quit);
   gtk_menu_shell_append(GTK_MENU_SHELL(help_menu), about);
+  gtk_menu_shell_append(GTK_MENU_SHELL(add_menu), document);
+  gtk_menu_shell_append(GTK_MENU_SHELL(add_menu), folder);
+  gtk_menu_shell_append(GTK_MENU_SHELL(add_menu), iconStyle);
+  gtk_menu_shell_append(GTK_MENU_SHELL(add_menu), innerBoundaryIs);
+  gtk_menu_shell_append(GTK_MENU_SHELL(add_menu), linearRing);
+  gtk_menu_shell_append(GTK_MENU_SHELL(add_menu), lineString);
+  gtk_menu_shell_append(GTK_MENU_SHELL(add_menu), lineStyle);
+  gtk_menu_shell_append(GTK_MENU_SHELL(add_menu), mulitgeometry);
+  gtk_menu_shell_append(GTK_MENU_SHELL(add_menu), outerBoundaryIs);
+  gtk_menu_shell_append(GTK_MENU_SHELL(add_menu), placemark);
+  gtk_menu_shell_append(GTK_MENU_SHELL(add_menu), point);
+  gtk_menu_shell_append(GTK_MENU_SHELL(add_menu), polygon);
+  gtk_menu_shell_append(GTK_MENU_SHELL(add_menu), polyStyle);
+  gtk_menu_shell_append(GTK_MENU_SHELL(add_menu), style);
 
   gtk_menu_shell_append(GTK_MENU_SHELL(menu), file); //łaczymy kategorie z menu
+  gtk_menu_shell_append(GTK_MENU_SHELL(menu), add);
   gtk_menu_shell_append(GTK_MENU_SHELL(menu), help);
+
+
+  setAllInactive();
 
   //boxowanie
 
@@ -660,15 +725,19 @@ void MainWindow::showEditNode(node* n)
   gtk_box_pack_end(GTK_BOX(vbox), hbox, TRUE, TRUE, 4);
 
   /*przyciski*/
-  GtkWidget *button_ok, *button_cancel, *button_apply;
+  GtkWidget *button_ok, *button_cancel, *button_apply, *button_remove, *button_add;
   button_ok = gtk_button_new_with_label("OK");
   button_cancel = gtk_button_new_with_label("Anuluj");
   button_apply = gtk_button_new_with_label("Zastosuj");
+  button_remove = gtk_button_new_with_label("Usuń");
+  //button_add = gtk_button_new_with_label("Dodaj");
   g_signal_connect(G_OBJECT(button_apply), "clicked", G_CALLBACK(editButtonApply), this);
   g_signal_connect(G_OBJECT(button_ok), "clicked", G_CALLBACK(editButtonOk), this);
   g_signal_connect(G_OBJECT(button_cancel), "clicked", G_CALLBACK(editButtonCancel), this);
+  g_signal_connect(G_OBJECT(button_remove), "clicked", G_CALLBACK(editButtonRemove), this);
 
   /*ustawienie*/
+  gtk_box_pack_start(GTK_BOX(hbox), button_remove, TRUE, TRUE, 5);
   gtk_box_pack_start(GTK_BOX(hbox), button_cancel, TRUE, TRUE, 5);
   gtk_box_pack_start(GTK_BOX(hbox), button_apply, TRUE, TRUE, 5);
   gtk_box_pack_start(GTK_BOX(hbox), button_ok, TRUE, TRUE, 5);
@@ -699,4 +768,220 @@ void MainWindow::editButtonOk(GtkWidget* widget, gpointer data)
   mw->getAnaliser()->GetKML()->connectStyles();
   gtk_widget_destroy(widget->parent->parent->parent);
   mw->drawKMLwithMap();
+}
+
+void MainWindow::editButtonRemove(GtkWidget* widget, gpointer data)
+{
+  MainWindow *mw = static_cast<MainWindow*> (data);
+  mw->can_edit = true;
+  node_edit->GetParent()->RemoveChild(node_edit);
+  mw->getAnaliser()->GetKML()->connectStyles();
+  gtk_widget_destroy(widget->parent->parent->parent);
+  mw->drawKMLwithMap();
+}
+
+void MainWindow::tree_row_selected(GtkTreeView* tree_view, gpointer data)
+{
+  MainWindow *mw = static_cast<MainWindow*> (data);
+  mw->setAllInactive();
+  GtkTreePath *path;
+  gtk_tree_view_get_cursor(GTK_TREE_VIEW(mw->tree), &path, NULL);
+  gchar *p;
+  p = gtk_tree_path_to_string(path);
+  std::string spath(p);
+  g_free(p);
+  MainWindow::node_add = mw->getAnaliser()->GetKML()->findFromTreeView(spath);
+  mw->setPosobilities(node_add->getPosibilities());
+}
+
+void MainWindow::setPosobilities(std::list<std::string> *list)
+{
+  if (!list)
+  {
+    return;
+  }
+  int n = 13;
+  std::string tab[] = {
+    "Folder",
+    "IconStyle",
+    "InnerBoundaryIs",
+    "LinearRing",
+    "LineString",
+    "LineStyle",
+    "Multigeometry",
+    "OuterBoundaryIs",
+    "Placemark",
+    "Point",
+    "Polygon",
+    "PolyStyle",
+    "Style"
+  };
+
+  std::string tmp = list->front();
+
+  for (int i = 0; i < n; i++)
+  {
+    if (tab[i] == tmp)
+    {
+      switch (i)
+      {
+        case 0:
+          gtk_widget_set_sensitive(folder, TRUE);
+          break;
+        case 1:
+          gtk_widget_set_sensitive(iconStyle, TRUE);
+          break;
+        case 2:
+          gtk_widget_set_sensitive(innerBoundaryIs, TRUE);
+          break;
+        case 3:
+          gtk_widget_set_sensitive(linearRing, TRUE);
+          break;
+        case 4:
+          gtk_widget_set_sensitive(lineString, TRUE);
+          break;
+        case 5:
+          gtk_widget_set_sensitive(lineStyle, TRUE);
+          break;
+        case 6:
+          gtk_widget_set_sensitive(mulitgeometry, TRUE);
+          break;
+        case 7:
+          gtk_widget_set_sensitive(outerBoundaryIs, TRUE);
+          break;
+        case 8:
+          gtk_widget_set_sensitive(placemark, TRUE);
+          break;
+        case 9:
+          gtk_widget_set_sensitive(point, TRUE);
+          break;
+        case 10:
+          gtk_widget_set_sensitive(polygon, TRUE);
+          break;
+        case 11:
+          gtk_widget_set_sensitive(polyStyle, TRUE);
+          break;
+        case 12:
+          gtk_widget_set_sensitive(style, TRUE);
+          break;
+      }
+      list->erase(list->begin());
+      if (list->size())
+      {
+        tmp = list->front();
+      }
+      else
+      {
+        i = 14;
+      }
+    }
+  }
+  delete list;
+}
+
+void MainWindow::setAllInactive()
+{
+  gtk_widget_set_sensitive(folder, FALSE);
+  gtk_widget_set_sensitive(iconStyle, FALSE);
+  gtk_widget_set_sensitive(innerBoundaryIs, FALSE);
+  gtk_widget_set_sensitive(linearRing, FALSE);
+  gtk_widget_set_sensitive(lineString, FALSE);
+  gtk_widget_set_sensitive(lineStyle, FALSE);
+  gtk_widget_set_sensitive(mulitgeometry, FALSE);
+  gtk_widget_set_sensitive(outerBoundaryIs, FALSE);
+  gtk_widget_set_sensitive(placemark, FALSE);
+  gtk_widget_set_sensitive(point, FALSE);
+  gtk_widget_set_sensitive(polygon, FALSE);
+  gtk_widget_set_sensitive(polyStyle, FALSE);
+  gtk_widget_set_sensitive(style, FALSE);
+}
+
+void MainWindow::addDocument(GtkWidget* widget, gpointer data)
+{
+  MainWindow *mw = static_cast<MainWindow*> (data);
+  mw->getAnaliser()->GetKML()->AddChild(new Document());
+}
+
+void MainWindow::addFolder(GtkWidget* widget, gpointer data)
+{
+  MainWindow *mw = static_cast<MainWindow*> (data);
+  node_add->AddChild(new Folder());
+}
+
+void MainWindow::addIconStyle(GtkWidget* widget, gpointer data)
+{
+  MainWindow *mw = static_cast<MainWindow*> (data);
+  node_add->AddChild(new IconStyle());
+}
+
+void MainWindow::addInnerBoundaryIs(GtkWidget* widget, gpointer data)
+{
+  MainWindow *mw = static_cast<MainWindow*> (data);
+  node_add->AddChild(new InnerBoundaryIs());
+}
+
+void MainWindow::addLinearRing(GtkWidget* widget, gpointer data)
+{
+  MainWindow *mw = static_cast<MainWindow*> (data);
+  node_add->AddChild(new LinearRing());
+}
+
+void MainWindow::addLineString(GtkWidget* widget, gpointer data)
+{
+  MainWindow *mw = static_cast<MainWindow*> (data);
+  node_add->AddChild(new LineString());
+}
+
+void MainWindow::addLineStyle(GtkWidget* widget, gpointer data)
+{
+  MainWindow *mw = static_cast<MainWindow*> (data);
+  node_add->AddChild(new LineStyle());
+}
+
+void MainWindow::addMulitgeometry(GtkWidget* widget, gpointer data)
+{
+  MainWindow *mw = static_cast<MainWindow*> (data);
+  node_add->AddChild(new Multigeometry());
+}
+
+void MainWindow::addOuterBoundaryIs(GtkWidget* widget, gpointer data)
+{
+  MainWindow *mw = static_cast<MainWindow*> (data);
+  node_add->AddChild(new OuterBoundaryIs());
+}
+
+void MainWindow::addPlacemark(GtkWidget* widget, gpointer data)
+{
+  MainWindow *mw = static_cast<MainWindow*> (data);
+  node_add->AddChild(new Placemark());
+}
+
+void MainWindow::addPoint(GtkWidget* widget, gpointer data)
+{
+  MainWindow *mw = static_cast<MainWindow*> (data);
+  node_add->AddChild(new Point());
+}
+
+void MainWindow::addPolygon(GtkWidget* widget, gpointer data)
+{
+  MainWindow *mw = static_cast<MainWindow*> (data);
+  node_add->AddChild(new Polygon());
+}
+
+void MainWindow::addPolyStyle(GtkWidget* widget, gpointer data)
+{
+  MainWindow *mw = static_cast<MainWindow*> (data);
+  node_add->AddChild(new PolyStyle());
+}
+
+void MainWindow::addStyle(GtkWidget* widget, gpointer data)
+{
+  MainWindow *mw = static_cast<MainWindow*> (data);
+  node_add->AddChild(new Style());
+}
+
+void MainWindow::createKML(GtkWidget* widget, gpointer data)
+{
+  MainWindow *mw = static_cast<MainWindow*> (data);
+  mw->getAnaliser()->createKML();
 }

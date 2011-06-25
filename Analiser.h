@@ -25,7 +25,7 @@ public:
   virtual ~Analiser();
   int Analise(void);
   void saveKMLToFile(std::string file);
-
+  void createKML();
 
   std::string GetFilename() const
   {

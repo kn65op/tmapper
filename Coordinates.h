@@ -25,6 +25,7 @@ public:
   virtual ~Coordinates();
 
   void addCoordinate(std::string *x, std::string *y, std::string *z);
+  void addCoordinate(double x, double y, double z);
   void saveToFile(std::string file, int level);
   void findHW(double& max_x, double& min_x, double& max_y, double& min_y);
   void makeTree(GtkTreeStore* treestore, GtkTreeIter* parent);

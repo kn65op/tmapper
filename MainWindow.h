@@ -88,6 +88,24 @@ private:
   GtkWidget *about;
   GtkWidget *sep;
 
+  /*menu add*/
+  GtkWidget *add;
+  GtkWidget *add_menu;
+  GtkWidget *document;
+  GtkWidget *folder;
+  GtkWidget *iconStyle;
+  GtkWidget *innerBoundaryIs;
+  GtkWidget *linearRing;
+  GtkWidget *lineString;
+  GtkWidget *lineStyle;
+  GtkWidget *mulitgeometry;
+  GtkWidget *outerBoundaryIs;
+  GtkWidget *placemark;
+  GtkWidget *point;
+  GtkWidget *polygon;
+  GtkWidget *polyStyle;
+  GtkWidget *style;
+
   GtkAccelGroup *accel_group;
 
   /*funkcje gtk*/
@@ -102,15 +120,37 @@ private:
   static void showInfo(GtkWidget *widget, gpointer data);
   static void openFile(GtkWidget *widget, gpointer data);
   static void saveFile(GtkWidget *widget, gpointer data);
+  static void createKML(GtkWidget *widget, gpointer data);
   static void showNoFile(MainWindow *mw);
   static void editButtonOk(GtkWidget *widget, gpointer data);
   static void editButtonCancel(GtkWidget *widget, gpointer data);
   static void editButtonApply(GtkWidget *widget, gpointer data);
+  static void editButtonRemove(GtkWidget *widget, gpointer data);
+
+  static void tree_row_selected(GtkTreeView *tree_view, gpointer data);
 
   static void paint(GtkWidget *widget, GdkEventExpose *eev, gpointer data);
 
   void printTree();
   void showEditNode(node* n);
+
+  /*dodawanie*/
+  void setPosobilities(std::list<std::string>* list);
+  void setAllInactive();
+  static void addDocument(GtkWidget *widget, gpointer data);
+  static void addFolder(GtkWidget *widget, gpointer data);
+  static void addIconStyle(GtkWidget *widget, gpointer data);
+  static void addInnerBoundaryIs(GtkWidget *widget, gpointer data);
+  static void addLinearRing(GtkWidget *widget, gpointer data);
+  static void addLineString(GtkWidget *widget, gpointer data);
+  static void addLineStyle(GtkWidget *widget, gpointer data);
+  static void addMulitgeometry(GtkWidget *widget, gpointer data);
+  static void addOuterBoundaryIs(GtkWidget *widget, gpointer data);
+  static void addPlacemark(GtkWidget *widget, gpointer data);
+  static void addPoint(GtkWidget *widget, gpointer data);
+  static void addPolygon(GtkWidget *widget, gpointer data);
+  static void addPolyStyle(GtkWidget *widget, gpointer data);
+  static void addStyle(GtkWidget *widget, gpointer data);
 
   /* do błędów*/
   static void convertToPolish(std::string &s);
@@ -134,6 +174,8 @@ private:
   static bool move_ok;
   static int move_nr;
   static GtkWidget *menu_popup;
+
+  static node* node_add;
 
   static node* node_edit;
   bool can_edit;
