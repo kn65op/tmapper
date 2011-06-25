@@ -48,7 +48,7 @@ int Analiser::Analise()
     kml = 0;
     return 1;
   }
-  if (!yyparse()) // ? std::cout << "Źle\n" : std::cout << "OK\n";
+  if (!yyparse())
   {
     kml = tree;
   }

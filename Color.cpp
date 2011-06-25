@@ -58,7 +58,6 @@ double* Color::getColor()
     std::stringstream ss;
     ss << std::hex << tn->getText().substr(2 * i, 2);
     ss >> col[i];
-    //std::cout << col[i] << " int\n";
     color[3-i] = col[i]/255.0; // zamiana kolorów
   }
   color_ok = true;

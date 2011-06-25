@@ -87,7 +87,6 @@ void Coordinates::saveToFile(std::string file, int level)
   end = coordinates.end();
   for (it = coordinates.begin(); it != end; it++)
   {
-    //std::cout << "?\n";
     of << (*it)[0] << "," << (*it)[1] << "," << (*it)[2] << "\n";
   }
 
@@ -151,9 +150,7 @@ void Coordinates::mapCoordinates(MainWindow* mw, double a_x, double b_x, double 
   end = coordinates.end();
   int i = 0;
   for (it = coordinates.begin(); it != end; it++)
-  {
-    //std::cout << i << " - " << this << "\n";
-    
+  {    
     mw->addCoordinate(a_x * ((*it)[0] - b_x), a_y * ((*it)[1] - b_y), this, i);
     i++;
   }
@@ -262,7 +259,6 @@ void Coordinates::saveFromEditWindow(GtkWidget* box)
       tmp = new double[3];
       for (int i = 0; i < 3; i++)
       {
-        //std::cout << G_OBJECT_TYPE_NAME(g_list_nth_data(list, i+1)) << "\n";
         entry = GTK_WIDGET(g_list_nth_data(list, i + 1));
         text = gtk_entry_get_text(GTK_ENTRY(entry));
         if (text.find(".") != std::string::npos) text.replace(text.find("."), 1, ",");

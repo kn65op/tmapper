@@ -343,8 +343,6 @@ void MainWindow::buttonclicked(GtkWidget *widget, gpointer data)
 {
   MainWindow *mw = static_cast<MainWindow*> (data);
 
-  //std::cout << "LOL\n";
-
   cairo_t *cr = gdk_cairo_create(mw->canvas->window);
   /*cairo_set_source_rgb(cr, 0, 0, 255);
   cairo_rectangle(cr, 0.25, 0.25, 0.5, 0.5);
@@ -542,7 +540,6 @@ void MainWindow::convertToPolish(std::string& s) //TODO: Zmienić na pobranie i 
   {
     return;
   }
-  //std::cout << file.eof() << "\n";
   std::string what;
   std::string to;
   while (!file.eof())
@@ -641,8 +638,6 @@ void MainWindow::canvas_button_press(GtkWidget* widget, GdkEventButton* event, g
   }
   else // LPM
   {
-    // std::cout << "HEHE " << nr << "\n";
-    //std::cout << event->x << " " << event->y << "\n";
     if (nr == 1) //jeśli LPM to bierzemy jak jest jedne w okolicy 
     {
       move_ok = true;
@@ -674,7 +669,6 @@ void MainWindow::canvas_button_release(GtkWidget* widget, GdkEventButton* event,
 {
   MainWindow *mw = static_cast<MainWindow*> (data);
   mw->mouse_clicked = false;
-  ///std::cout << "EHEH\n";
   if (move_ok)
   {
     mw->act = 0;
@@ -1114,7 +1108,6 @@ void MainWindow::setManualZoom(GtkWidget* widget, gpointer data)
 
 void MainWindow::setCloser(GtkWidget* widget, gpointer data)
 {
-  std::cout << "A\n";
   MainWindow *mw = static_cast<MainWindow*> (data);
   mw->zoom_max_x /= 2;
   mw->zoom_min_x /= 2;

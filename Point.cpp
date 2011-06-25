@@ -57,12 +57,9 @@ void Point::draw(cairo_t* cr, double a_x, double b_x, double a_y, double b_y, do
 
   double *cor = (dynamic_cast<Coordinates*> (children.front()))->getCoordinates(0);
   bool no_ic =true;
-  //std::cout << a_x * (cor[0] - b_x) << " " << a_y * (cor[1] - b_y) << "\n";
 
   if (is) //jest ikona do pokazania
   {
-    //TODO usunąć scale
-    //TODO dorobić hotspot
     cairo_surface_t *image;
     gint width, height;
     image = cairo_image_surface_create_from_png(is->getImage().c_str());
@@ -76,8 +73,6 @@ void Point::draw(cairo_t* cr, double a_x, double b_x, double a_y, double b_y, do
       y = a_y * (cor[1] - b_y);
       if (is->getXunits() == "\"fraction\"")
       {
-        //std::cout << x << "\n";
-        //std::cout << is->getX() << "\n";
         x -= (int) ((double) width * is->getX());
       }
       else if (is->getXunits() == "\"insetPixels\"")

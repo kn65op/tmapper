@@ -71,7 +71,6 @@ void numbernode::setVal(std::string val)
 {
   if (val.find(".") != std::string::npos) val.replace(val.find("."), 1, ",");
   this->val = atof(val.c_str());
-  std::cout << this->val << "\n";
 }
 
 bool numbernode::ifRemove()
