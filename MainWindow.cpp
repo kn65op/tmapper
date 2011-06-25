@@ -5,7 +5,10 @@
  * Created on 4 czerwiec 2011, 22:28
  */
 
+#define STATUS_POZ_CONT 1
+#define STATUS_ERR_CONT 2
 #define MENU_SIZE 20
+#define STATUS_SIZE 20
 #define TREE_SIZE 300
 
 #include "MainWindow.h"
@@ -22,6 +25,7 @@
 #include <gtk-2.0/gtk/gtkwidget.h>
 #include <gtk-2.0/gtk/gtktreemodel.h>
 #include <gtk-2.0/gtk/gtkimagemenuitem.h>
+#include <gtk-2.0/gtk/gtkstatusbar.h>
 
 #include "KML.h"
 #include "Coordinates.h"
@@ -79,6 +83,7 @@ void MainWindow::build()
   treew = gtk_scrolled_window_new(NULL, NULL);
   tree = gtk_tree_view_new();
   col = gtk_tree_view_column_new();
+  status_bar = gtk_statusbar_new();
   vbox = gtk_vbox_new(GTK_ORIENTATION_VERTICAL, 1);
   hbox = gtk_hbox_new(GTK_ORIENTATION_HORIZONTAL, 1);
 
@@ -267,6 +272,7 @@ void MainWindow::build()
   gtk_box_set_homogeneous(GTK_BOX(hbox), FALSE);
 
   gtk_box_pack_start(GTK_BOX(vbox), menu, FALSE, FALSE, 0);
+  gtk_box_pack_end(GTK_BOX(vbox), status_bar, FALSE, FALSE, 0);
   gtk_box_pack_end(GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
 
   gtk_container_add(GTK_CONTAINER(treew), tree);
@@ -612,7 +618,11 @@ void MainWindow::canvas_button_press(GtkWidget* widget, GdkEventButton* event, g
     }
     else
     {
-      //TODO komunikat
+      gtk_statusbar_pop(GTK_STATUSBAR(mw->status_bar), STATUS_ERR_CONT);
+      gtk_statusbar_pop(GTK_STATUSBAR(mw->status_bar), STATUS_POZ_CONT);
+      gchar *str;
+      str = g_strdup_printf("W tym punkcie jest więcej niż jeden punkt, wciśnij prawy przycisk myszy, by wybrać.");
+      gtk_statusbar_push(GTK_STATUSBAR(mw->status_bar), STATUS_ERR_CONT, str);
     }
   }
 }
@@ -650,6 +660,12 @@ void MainWindow::canvas_mouse_move(GtkWidget* widget, GdkEventButton* event, gpo
     tmp[1] = event->y / mw->a_y + mw->b_y;
     mw->drawKML();
   }
+  gtk_statusbar_pop(GTK_STATUSBAR(mw->status_bar), STATUS_ERR_CONT);
+  gtk_statusbar_pop(GTK_STATUSBAR(mw->status_bar), STATUS_POZ_CONT);
+  gchar *str;
+  str = g_strdup_printf("Pozycja kursora w rzeczywistości: (%lf, %lf)",
+          event->x / mw->a_x + mw->b_x, event->y / mw->a_y + mw->b_y);
+  gtk_statusbar_push(GTK_STATUSBAR(mw->status_bar), STATUS_POZ_CONT, str);
 }
 
 void MainWindow::mapCoordinates()
@@ -671,14 +687,14 @@ void MainWindow::calcParameters()
   analiser->GetKML()->findHW(max_x, min_x, max_y, min_y);
   gtk_window_get_size(GTK_WINDOW(map), &width, &height);
 
-  max_x = max_x > 0 ? max_x * 1.02 : max_x * 0.98;
-  max_y = max_y > 0 ? max_y * 1.02 : max_y * 0.98;
-  min_x = min_x > 0 ? min_x * 0.98 : min_x * 1.02;
-  min_y = min_y > 0 ? min_y * 0.98 : min_y * 1.02;
+  max_x = max_x > 0 ? max_x * 1.05 : max_x * 0.95;
+  max_y = max_y > 0 ? max_y * 1.05 : max_y * 0.95;
+  min_x = min_x > 0 ? min_x * 0.95 : min_x * 1.05;
+  min_y = min_y > 0 ? min_y * 0.95 : min_y * 1.05;
 
   a_x = (width - TREE_SIZE) / (max_x - min_x);
   b_x = min_x;
-  a_y = (height - MENU_SIZE) / (min_y - max_y);
+  a_y = (height - MENU_SIZE - STATUS_SIZE) / (min_y - max_y);
   b_y = max_y;
 }
 
@@ -709,7 +725,11 @@ void MainWindow::showEditNode(node* n)
 {
   if (!n->ifShow())
   {
-    //TODO komunikat
+    gtk_statusbar_pop(GTK_STATUSBAR(status_bar), STATUS_ERR_CONT);
+    gtk_statusbar_pop(GTK_STATUSBAR(status_bar), STATUS_POZ_CONT);
+    gchar *str;
+    str = g_strdup_printf("Nie możesz edytować tego obiektu, edytuj obiekt wyżej.");
+    gtk_statusbar_push(GTK_STATUSBAR(status_bar), STATUS_ERR_CONT, str);
     can_edit = true;
     return;
   }
@@ -740,7 +760,7 @@ void MainWindow::showEditNode(node* n)
   g_signal_connect(G_OBJECT(button_apply), "clicked", G_CALLBACK(editButtonApply), this);
   g_signal_connect(G_OBJECT(button_ok), "clicked", G_CALLBACK(editButtonOk), this);
   g_signal_connect(G_OBJECT(button_cancel), "clicked", G_CALLBACK(editButtonCancel), this);
-  
+
   if (n->ifRemove())
   {
     button_remove = gtk_button_new_with_label("Usuń");
@@ -996,4 +1016,5 @@ void MainWindow::createKML(GtkWidget* widget, gpointer data)
 {
   MainWindow *mw = static_cast<MainWindow*> (data);
   mw->getAnaliser()->createKML();
+  gtk_widget_set_sensitive(mw->document, TRUE);
 }

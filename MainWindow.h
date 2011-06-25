@@ -63,6 +63,7 @@ private:
   GtkWidget *map;
   GtkWidget *tree;
   GtkWidget *treew;
+  GtkWidget *status_bar; //pasek stanu
   GtkWidget *vbox; // box na menu i resztę
   GtkWidget *hbox; // box na rzeczy w mapie
   GtkWindowGroup * wg;
