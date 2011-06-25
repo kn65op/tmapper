@@ -87,9 +87,12 @@ private:
   GtkWidget *newf;
   GtkWidget *open;
   GtkWidget *save_as;
+  GtkWidget *save_to_pdf;
+  GtkWidget *save_to_png;
   GtkWidget *quit;
   GtkWidget *about;
-  GtkWidget *sep;
+  GtkWidget *sep1;
+  GtkWidget *sep2;
   GtkWidget *z_auto;
   GtkWidget *z_man;
   GtkWidget *closer;
@@ -137,6 +140,8 @@ private:
   static void setManualZoom(GtkWidget *widget, gpointer data);
   static void setCloser(GtkWidget *widget, gpointer data);
   static void setFurther(GtkWidget *widget, gpointer data);
+  static void exportPng(GtkWidget *widget, gpointer data);
+  static void exportPdf(GtkWidget *widget, gpointer data);
 
   static void tree_row_selected(GtkTreeView *tree_view, gpointer data);
 

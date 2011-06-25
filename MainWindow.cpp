@@ -17,6 +17,7 @@
 #include <gtk-2.0/gtk/gtk.h>
 #include <gtk-2.0/gdk/gdkkeysyms.h>
 #include <cairo/cairo.h>
+#include <cairo/cairo-pdf.h>
 #include <iostream>
 #include <fstream>
 #include <float.h>
@@ -194,11 +195,14 @@ void MainWindow::build()
   save_as = gtk_image_menu_item_new_from_stock(GTK_STOCK_SAVE_AS, NULL);
   quit = gtk_image_menu_item_new_from_stock(GTK_STOCK_QUIT, NULL);
   about = gtk_image_menu_item_new_from_stock(GTK_STOCK_ABOUT, NULL);
-  sep = gtk_separator_menu_item_new();
+  sep1 = gtk_separator_menu_item_new();
+  sep2 = gtk_separator_menu_item_new();
   z_auto = gtk_menu_item_new_with_label("Automatyczne przybliżenie");
   z_man = gtk_menu_item_new_with_label("Ustaw przybliżenie");
   closer = gtk_menu_item_new_with_label("Przybliż");
   further = gtk_menu_item_new_with_label("Oddal");
+  save_to_pdf = gtk_menu_item_new_with_label("Eksportuj do pdf");
+  save_to_png = gtk_menu_item_new_with_label("Eksportuj do png");
   document = gtk_menu_item_new_with_label("Document");
   folder = gtk_menu_item_new_with_label("Folder");
   iconStyle = gtk_menu_item_new_with_label("IconStyle");
@@ -221,6 +225,8 @@ void MainWindow::build()
   g_signal_connect(G_OBJECT(save_as), "activate", G_CALLBACK(saveFile), this);
   g_signal_connect(G_OBJECT(z_auto), "activate", G_CALLBACK(setAutoZoom), this);
   g_signal_connect(G_OBJECT(z_man), "activate", G_CALLBACK(setManualZoom), this);
+  g_signal_connect(G_OBJECT(save_to_pdf), "activate", G_CALLBACK(exportPdf), this);
+  g_signal_connect(G_OBJECT(save_to_png), "activate", G_CALLBACK(exportPng), this);
   g_signal_connect(G_OBJECT(closer), "activate", G_CALLBACK(setCloser), this);
   g_signal_connect(G_OBJECT(further), "activate", G_CALLBACK(setFurther), this);
   g_signal_connect(G_OBJECT(document), "activate", G_CALLBACK(addDocument), this);
@@ -256,7 +262,10 @@ void MainWindow::build()
   gtk_menu_shell_append(GTK_MENU_SHELL(file_menu), newf); // łączymy kategorie z opcjami
   gtk_menu_shell_append(GTK_MENU_SHELL(file_menu), open);
   gtk_menu_shell_append(GTK_MENU_SHELL(file_menu), save_as);
-  gtk_menu_shell_append(GTK_MENU_SHELL(file_menu), sep);
+  gtk_menu_shell_append(GTK_MENU_SHELL(file_menu), sep1);
+  gtk_menu_shell_append(GTK_MENU_SHELL(file_menu), save_to_pdf);
+  gtk_menu_shell_append(GTK_MENU_SHELL(file_menu), save_to_png);
+  gtk_menu_shell_append(GTK_MENU_SHELL(file_menu), sep2);
   gtk_menu_shell_append(GTK_MENU_SHELL(file_menu), quit);
   gtk_menu_shell_append(GTK_MENU_SHELL(help_menu), about);
   gtk_menu_shell_append(GTK_MENU_SHELL(add_menu), document);
@@ -697,10 +706,10 @@ void MainWindow::canvas_mouse_move(GtkWidget* widget, GdkEventButton* event, gpo
     {
       double dx = mw->zoom_max_x - mw->zoom_min_x;
       double dy = mw->zoom_max_y - mw->zoom_min_y;
-      mw->zoom_max_x -= ((double)event->x - (double)mw->old_x) / ((double)mw->width - (double)TREE_SIZE) * dx;
-      mw->zoom_min_x -= ((double)event->x - (double)mw->old_x) / ((double)mw->width - (double)TREE_SIZE) * dx;
-      mw->zoom_max_y += ((double)event->y - (double)mw->old_y) / ((double)mw->height - (double)MENU_SIZE - (double)STATUS_SIZE) * dy;
-      mw->zoom_min_y += ((double)event->y - (double)mw->old_y) / ((double)mw->height - (double)MENU_SIZE - (double)STATUS_SIZE) * dy;
+      mw->zoom_max_x -= ((double) event->x - (double) mw->old_x) / ((double) mw->width) * dx;
+      mw->zoom_min_x -= ((double) event->x - (double) mw->old_x) / ((double) mw->width) * dx;
+      mw->zoom_max_y += ((double) event->y - (double) mw->old_y) / ((double) mw->height) * dy;
+      mw->zoom_min_y += ((double) event->y - (double) mw->old_y) / ((double) mw->height) * dy;
     }
     mw->old_x = event->x;
     mw->old_y = event->y;
@@ -727,6 +736,8 @@ void MainWindow::calcParameters()
 {
   double min_x, max_x, min_y, max_y;
   gtk_window_get_size(GTK_WINDOW(map), &width, &height);
+  width -= TREE_SIZE;
+  height -= MENU_SIZE + STATUS_SIZE;
 
   if (zoom_auto)
   {
@@ -752,9 +763,9 @@ void MainWindow::calcParameters()
     min_y = zoom_min_y;
   }
 
-  a_x = (width - TREE_SIZE) / (max_x - min_x);
+  a_x = width / (max_x - min_x);
   b_x = min_x;
-  a_y = (height - MENU_SIZE - STATUS_SIZE) / (min_y - max_y);
+  a_y = height / (min_y - max_y);
   b_y = max_y;
 }
 
@@ -1117,4 +1128,64 @@ void MainWindow::setFurther(GtkWidget* widget, gpointer data)
   mw->zoom_max_y *= 2;
   mw->zoom_min_y *= 2;
   mw->drawKMLwithMap();
+}
+
+void MainWindow::exportPdf(GtkWidget* widget, gpointer data)
+{
+  MainWindow *mw = static_cast<MainWindow*> (data);
+  if (!mw->getAnaliser()->GetKML()) //nie można narysować
+  {
+    return;
+  }
+
+  GtkWidget *chooser = gtk_file_chooser_dialog_new("Zapisz jako PDF",
+          GTK_WINDOW(mw->map),
+          GTK_FILE_CHOOSER_ACTION_SAVE,
+          GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+          GTK_STOCK_SAVE, GTK_RESPONSE_ACCEPT,
+          NULL);
+  if (gtk_dialog_run(GTK_DIALOG(chooser)) == GTK_RESPONSE_ACCEPT)
+  {
+    char *filename;
+    filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(chooser));
+    cairo_surface_t * sur = cairo_pdf_surface_create(filename, (double) mw->width, (double) mw->height);
+    cairo_t * cr = cairo_create(sur);
+    mw->getAnaliser()->GetKML()->draw(cr, mw->a_x, mw->b_x, mw->a_y, mw->b_y, NULL);
+    cairo_show_page(cr);
+    cairo_paint(cr);
+ //   cairo_surface_flush(sur);
+    cairo_surface_destroy(sur);
+    cairo_destroy(cr);
+    g_free(filename);
+  }
+  gtk_widget_destroy(chooser);
+}
+
+void MainWindow::exportPng(GtkWidget* widget, gpointer data)
+{
+  MainWindow *mw = static_cast<MainWindow*> (data);
+  if (!mw->getAnaliser()->GetKML()) //nie można narysować
+  {
+    return;
+  }
+
+  GtkWidget *chooser = gtk_file_chooser_dialog_new("Zapisz jako PNG",
+          GTK_WINDOW(mw->map),
+          GTK_FILE_CHOOSER_ACTION_SAVE,
+          GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+          GTK_STOCK_SAVE, GTK_RESPONSE_ACCEPT,
+          NULL);
+  if (gtk_dialog_run(GTK_DIALOG(chooser)) == GTK_RESPONSE_ACCEPT)
+  {
+    char *filename;
+    filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(chooser));
+    cairo_surface_t * sur = cairo_image_surface_create(CAIRO_FORMAT_ARGB32, mw->width, mw->height);
+    cairo_t * cr = cairo_create(sur);
+    mw->getAnaliser()->GetKML()->draw(cr, mw->a_x, mw->b_x, mw->a_y, mw->b_y, NULL);
+    cairo_surface_write_to_png(sur, filename);
+    cairo_destroy(cr);
+    cairo_surface_destroy(sur);
+    g_free(filename);
+  }
+  gtk_widget_destroy(chooser);
 }
