@@ -42,12 +42,14 @@ void Polygon::init()
 
 void Polygon::draw(cairo_t* cr, double a_x, double b_x, double a_y, double b_y, double *color)
 {
+  OuterBoundaryIs *otmp;
   std::list<node*>::iterator it, end;
   end = children.end();
   for (it = children.begin(); it != end; it++)
   {
     if (dynamic_cast<OuterBoundaryIs*>(*it))
     {
+      otmp = dynamic_cast<OuterBoundaryIs*>(*it);
       (*it)->draw(cr, a_x, b_x, a_y, b_y, color);
     }
   }
@@ -64,6 +66,8 @@ void Polygon::draw(cairo_t* cr, double a_x, double b_x, double a_y, double b_y, 
     }
   }
   delete [] c2;
+  children.remove(otmp);
+  children.insert(children.end(), otmp);
 }
 
 std::list<std::string>* Polygon::getPosibilities()
