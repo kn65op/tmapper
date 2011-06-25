@@ -96,3 +96,8 @@ node* Hotspot::findFromTreeView(std::string s)
 {
   return this;
 }
+
+bool Hotspot::ifShow()
+{
+  return false;
+}

@@ -70,3 +70,13 @@ void boolnode::makeTree(GtkTreeStore* treestore, GtkTreeIter* parent)
   gtk_tree_store_set(treestore, next, 0, ss.str().c_str(), -1);
   delete next;
 }
+
+bool boolnode::ifRemove()
+{
+  return false;
+}
+
+bool boolnode::ifShow()
+{
+  return false;
+}

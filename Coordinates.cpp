@@ -310,3 +310,8 @@ void editRemCor(GtkWidget* widget, gpointer data)
   gtk_widget_destroy(GTK_WIDGET(rem));
   gtk_widget_show_all(box);
 } 
+
+bool Coordinates::ifRemove()
+{
+  return false;
+}

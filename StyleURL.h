@@ -22,6 +22,8 @@ public:
   StyleURL(const StyleURL& orig);
   virtual ~StyleURL();
 
+  bool ifShow();
+  
   void connectStyle(KML *kml);
 
   void setText(std::string t);

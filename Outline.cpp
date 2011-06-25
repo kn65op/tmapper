@@ -61,3 +61,8 @@ void Outline::setVal(bool t)
   dynamic_cast<PolyStyle*>(parent)->noOutlineOk();
   return dynamic_cast<boolnode*>(children.front())->setVal(t);
 }
+
+bool Outline::ifShow()
+{
+  return false;
+}

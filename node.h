@@ -41,6 +41,8 @@ public:
   virtual void paintEditWindow(GtkWidget *box);
   virtual void saveFromEditWindow(GtkWidget *box);
   virtual std::list<std::string>* getPosibilities();
+  virtual bool ifRemove();
+  virtual bool ifShow();
 
   std::string getSubName();
   void setSubName(std::string n);

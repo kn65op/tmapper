@@ -13,7 +13,7 @@
 
 #include "node.h"
 
-class textnode :public node
+class textnode : public node
 {
 public:
   textnode();
@@ -23,7 +23,8 @@ public:
   virtual ~textnode();
 
   void saveToFile(std::string file, int level);
-
+  bool ifRemove();
+  bool ifShow();
   void makeTree(GtkTreeStore* treestore, GtkTreeIter* parent);
 
   std::string getText() const

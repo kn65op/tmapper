@@ -60,3 +60,8 @@ void Fill::setVal(bool t)
   dynamic_cast<PolyStyle*>(parent)->noFillOk();
   return dynamic_cast<boolnode*>(children.front())->setVal(t);
 }
+
+bool Fill::ifShow()
+{
+  return false;
+}

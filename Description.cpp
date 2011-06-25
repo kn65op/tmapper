@@ -51,3 +51,8 @@ void Description::setText(std::string t)
 {
   return dynamic_cast<textnode*>(children.front())->setText(t);
 }
+
+bool Description::ifShow()
+{
+  return false;
+}

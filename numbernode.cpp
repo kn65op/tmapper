@@ -73,3 +73,13 @@ void numbernode::setVal(std::string val)
   this->val = atof(val.c_str());
   std::cout << this->val << "\n";
 }
+
+bool numbernode::ifRemove()
+{
+  return false;
+}
+
+bool numbernode::ifShow()
+{
+  return false;
+}

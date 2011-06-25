@@ -22,6 +22,8 @@ public:
   Hotspot(std::string x, std::string y, std::string xunits, std::string yunits);
   Hotspot(const Hotspot& orig);
   virtual ~Hotspot();
+  
+  bool ifShow();
 
   void saveToFile(std::string file, int level);
   void makeTree(GtkTreeStore* treestore, GtkTreeIter* parent);

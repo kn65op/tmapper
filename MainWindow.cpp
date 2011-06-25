@@ -6,7 +6,7 @@
  */
 
 #define MENU_SIZE 20
-#define TREE_SIZE 200
+#define TREE_SIZE 300
 
 #include "MainWindow.h"
 #include "Analiser.h"
@@ -707,6 +707,12 @@ void MainWindow::tree_row_activated(GtkTreeView* tree_view, GtkTreePath* path, G
 
 void MainWindow::showEditNode(node* n)
 {
+  if (!n->ifShow())
+  {
+    //TODO komunikat
+    can_edit = true;
+    return;
+  }
   MainWindow::node_edit = n;
   GtkWidget *edit = gtk_window_new(GTK_WINDOW_TOPLEVEL);
   std::string window_name = ("Edycja obiektu " + n->getSubName() + " typu " + n->GetName());
@@ -729,15 +735,21 @@ void MainWindow::showEditNode(node* n)
   button_ok = gtk_button_new_with_label("OK");
   button_cancel = gtk_button_new_with_label("Anuluj");
   button_apply = gtk_button_new_with_label("Zastosuj");
-  button_remove = gtk_button_new_with_label("Usuń");
+
   //button_add = gtk_button_new_with_label("Dodaj");
   g_signal_connect(G_OBJECT(button_apply), "clicked", G_CALLBACK(editButtonApply), this);
   g_signal_connect(G_OBJECT(button_ok), "clicked", G_CALLBACK(editButtonOk), this);
   g_signal_connect(G_OBJECT(button_cancel), "clicked", G_CALLBACK(editButtonCancel), this);
-  g_signal_connect(G_OBJECT(button_remove), "clicked", G_CALLBACK(editButtonRemove), this);
+  
+  if (n->ifRemove())
+  {
+    button_remove = gtk_button_new_with_label("Usuń");
+    g_signal_connect(G_OBJECT(button_remove), "clicked", G_CALLBACK(editButtonRemove), this);
+    gtk_box_pack_start(GTK_BOX(hbox), button_remove, TRUE, TRUE, 5);
+  }
 
   /*ustawienie*/
-  gtk_box_pack_start(GTK_BOX(hbox), button_remove, TRUE, TRUE, 5);
+
   gtk_box_pack_start(GTK_BOX(hbox), button_cancel, TRUE, TRUE, 5);
   gtk_box_pack_start(GTK_BOX(hbox), button_apply, TRUE, TRUE, 5);
   gtk_box_pack_start(GTK_BOX(hbox), button_ok, TRUE, TRUE, 5);

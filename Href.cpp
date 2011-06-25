@@ -52,3 +52,8 @@ void Href::setText(std::string t)
 {
   return dynamic_cast<textnode*>(children.front())->setText(t);
 }
+
+bool Href::ifShow()
+{
+  return false;
+}

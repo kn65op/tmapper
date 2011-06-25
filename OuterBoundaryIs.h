@@ -19,6 +19,9 @@ public:
   OuterBoundaryIs(std::string *s);
   OuterBoundaryIs(const OuterBoundaryIs& orig);
   virtual ~OuterBoundaryIs();
+  
+  bool ifShow();
+  
 private:
   void init();
 };

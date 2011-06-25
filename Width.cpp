@@ -60,3 +60,8 @@ void Width::setWidth(std::string w)
   dynamic_cast<LineStyle*>(parent)->noWidthOk();
   return dynamic_cast<numbernode*>(children.front())->setVal(w);
 }
+
+bool Width::ifShow()
+{
+  return false;
+}

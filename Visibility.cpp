@@ -46,10 +46,15 @@ void Visibility::init()
 
 bool Visibility::getVal()
 {
-  return dynamic_cast<boolnode*>(children.front())->getVal();
+  return dynamic_cast<boolnode*> (children.front())->getVal();
 }
 
 void Visibility::setVal(bool b)
 {
-  return dynamic_cast<boolnode*>(children.front())->setVal(b);
+  return dynamic_cast<boolnode*> (children.front())->setVal(b);
+}
+
+bool Visibility::ifShow()
+{
+  return false;
 }

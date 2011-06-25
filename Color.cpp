@@ -75,3 +75,8 @@ void Color::setText(std::string t)
   color_ok = false;
   return dynamic_cast<textnode*>(children.front())->setText(t);
 }
+
+bool Color::ifShow()
+{
+  return false;
+}

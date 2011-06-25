@@ -24,6 +24,8 @@ public:
 
   void saveToFile(std::string file, int level);
   void makeTree(GtkTreeStore* treestore, GtkTreeIter* parent);
+  bool ifRemove();
+  bool ifShow();
   
   void setVal(std::string val);
 

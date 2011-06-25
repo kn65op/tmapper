@@ -21,6 +21,8 @@ public:
   Fill(const Fill& orig);
   virtual ~Fill();
   
+  bool ifShow();
+  
   void setVal(bool t);
   bool getVal();
 

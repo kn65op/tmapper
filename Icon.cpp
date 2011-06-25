@@ -70,3 +70,8 @@ void Icon::setImage(std::string i)
     }
   }
 }
+
+bool Icon::ifShow()
+{
+  return false;
+}

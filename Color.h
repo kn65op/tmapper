@@ -21,6 +21,8 @@ public:
   Color(const Color& orig);
   virtual ~Color();
   
+  bool ifShow();
+  
   void setText(std::string t);
   std::string getText();
 

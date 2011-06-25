@@ -21,6 +21,8 @@ public:
   Description(const Description& orig);
   virtual ~Description();
   
+  bool ifShow();
+  
   void setText(std::string t);
   std::string getText();
   

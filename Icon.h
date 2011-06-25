@@ -21,6 +21,8 @@ public:
   Icon(const Icon& orig);
   virtual ~Icon();
   
+  bool ifShow();
+  
   std::string getImage();
   void setImage(std::string i);
 private:

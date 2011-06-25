@@ -21,6 +21,8 @@ public:
   Outline(const Outline& orig);
   virtual ~Outline();
   
+  bool ifShow();
+  
   void setVal(bool t);
   bool getVal();
 

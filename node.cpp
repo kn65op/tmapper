@@ -1001,3 +1001,13 @@ std::list<std::string>* node::getPosibilities()
 {
   return NULL;
 }
+
+bool node::ifRemove()
+{
+  return true;
+}
+
+bool node::ifShow()
+{
+  return true;
+}

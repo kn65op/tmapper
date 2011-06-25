@@ -37,3 +37,8 @@ void OuterBoundaryIs::init()
 {
   name = "outerBoundaryIs";
 }
+
+bool OuterBoundaryIs::ifShow()
+{
+  return false;
+}

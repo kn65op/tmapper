@@ -20,7 +20,8 @@ public:
   Width(std::string s);
   Width(const Width& orig);
   virtual ~Width();
-  
+
+  bool ifShow();
   
   double getVal();
 

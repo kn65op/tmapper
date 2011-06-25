@@ -133,3 +133,8 @@ void Point::draw(cairo_t* cr, double a_x, double b_x, double a_y, double b_y, do
   cairo_line_to(cr, a_x*(cor[0]-b_x)+1, a_y*(cor[1]-b_y)+1);//*/
   cairo_stroke(cr);
 }
+
+bool Point::ifShow()
+{
+  return false;
+}

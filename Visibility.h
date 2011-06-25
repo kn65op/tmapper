@@ -22,6 +22,8 @@ public:
   Visibility(const Visibility& orig);
   virtual ~Visibility();
   
+  bool ifShow();
+  
   bool getVal();
   void setVal(bool b);
   

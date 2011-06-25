@@ -21,6 +21,8 @@ public:
   Href(const Href& orig);
   virtual ~Href();
 
+  bool ifShow();
+  
   std::string getText();
   void setText(std::string t);
 private:

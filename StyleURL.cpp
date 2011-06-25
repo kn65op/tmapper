@@ -88,3 +88,8 @@ void StyleURL::setText(std::string t)
 {
   return dynamic_cast<textnode*> (children.front())->setText(t);
 }
+
+bool StyleURL::ifShow()
+{
+  return false;
+}
