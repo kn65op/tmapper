@@ -685,6 +685,7 @@ void MainWindow::canvas_button_release(GtkWidget* widget, GdkEventButton* event,
   {
     mw->old_x = -1;
     mw->zoom_can = false;
+    mw->drawKMLwithMap();
   }
 }
 
@@ -1088,6 +1089,8 @@ void MainWindow::createKML(GtkWidget* widget, gpointer data)
   MainWindow *mw = static_cast<MainWindow*> (data);
   mw->getAnaliser()->createKML();
   gtk_widget_set_sensitive(mw->document, TRUE);
+  std::string ff = "TMapper (nowy plik)";
+  gtk_window_set_title(GTK_WINDOW(mw->map), ff.c_str());
 }
 
 void MainWindow::setAutoZoom(GtkWidget* widget, gpointer data)
@@ -1153,7 +1156,7 @@ void MainWindow::exportPdf(GtkWidget* widget, gpointer data)
     mw->getAnaliser()->GetKML()->draw(cr, mw->a_x, mw->b_x, mw->a_y, mw->b_y, NULL);
     cairo_show_page(cr);
     cairo_paint(cr);
- //   cairo_surface_flush(sur);
+    //   cairo_surface_flush(sur);
     cairo_surface_destroy(sur);
     cairo_destroy(cr);
     g_free(filename);
