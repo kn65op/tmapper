@@ -76,6 +76,7 @@ void MainWindow::init(int argc, char** argv)
   mouse_clicked = false;
   act = 0;
   can_edit = true;
+  zoom_auto = true;
 }
 
 void MainWindow::build()
@@ -181,10 +182,12 @@ void MainWindow::build()
   file_menu = gtk_menu_new(); //tworzymy kategorie
   help_menu = gtk_menu_new();
   add_menu = gtk_menu_new();
+  view_menu = gtk_menu_new();
 
   file = gtk_menu_item_new_with_mnemonic("_Plik"); // tworzymy nazwy kategorii
   help = gtk_menu_item_new_with_mnemonic("P_omoc");
   add = gtk_menu_item_new_with_mnemonic("_Dodaj");
+  view = gtk_menu_item_new_with_mnemonic("_Widok");
 
   open = gtk_image_menu_item_new_from_stock(GTK_STOCK_OPEN, NULL); //tworzymy opcje menu
   newf = gtk_image_menu_item_new_from_stock(GTK_STOCK_NEW, NULL);
@@ -192,6 +195,10 @@ void MainWindow::build()
   quit = gtk_image_menu_item_new_from_stock(GTK_STOCK_QUIT, NULL);
   about = gtk_image_menu_item_new_from_stock(GTK_STOCK_ABOUT, NULL);
   sep = gtk_separator_menu_item_new();
+  z_auto = gtk_menu_item_new_with_label("Automatyczne przybliżenie");
+  z_man = gtk_menu_item_new_with_label("Ustaw przybliżenie");
+  closer = gtk_menu_item_new_with_label("Przybliż");
+  further = gtk_menu_item_new_with_label("Oddal");
   document = gtk_menu_item_new_with_label("Document");
   folder = gtk_menu_item_new_with_label("Folder");
   iconStyle = gtk_menu_item_new_with_label("IconStyle");
@@ -212,6 +219,10 @@ void MainWindow::build()
   g_signal_connect(G_OBJECT(newf), "activate", G_CALLBACK(createKML), this);
   g_signal_connect(G_OBJECT(open), "activate", G_CALLBACK(openFile), this);
   g_signal_connect(G_OBJECT(save_as), "activate", G_CALLBACK(saveFile), this);
+  g_signal_connect(G_OBJECT(z_auto), "activate", G_CALLBACK(setAutoZoom), this);
+  g_signal_connect(G_OBJECT(z_man), "activate", G_CALLBACK(setManualZoom), this);
+  g_signal_connect(G_OBJECT(closer), "activate", G_CALLBACK(setCloser), this);
+  g_signal_connect(G_OBJECT(further), "activate", G_CALLBACK(setFurther), this);
   g_signal_connect(G_OBJECT(document), "activate", G_CALLBACK(addDocument), this);
   g_signal_connect(G_OBJECT(folder), "activate", G_CALLBACK(addFolder), this);
   g_signal_connect(G_OBJECT(iconStyle), "activate", G_CALLBACK(addIconStyle), this);
@@ -232,10 +243,13 @@ void MainWindow::build()
   gtk_widget_add_accelerator(open, "activate", accel_group, GDK_o, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
   gtk_widget_add_accelerator(save_as, "activate", accel_group, GDK_s, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
   gtk_widget_add_accelerator(newf, "activate", accel_group, GDK_n, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
+  gtk_widget_add_accelerator(closer, "activate", accel_group, GDK_plus, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
+  gtk_widget_add_accelerator(further, "activate", accel_group, GDK_minus, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
 
   /**/
   gtk_menu_item_set_submenu(GTK_MENU_ITEM(file), file_menu); // łączymy kategorie z nazwami
   gtk_menu_item_set_submenu(GTK_MENU_ITEM(add), add_menu);
+  gtk_menu_item_set_submenu(GTK_MENU_ITEM(view), view_menu);
   gtk_menu_item_set_submenu(GTK_MENU_ITEM(help), help_menu);
 
   /**/
@@ -259,12 +273,19 @@ void MainWindow::build()
   gtk_menu_shell_append(GTK_MENU_SHELL(add_menu), polygon);
   gtk_menu_shell_append(GTK_MENU_SHELL(add_menu), polyStyle);
   gtk_menu_shell_append(GTK_MENU_SHELL(add_menu), style);
+  gtk_menu_shell_append(GTK_MENU_SHELL(view_menu), z_auto);
+  gtk_menu_shell_append(GTK_MENU_SHELL(view_menu), z_man);
+  gtk_menu_shell_append(GTK_MENU_SHELL(view_menu), closer);
+  gtk_menu_shell_append(GTK_MENU_SHELL(view_menu), further);
 
   gtk_menu_shell_append(GTK_MENU_SHELL(menu), file); //łaczymy kategorie z menu
   gtk_menu_shell_append(GTK_MENU_SHELL(menu), add);
+  gtk_menu_shell_append(GTK_MENU_SHELL(menu), view);
   gtk_menu_shell_append(GTK_MENU_SHELL(menu), help);
 
-
+  gtk_widget_set_sensitive(document, FALSE);
+  gtk_widget_set_sensitive(closer, FALSE);
+  gtk_widget_set_sensitive(further, FALSE);
   setAllInactive();
 
   //boxowanie
@@ -364,7 +385,7 @@ void MainWindow::paint(GtkWidget* widget, GdkEventExpose* eev, gpointer data)
 {
 
   MainWindow *mw = static_cast<MainWindow*> (data);
-  
+
   mw->drawKMLwithMap();
 
 }
@@ -618,13 +639,17 @@ void MainWindow::canvas_button_press(GtkWidget* widget, GdkEventButton* event, g
       move_ok = true;
       move_nr = mw->act_nr;
     }
-    else
+    else if (nr > 1)
     {
       gtk_statusbar_pop(GTK_STATUSBAR(mw->status_bar), STATUS_ERR_CONT);
       gtk_statusbar_pop(GTK_STATUSBAR(mw->status_bar), STATUS_POZ_CONT);
       gchar *str;
       str = g_strdup_printf("W tym punkcie jest więcej niż jeden punkt, wciśnij prawy przycisk myszy, by wybrać.");
       gtk_statusbar_push(GTK_STATUSBAR(mw->status_bar), STATUS_ERR_CONT, str);
+    }
+    else
+    {
+      if (!mw->zoom_auto && !move_ok) mw->zoom_can = true;
     }
   }
 }
@@ -647,12 +672,16 @@ void MainWindow::canvas_button_release(GtkWidget* widget, GdkEventButton* event,
     mw->drawKMLwithMap();
     move_ok = false;
   }
+  else if (mw->zoom_can)
+  {
+    mw->old_x = -1;
+    mw->zoom_can = false;
+  }
 }
 
 void MainWindow::canvas_mouse_move(GtkWidget* widget, GdkEventButton* event, gpointer data)
 {
   MainWindow *mw = static_cast<MainWindow*> (data);
-  //std::cout << "move\n";
   if (mw->mouse_clicked && move_ok)
   {
     mw->act = mw->coors_ptr[MainWindow::move_nr];
@@ -660,6 +689,21 @@ void MainWindow::canvas_mouse_move(GtkWidget* widget, GdkEventButton* event, gpo
     double *tmp = mw->act->getCoordinates(mw->act_nr);
     tmp[0] = event->x / mw->a_x + mw->b_x;
     tmp[1] = event->y / mw->a_y + mw->b_y;
+    mw->drawKML();
+  }
+  else if (mw->zoom_can)
+  {
+    if (mw->old_x != -1)
+    {
+      double dx = mw->zoom_max_x - mw->zoom_min_x;
+      double dy = mw->zoom_max_y - mw->zoom_min_y;
+      mw->zoom_max_x -= ((double)event->x - (double)mw->old_x) / ((double)mw->width - (double)TREE_SIZE) * dx;
+      mw->zoom_min_x -= ((double)event->x - (double)mw->old_x) / ((double)mw->width - (double)TREE_SIZE) * dx;
+      mw->zoom_max_y += ((double)event->y - (double)mw->old_y) / ((double)mw->height - (double)MENU_SIZE - (double)STATUS_SIZE) * dy;
+      mw->zoom_min_y += ((double)event->y - (double)mw->old_y) / ((double)mw->height - (double)MENU_SIZE - (double)STATUS_SIZE) * dy;
+    }
+    mw->old_x = event->x;
+    mw->old_y = event->y;
     mw->drawKML();
   }
   gtk_statusbar_pop(GTK_STATUSBAR(mw->status_bar), STATUS_ERR_CONT);
@@ -682,17 +726,31 @@ void MainWindow::mapCoordinates()
 void MainWindow::calcParameters()
 {
   double min_x, max_x, min_y, max_y;
-  int width, height;
-  min_x = min_y = DBL_MAX;
-  max_x = max_y = -DBL_MAX;
-
-  analiser->GetKML()->findHW(max_x, min_x, max_y, min_y);
   gtk_window_get_size(GTK_WINDOW(map), &width, &height);
 
-  max_x = max_x > 0 ? max_x * 1.05 : max_x * 0.95;
-  max_y = max_y > 0 ? max_y * 1.05 : max_y * 0.95;
-  min_x = min_x > 0 ? min_x * 0.95 : min_x * 1.05;
-  min_y = min_y > 0 ? min_y * 0.95 : min_y * 1.05;
+  if (zoom_auto)
+  {
+    min_x = min_y = DBL_MAX;
+    max_x = max_y = -DBL_MAX;
+
+    analiser->GetKML()->findHW(max_x, min_x, max_y, min_y);
+
+    max_x = max_x > 0 ? max_x * 1.05 : max_x * 0.95;
+    max_y = max_y > 0 ? max_y * 1.05 : max_y * 0.95;
+    min_x = min_x > 0 ? min_x * 0.95 : min_x * 1.05;
+    min_y = min_y > 0 ? min_y * 0.95 : min_y * 1.05;
+    zoom_max_x = max_x;
+    zoom_max_y = max_y;
+    zoom_min_y = min_y;
+    zoom_min_x = min_x;
+  }
+  else
+  {
+    max_x = zoom_max_x;
+    max_y = zoom_max_y;
+    min_x = zoom_min_x;
+    min_y = zoom_min_y;
+  }
 
   a_x = (width - TREE_SIZE) / (max_x - min_x);
   b_x = min_x;
@@ -1019,4 +1077,44 @@ void MainWindow::createKML(GtkWidget* widget, gpointer data)
   MainWindow *mw = static_cast<MainWindow*> (data);
   mw->getAnaliser()->createKML();
   gtk_widget_set_sensitive(mw->document, TRUE);
+}
+
+void MainWindow::setAutoZoom(GtkWidget* widget, gpointer data)
+{
+  MainWindow *mw = static_cast<MainWindow*> (data);
+  mw->zoom_auto = true;
+  mw->drawKMLwithMap();
+  gtk_widget_set_sensitive(mw->closer, FALSE);
+  gtk_widget_set_sensitive(mw->further, FALSE);
+}
+
+void MainWindow::setManualZoom(GtkWidget* widget, gpointer data)
+{
+  MainWindow *mw = static_cast<MainWindow*> (data);
+  mw->zoom_auto = false;
+  mw->zoom_can = false;
+  mw->old_x = mw->old_y = -1;
+  gtk_widget_set_sensitive(mw->closer, TRUE);
+  gtk_widget_set_sensitive(mw->further, TRUE);
+}
+
+void MainWindow::setCloser(GtkWidget* widget, gpointer data)
+{
+  std::cout << "A\n";
+  MainWindow *mw = static_cast<MainWindow*> (data);
+  mw->zoom_max_x /= 2;
+  mw->zoom_min_x /= 2;
+  mw->zoom_max_y /= 2;
+  mw->zoom_min_y /= 2;
+  mw->drawKMLwithMap();
+}
+
+void MainWindow::setFurther(GtkWidget* widget, gpointer data)
+{
+  MainWindow *mw = static_cast<MainWindow*> (data);
+  mw->zoom_max_x *= 2;
+  mw->zoom_min_x *= 2;
+  mw->zoom_max_y *= 2;
+  mw->zoom_min_y *= 2;
+  mw->drawKMLwithMap();
 }

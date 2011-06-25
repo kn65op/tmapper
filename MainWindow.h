@@ -79,8 +79,10 @@ private:
   /*menu:*/
   GtkWidget *menu;
   GtkWidget *file_menu;
+  GtkWidget *view_menu;
   GtkWidget *help_menu;
   GtkWidget *file;
+  GtkWidget *view;
   GtkWidget *help;
   GtkWidget *newf;
   GtkWidget *open;
@@ -88,6 +90,10 @@ private:
   GtkWidget *quit;
   GtkWidget *about;
   GtkWidget *sep;
+  GtkWidget *z_auto;
+  GtkWidget *z_man;
+  GtkWidget *closer;
+  GtkWidget *further;
 
   /*menu add*/
   GtkWidget *add;
@@ -127,6 +133,10 @@ private:
   static void editButtonCancel(GtkWidget *widget, gpointer data);
   static void editButtonApply(GtkWidget *widget, gpointer data);
   static void editButtonRemove(GtkWidget *widget, gpointer data);
+  static void setAutoZoom(GtkWidget *widget, gpointer data);
+  static void setManualZoom(GtkWidget *widget, gpointer data);
+  static void setCloser(GtkWidget *widget, gpointer data);
+  static void setFurther(GtkWidget *widget, gpointer data);
 
   static void tree_row_selected(GtkTreeView *tree_view, gpointer data);
 
@@ -180,6 +190,17 @@ private:
 
   static node* node_edit;
   bool can_edit;
+  
+  /* zoom */
+  bool zoom_auto;
+  bool zoom_can;
+  double zoom_min_x;
+  double zoom_min_y;
+  double zoom_max_x;
+  double zoom_max_y;
+  
+  int old_x;
+  int old_y;
 
   /* Funkcje inne*/
   void drawKML();
