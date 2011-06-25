@@ -26,6 +26,7 @@
 #include <gtk-2.0/gtk/gtktreemodel.h>
 #include <gtk-2.0/gtk/gtkimagemenuitem.h>
 #include <gtk-2.0/gtk/gtkstatusbar.h>
+#include <gtk-2.0/gtk/gtktreeview.h>
 
 #include "KML.h"
 #include "Coordinates.h"
@@ -363,7 +364,7 @@ void MainWindow::paint(GtkWidget* widget, GdkEventExpose* eev, gpointer data)
 {
 
   MainWindow *mw = static_cast<MainWindow*> (data);
-
+  
   mw->drawKMLwithMap();
 
 }
@@ -448,6 +449,7 @@ void MainWindow::drawKML()
   model = GTK_TREE_MODEL(treestore);
   gtk_tree_view_set_model(GTK_TREE_VIEW(tree), model);
   g_object_unref(model);
+  gtk_tree_view_expand_all(GTK_TREE_VIEW(tree)); //TODO coś jednak innego
 
   cairo_t *cr = gdk_cairo_create(canvas->window);
   cairo_set_source_rgb(cr, 1, 1, 1);

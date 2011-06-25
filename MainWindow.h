@@ -72,7 +72,7 @@ private:
   GtkTreeModel *model;
   GtkTreeStore *treestore;
   std::string programtitle;
-
+  
   GtkWidget *canvas;
   GtkWidget *button;
 
