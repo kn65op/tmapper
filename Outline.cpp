@@ -28,7 +28,7 @@ Outline::Outline(std::string *s) : node(s)
 
 Outline::Outline(std::string s)
 {
-  AddChild(new textnode(s));
+  AddChild(new boolnode(s));
   init();
 }
 

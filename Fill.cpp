@@ -28,7 +28,7 @@ Fill::Fill(std::string *s) : node(s)
 
 Fill::Fill(std::string s)
 {
-  AddChild(new textnode(s));
+  AddChild(new boolnode(s));
   init();
 }
 

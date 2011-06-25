@@ -29,6 +29,12 @@ boolnode::boolnode(std::string * b)
   init();
 }
 
+boolnode::boolnode(std::string b)
+{
+  val = (bool)atoi(b.c_str());
+  init();
+}
+
 boolnode::boolnode(bool b)
 {
   val = b;

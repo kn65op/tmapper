@@ -5,7 +5,7 @@ poprawić zapis do pliku
 pasek stanu, wyświetlanie aktualnego położenia
 
 dodawanie rzeczy
-pamiętać o linear ringach oraz coordinatesach
+usuwanie rzeczy - zapobieganiu usuwaniu niechcianych do usunięcia 
 
 Usuwanie:
 usunięcie scale - na razie tylko w icon jest jeszcze label

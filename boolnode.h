@@ -17,6 +17,7 @@ class boolnode : public node
 public:
   boolnode();
   boolnode(std::string * b);
+  boolnode(std::string b);
   boolnode(bool b);
   boolnode(const boolnode& orig);
   virtual ~boolnode();

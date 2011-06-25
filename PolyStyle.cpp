@@ -118,6 +118,7 @@ void PolyStyle::saveFromEditWindow(GtkWidget* box)
   entry = GTK_WIDGET(g_list_nth_data(list, 1));
   text = gtk_entry_get_text(GTK_ENTRY(entry));
   setFill(text);
+  noFillOk();
 
   /*outline*/
   list = gtk_container_get_children(GTK_CONTAINER(box));
@@ -126,6 +127,7 @@ void PolyStyle::saveFromEditWindow(GtkWidget* box)
   entry = GTK_WIDGET(g_list_nth_data(list, 1));
   text = gtk_entry_get_text(GTK_ENTRY(entry));
   setOutline(text);
+  noOutlineOk();
 
 }
 void PolyStyle::noFillOk()
