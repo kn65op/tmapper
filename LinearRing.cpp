@@ -20,6 +20,9 @@ using namespace std;
 LinearRing::LinearRing()
 {
   init();
+  Coordinates* tmp = new Coordinates();
+  tmp->addCoordinate(0.0, 0.0, 0.0);
+  AddChild(tmp);
 }
 
 LinearRing::LinearRing(std::string* s) : node(s)

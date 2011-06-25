@@ -26,6 +26,7 @@ public:
   void saveToFile(std::string file, int level);
   void makeTree(GtkTreeStore* treestore, GtkTreeIter* parent);
   void setAll(std::string x, std::string y, std::string xunits, std::string yunits);
+  node* findFromTreeView(std::string s);
 
   double getX() const
   {
@@ -40,10 +41,10 @@ public:
   void setX(std::string* x)
   {
     if (x->find(".") != std::string::npos) x->replace(x->find("."), 1, ",");
-    this->x = atof(x->substr(1, x->size()-2).c_str());
+    this->x = atof(x->substr(1, x->size() - 2).c_str());
     delete x;
   }
-  
+
   void setX(std::string x)
   {
     if (x.find(".") != std::string::npos) x.replace(x.find("."), 1, ",");
@@ -57,6 +58,21 @@ public:
 
   void setXunits(std::string xunits)
   {
+    if (xunits == "")
+    {
+      xunits = "\"\"";
+    }
+    else
+    {
+      if (xunits[0] != '"')
+      {
+        xunits.insert(xunits.begin(), '"');
+      }
+      if (xunits[xunits.size() - 1] != '"')
+      {
+        xunits.insert(xunits.end(), '"');
+      }
+    }
     this->xunits = xunits;
   }
 
@@ -79,7 +95,7 @@ public:
   void setY(std::string* y)
   {
     if (y->find(".") != std::string::npos) y->replace(y->find("."), 1, ",");
-    this->y = atof(y->substr(1, y->size()-2).c_str());
+    this->y = atof(y->substr(1, y->size() - 2).c_str());
     delete y;
   }
 
@@ -96,6 +112,21 @@ public:
 
   void setYunits(std::string yunits)
   {
+    if (yunits == "")
+    {
+      yunits = "\"\"";
+    }
+    else
+    {
+      if (yunits[0] != '"')
+      {
+        yunits.insert(yunits.begin(), '"');
+      }
+      if (yunits[yunits.size() - 1] != '"')
+      {
+        yunits.insert(yunits.end(), '"');
+      }
+    }
     this->yunits = yunits;
   }
 
@@ -107,7 +138,7 @@ public:
 
 
 private:
-  double x,y;
+  double x, y;
   std::string xunits, yunits;
   void init();
 };

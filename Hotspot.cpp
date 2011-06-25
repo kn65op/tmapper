@@ -32,11 +32,11 @@ Hotspot::Hotspot(const Hotspot& orig)
 
 Hotspot::Hotspot(std::string x, std::string y, std::string xunits, std::string yunits)
 {
+  init();
   setX(x);
   setY(y);
   setXunits(xunits);
   setYunits(yunits);
-  init();
 }
 
 Hotspot::~Hotspot()
@@ -90,4 +90,9 @@ void Hotspot::setAll(std::string x, std::string y, std::string xunits, std::stri
   setY(y);
   setXunits(xunits);
   setYunits(yunits);
+}
+
+node* Hotspot::findFromTreeView(std::string s)
+{
+  return this;
 }

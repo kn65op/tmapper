@@ -10,12 +10,14 @@
 #include <string>
 
 #include "node.h"
+#include "LinearRing.h"
 
 using namespace std;
 
 InnerBoundaryIs::InnerBoundaryIs()
 {
   init();
+  AddChild(new LinearRing());
 }
 
 InnerBoundaryIs::InnerBoundaryIs(std::string* s) : node(s)

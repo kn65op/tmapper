@@ -19,6 +19,7 @@ using namespace std;
 Polygon::Polygon()
 {
   init();
+  AddChild(new OuterBoundaryIs());
 }
 
 Polygon::Polygon(std::string* s) : node(s)

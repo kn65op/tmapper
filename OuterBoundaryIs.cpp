@@ -10,12 +10,14 @@
 #include <string>
 
 #include "node.h"
+#include "LinearRing.h"
 
 using namespace std;
 
 OuterBoundaryIs::OuterBoundaryIs()
 {
   init();
+  AddChild(new LinearRing());
 }
 
 OuterBoundaryIs::OuterBoundaryIs(std::string* s) : node(s)

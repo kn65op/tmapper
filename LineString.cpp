@@ -18,6 +18,9 @@ using namespace std;
 LineString::LineString()
 {
   init();
+  Coordinates* tmp = new Coordinates();
+  tmp->addCoordinate(0.0, 0.0, 0.0);
+  AddChild(tmp);
 }
 
 LineString::LineString(std::string* s) : node(s)
