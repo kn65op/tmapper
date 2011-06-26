@@ -3,7 +3,6 @@
 	<name>~GE13F.kmz</name>
 	<Style id="sn_campground4">
 		<IconStyle>
-			<scale>1.2</scale>
 			<Icon>
 				<href>http://maps.google.com/mapfiles/kml/shapes/campground.png</href>
 			</Icon>
@@ -12,12 +11,12 @@
 	</Style>
 	<Folder>
 		<name>Byłem tam.</name>
-		<visibility>0</visibility>
+		<visibility>1</visibility>
 		<description>Byłem tam osobiście.
 Samodzielnie wyszukane i dodane przeze mnie.</description>
 		<Placemark id="default_starting_location">
 			<name>Olkusz</name>
-			<visibility>0</visibility>
+			<visibility>1</visibility>
 			<description>Mój dom.</description>
 
 			<styleUrl>#msn_homegardenbusiness1</styleUrl>
@@ -27,7 +26,7 @@ Samodzielnie wyszukane i dodane przeze mnie.</description>
 		</Placemark>
 		<Placemark>
 			<name>Tu pomieszkuje Ania</name>
-			<visibility>0</visibility>
+			<visibility>1</visibility>
 			<description>W Katowicach, na potrzeby studiowania.</description>
 
 			<styleUrl>#msn_homegardenbusiness</styleUrl>
@@ -37,7 +36,7 @@ Samodzielnie wyszukane i dodane przeze mnie.</description>
 		</Placemark>
 		<Placemark>
 			<name>Śnieżnica</name>
-			<visibility>0</visibility>
+			<visibility>1</visibility>
 			<description>Stok, na którym byliśmy w pewnien mroźny (-15) piątek na desce.
 Kasina Wielka.</description>
 
@@ -48,7 +47,7 @@ Kasina Wielka.</description>
 		</Placemark>
 		<Placemark>
 			<name>Kraków - mieszkanie</name>
-			<visibility>0</visibility>
+			<visibility>1</visibility>
 			<description>Tu mieszkamy z Tomkiem studiując w Krakowie.</description>
 
 			<styleUrl>#msn_arrow0</styleUrl>
@@ -58,7 +57,7 @@ Kasina Wielka.</description>
 		</Placemark>
 		<Placemark>
 			<name>Kamping Polari</name>
-			<visibility>0</visibility>
+			<visibility>1</visibility>
 			<description>Byliśmy tam z 7 razy.
 Teraz to straszna drożyzna, bo się kurort zrobił.</description>
 
@@ -69,7 +68,7 @@ Teraz to straszna drożyzna, bo się kurort zrobił.</description>
 		</Placemark>
 		<Placemark>
 			<name>Pani S, Zuberec</name>
-			<visibility>0</visibility>
+			<visibility>1</visibility>
 			<description>Tu byliśmy też kilka razy, na nartach.</description>
 
 			<styleUrl>#msn_ranger_station</styleUrl>
@@ -79,7 +78,7 @@ Teraz to straszna drożyzna, bo się kurort zrobił.</description>
 		</Placemark>
 		<Placemark>
 			<name>Kamping Tunarica</name>
-			<visibility>0</visibility>
+			<visibility>1</visibility>
 			<description>Kamping w Chorwacji.</description>
 
 			<styleUrl>#msn_campground1</styleUrl>
@@ -89,7 +88,7 @@ Teraz to straszna drożyzna, bo się kurort zrobił.</description>
 		</Placemark>
 		<Placemark>
 			<name>Kamping w Rzymie</name>
-			<visibility>0</visibility>
+			<visibility>1</visibility>
 			<description>Na tym kampingu nocowaliśmy przez 5 nocy pobytu we Włoszech w wakacje 2009.</description>
 
 			<styleUrl>#msn_campground0</styleUrl>
@@ -99,7 +98,7 @@ Teraz to straszna drożyzna, bo się kurort zrobił.</description>
 		</Placemark>
 		<Placemark>
 			<name>Kamping w Sarospataku</name>
-			<visibility>0</visibility>
+			<visibility>1</visibility>
 			<description>Byliśmy tu przez 2 tygodnie, nie ma morza, ale są baseny. Wiem, że to nie to samo, ale cóż zrobić.</description>
 
 			<styleUrl>#msn_campground2</styleUrl>
@@ -109,7 +108,7 @@ Teraz to straszna drożyzna, bo się kurort zrobił.</description>
 		</Placemark>
 		<Placemark>
 			<name>Polska Misja Katolicka</name>
-			<visibility>0</visibility>
+			<visibility>1</visibility>
 			<description>Tu spaliśmy 5 nocy, gdy na wakacjach byliśmy Paryżu.</description>
 
 			<styleUrl>#msn_campground4</styleUrl>
@@ -119,7 +118,7 @@ Teraz to straszna drożyzna, bo się kurort zrobił.</description>
 		</Placemark>
 		<Placemark>
 			<name>Kamping Posejdon</name>
-			<visibility>0</visibility>
+			<visibility>1</visibility>
 			<description>Kamping, na którym nocowaliśmy przed tydzień, w Grecji.</description>
 
 			<styleUrl>#msn_campground3</styleUrl>
@@ -129,7 +128,7 @@ Teraz to straszna drożyzna, bo się kurort zrobił.</description>
 		</Placemark>
 		<Placemark>
 			<name>Kamping pod Olimpem.</name>
-			<visibility>0</visibility>
+			<visibility>1</visibility>
 			<description>Drugi tydzień pobytu w Grecji.
 Lokalizacja przyblizona, bo nie jestem pewnien czy to dokładnie tu, ale miasto się zgadza.</description>
 
@@ -140,7 +139,7 @@ Lokalizacja przyblizona, bo nie jestem pewnien czy to dokładnie tu, ale miasto 
 		</Placemark>
 		<Placemark>
 			<name>Kamping Paestum</name>
-			<visibility>0</visibility>
+			<visibility>1</visibility>
 			<description>Tam spędzimy tydzień wakacji we Włoszech.</description>
 
 			<styleUrl>#msn_campground5</styleUrl>
@@ -150,7 +149,7 @@ Lokalizacja przyblizona, bo nie jestem pewnien czy to dokładnie tu, ale miasto 
 		</Placemark>
 		<Placemark>
 			<name>Lodowiec Hintertux najniższa stacja</name>
-			<visibility>0</visibility>
+			<visibility>1</visibility>
 			<description>Tu jest najniższa stacja wyciągu, na którym będziemy jeździć na nastach/desce.</description>
 
 			<styleUrl>#msn_snowflake_simple30</styleUrl>
@@ -160,7 +159,7 @@ Lokalizacja przyblizona, bo nie jestem pewnien czy to dokładnie tu, ale miasto 
 		</Placemark>
 		<Placemark>
 			<name>Lodowiec Hintertux najwyższa stacja</name>
-			<visibility>0</visibility>
+			<visibility>1</visibility>
 			<description>Najwyższy punkt na który można wyjechać wyciągami na lodowcu Hintertux. 3200m npm.
 Być może tam wyjadę z deską i zjadę z całej góry, czyli do wysokości 2000m npm.</description>
 
@@ -171,7 +170,7 @@ Być może tam wyjadę z deską i zjadę z całej góry, czyli do wysokości 200
 		</Placemark>
 		<Placemark>
 			<name>Lodowiec Hintertux - Parking</name>
-			<visibility>0</visibility>
+			<visibility>1</visibility>
 			<description>Stąd co prawda jest wyciąg na lodowiec, ale można juz tu nie zjechać, z powodu braku śniegu (w kwietniu).</description>
 
 			<styleUrl>#msn_snowflake_simple1</styleUrl>

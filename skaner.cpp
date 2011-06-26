@@ -1116,7 +1116,7 @@ case 38:
 /* rule 38 can match eol */
 YY_RULE_SETUP
 #line 62 "skaner.l"
-{/*std::cout << yytext << " 1\n";*/ SAVE_TOKEN; BEGIN(0); return TEXT;}
+{/*std::cout << yytext << " 1\n";*/ SAVE_TOKEN; BEGIN(0); int i=0; while ((i = yylval.str->find('\n', i+1)) != std::string::npos) lines++; return TEXT;}
 	YY_BREAK
 case 39:
 YY_RULE_SETUP

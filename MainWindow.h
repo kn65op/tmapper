@@ -97,6 +97,7 @@ private:
   GtkWidget *z_man;
   GtkWidget *closer;
   GtkWidget *further;
+  GtkWidget *match;
 
   /*menu add*/
   GtkWidget *add;
@@ -142,6 +143,7 @@ private:
   static void setFurther(GtkWidget *widget, gpointer data);
   static void exportPng(GtkWidget *widget, gpointer data);
   static void exportPdf(GtkWidget *widget, gpointer data);
+  static void matchScale(GtkWidget *widget, gpointer data);
 
   static void tree_row_selected(GtkTreeView *tree_view, gpointer data);
 

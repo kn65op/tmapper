@@ -83,6 +83,7 @@ void Folder::saveFromEditWindow(GtkWidget* box)
 std::list<std::string>* Folder::getPosibilities()
 {
   std::list<std::string> *tmp = new std::list<std::string>();
+  tmp->push_back("Folder");
   tmp->push_back("Placemark");
   return tmp;
 }

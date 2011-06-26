@@ -199,6 +199,7 @@ void MainWindow::build()
   sep2 = gtk_separator_menu_item_new();
   z_auto = gtk_menu_item_new_with_label("Automatyczne przybliżenie");
   z_man = gtk_menu_item_new_with_label("Ustaw przybliżenie");
+  match = gtk_menu_item_new_with_label("Dopasuj");
   closer = gtk_menu_item_new_with_label("Przybliż");
   further = gtk_menu_item_new_with_label("Oddal");
   save_to_pdf = gtk_menu_item_new_with_label("Eksportuj do pdf");
@@ -225,6 +226,7 @@ void MainWindow::build()
   g_signal_connect(G_OBJECT(save_as), "activate", G_CALLBACK(saveFile), this);
   g_signal_connect(G_OBJECT(z_auto), "activate", G_CALLBACK(setAutoZoom), this);
   g_signal_connect(G_OBJECT(z_man), "activate", G_CALLBACK(setManualZoom), this);
+  g_signal_connect(G_OBJECT(match), "activate", G_CALLBACK(matchScale), this);
   g_signal_connect(G_OBJECT(save_to_pdf), "activate", G_CALLBACK(exportPdf), this);
   g_signal_connect(G_OBJECT(save_to_png), "activate", G_CALLBACK(exportPng), this);
   g_signal_connect(G_OBJECT(closer), "activate", G_CALLBACK(setCloser), this);
@@ -284,6 +286,7 @@ void MainWindow::build()
   gtk_menu_shell_append(GTK_MENU_SHELL(add_menu), style);
   gtk_menu_shell_append(GTK_MENU_SHELL(view_menu), z_auto);
   gtk_menu_shell_append(GTK_MENU_SHELL(view_menu), z_man);
+  gtk_menu_shell_append(GTK_MENU_SHELL(view_menu), match);
   gtk_menu_shell_append(GTK_MENU_SHELL(view_menu), closer);
   gtk_menu_shell_append(GTK_MENU_SHELL(view_menu), further);
 
@@ -295,6 +298,7 @@ void MainWindow::build()
   gtk_widget_set_sensitive(document, FALSE);
   gtk_widget_set_sensitive(closer, FALSE);
   gtk_widget_set_sensitive(further, FALSE);
+  gtk_widget_set_sensitive(match, FALSE);
   setAllInactive();
 
   //boxowanie
@@ -741,10 +745,10 @@ void MainWindow::calcParameters()
 
     analiser->GetKML()->findHW(max_x, min_x, max_y, min_y);
 
-    max_x = max_x > 0 ? max_x * 1.05 : max_x * 0.95;
-    max_y = max_y > 0 ? max_y * 1.05 : max_y * 0.95;
-    min_x = min_x > 0 ? min_x * 0.95 : min_x * 1.05;
-    min_y = min_y > 0 ? min_y * 0.95 : min_y * 1.05;
+    max_x += 1;
+    max_y += 1;
+    min_x -= 1;
+    min_y -= 1;
     zoom_max_x = max_x;
     zoom_max_y = max_y;
     zoom_min_y = min_y;
@@ -1004,78 +1008,91 @@ void MainWindow::addFolder(GtkWidget* widget, gpointer data)
 {
   MainWindow *mw = static_cast<MainWindow*> (data);
   node_add->AddChild(new Folder());
+  mw->drawKMLwithMap();
 }
 
 void MainWindow::addIconStyle(GtkWidget* widget, gpointer data)
 {
   MainWindow *mw = static_cast<MainWindow*> (data);
   node_add->AddChild(new IconStyle());
+  mw->drawKMLwithMap();
 }
 
 void MainWindow::addInnerBoundaryIs(GtkWidget* widget, gpointer data)
 {
   MainWindow *mw = static_cast<MainWindow*> (data);
   node_add->AddChild(new InnerBoundaryIs());
+  mw->drawKMLwithMap();
 }
 
 void MainWindow::addLinearRing(GtkWidget* widget, gpointer data)
 {
   MainWindow *mw = static_cast<MainWindow*> (data);
   node_add->AddChild(new LinearRing());
+  mw->drawKMLwithMap();
 }
 
 void MainWindow::addLineString(GtkWidget* widget, gpointer data)
 {
   MainWindow *mw = static_cast<MainWindow*> (data);
   node_add->AddChild(new LineString());
+  mw->drawKMLwithMap();
 }
 
 void MainWindow::addLineStyle(GtkWidget* widget, gpointer data)
 {
   MainWindow *mw = static_cast<MainWindow*> (data);
   node_add->AddChild(new LineStyle());
+  mw->drawKMLwithMap();
 }
 
 void MainWindow::addMulitgeometry(GtkWidget* widget, gpointer data)
 {
   MainWindow *mw = static_cast<MainWindow*> (data);
   node_add->AddChild(new Multigeometry());
+  mw->drawKMLwithMap();
 }
 
 void MainWindow::addOuterBoundaryIs(GtkWidget* widget, gpointer data)
 {
   MainWindow *mw = static_cast<MainWindow*> (data);
   node_add->AddChild(new OuterBoundaryIs());
+  mw->drawKMLwithMap();
 }
 
 void MainWindow::addPlacemark(GtkWidget* widget, gpointer data)
 {
   MainWindow *mw = static_cast<MainWindow*> (data);
   node_add->AddChild(new Placemark());
+  mw->drawKMLwithMap();
 }
 
 void MainWindow::addPoint(GtkWidget* widget, gpointer data)
 {
   MainWindow *mw = static_cast<MainWindow*> (data);
   node_add->AddChild(new Point());
+  mw->drawKMLwithMap();
 }
 
 void MainWindow::addPolygon(GtkWidget* widget, gpointer data)
 {
   MainWindow *mw = static_cast<MainWindow*> (data);
   node_add->AddChild(new Polygon());
+  mw->drawKMLwithMap();
 }
 
 void MainWindow::addPolyStyle(GtkWidget* widget, gpointer data)
 {
   MainWindow *mw = static_cast<MainWindow*> (data);
   node_add->AddChild(new PolyStyle());
+  mw->drawKMLwithMap();
 }
 
 void MainWindow::addStyle(GtkWidget* widget, gpointer data)
 {
   MainWindow *mw = static_cast<MainWindow*> (data);
   node_add->AddChild(new Style());
+  mw->drawKMLwithMap();
 }
 
 void MainWindow::createKML(GtkWidget* widget, gpointer data)
@@ -1085,6 +1102,7 @@ void MainWindow::createKML(GtkWidget* widget, gpointer data)
   gtk_widget_set_sensitive(mw->document, TRUE);
   std::string ff = "TMapper (nowy plik)";
   gtk_window_set_title(GTK_WINDOW(mw->map), ff.c_str());
+  mw->drawKMLwithMap();
 }
 
 void MainWindow::setAutoZoom(GtkWidget* widget, gpointer data)
@@ -1094,6 +1112,7 @@ void MainWindow::setAutoZoom(GtkWidget* widget, gpointer data)
   mw->drawKMLwithMap();
   gtk_widget_set_sensitive(mw->closer, FALSE);
   gtk_widget_set_sensitive(mw->further, FALSE);
+  gtk_widget_set_sensitive(mw->match, FALSE);
 }
 
 void MainWindow::setManualZoom(GtkWidget* widget, gpointer data)
@@ -1104,25 +1123,26 @@ void MainWindow::setManualZoom(GtkWidget* widget, gpointer data)
   mw->old_x = mw->old_y = -1;
   gtk_widget_set_sensitive(mw->closer, TRUE);
   gtk_widget_set_sensitive(mw->further, TRUE);
+  gtk_widget_set_sensitive(mw->match, TRUE);
 }
 
 void MainWindow::setCloser(GtkWidget* widget, gpointer data)
 {
   MainWindow *mw = static_cast<MainWindow*> (data);
-  mw->zoom_max_x /= 2;
-  mw->zoom_min_x /= 2;
-  mw->zoom_max_y /= 2;
-  mw->zoom_min_y /= 2;
+  mw->zoom_max_x -= (mw->zoom_max_x - mw->zoom_min_x) / 4.0;
+  mw->zoom_min_x += (mw->zoom_max_x - mw->zoom_min_x) / 4.0;
+  mw->zoom_max_y -= (mw->zoom_max_y - mw->zoom_min_y) / 4.0;
+  mw->zoom_min_y += (mw->zoom_max_y - mw->zoom_min_y) / 4.0;
   mw->drawKMLwithMap();
 }
 
 void MainWindow::setFurther(GtkWidget* widget, gpointer data)
 {
   MainWindow *mw = static_cast<MainWindow*> (data);
-  mw->zoom_max_x *= 2;
-  mw->zoom_min_x *= 2;
-  mw->zoom_max_y *= 2;
-  mw->zoom_min_y *= 2;
+  mw->zoom_max_x += (mw->zoom_max_x - mw->zoom_min_x) / 2.0;
+  mw->zoom_min_x -= (mw->zoom_max_x - mw->zoom_min_x) / 2.0;
+  mw->zoom_max_y += (mw->zoom_max_y - mw->zoom_min_y) / 2.0;
+  mw->zoom_min_y -= (mw->zoom_max_y - mw->zoom_min_y) / 2.0;
   mw->drawKMLwithMap();
 }
 
@@ -1184,4 +1204,13 @@ void MainWindow::exportPng(GtkWidget* widget, gpointer data)
     g_free(filename);
   }
   gtk_widget_destroy(chooser);
+}
+
+void MainWindow::matchScale(GtkWidget* widget, gpointer data)
+{
+  
+  MainWindow *mw = static_cast<MainWindow*> (data);
+  mw->zoom_auto = true;
+  mw->drawKMLwithMap();
+  mw->zoom_auto = false;
 }

@@ -116,13 +116,11 @@ void makeHotspot()
 %%
 
 input: kml_start kml kml_end 
-{
-restart();
-}
 ;
 
 kml_start: TAG_OPEN KML_SYM options TAG_CLOSE
 {
+  restart();
   if (tree)
   {
     delete tree;
@@ -650,6 +648,7 @@ last_element = last_element->GetParent()
 
 folder:  /* empty */
 				| folder name_start name name_end
+				| folder folder_start folder folder_end
 				| folder visibility_start visibility visibility_end
 				| folder description_start description description_end
                                 | folder placemark_start placemark placemark_end

@@ -105,7 +105,7 @@ void Coordinates::findHW(double& max_x, double& min_x, double& max_y, double& mi
     {
       max_x = (*it)[0];
     }
-    else if ((*it)[0] < min_x)
+    if ((*it)[0] < min_x)
     {
       min_x = (*it)[0];
     }
@@ -113,7 +113,7 @@ void Coordinates::findHW(double& max_x, double& min_x, double& max_y, double& mi
     {
       max_y = (*it)[1];
     }
-    else if ((*it)[1] < min_y)
+    if ((*it)[1] < min_y)
     {
       min_y = (*it)[1];
     }
