@@ -1007,7 +1007,13 @@ bool node::ifRemove()
   return true;
 }
 
+bool node::ifRemoveOlny()
+{
+  return false;
+}
+
 bool node::ifShow()
 {
   return true;
 }
+

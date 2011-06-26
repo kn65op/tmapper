@@ -152,3 +152,7 @@ void LinearRing::draw(cairo_t* cr, double a_x, double b_x, double a_y, double b_
   cairo_stroke(cr);
 }
 
+bool LinearRing::ifRemoveOlny()
+{
+  return true;
+}

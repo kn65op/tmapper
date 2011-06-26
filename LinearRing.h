@@ -19,6 +19,8 @@ public:
   LinearRing(std::string *s);
   LinearRing(const LinearRing& orig);
   virtual ~LinearRing();
+  
+  bool ifRemoveOlny();
 
   void draw(cairo_t* cr, double a_x, double b_x, double a_y, double b_y, double *color);
 private:

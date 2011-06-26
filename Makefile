@@ -147,7 +147,12 @@ TreeWindow.o: TreeWindow.cpp TreeWindow.h
 	$(CC) $(CCFLAGS_C) -o TreeWindow.o TreeWindow.cpp
 
 clean:
-	rm skaner.cpp parser.cpp parser.hpp $(O_FILES)
+	rm skaner.cpp parser.cpp parser.hpp $(O_FILES) TMapper
+	
+rebuild: clean TMapper
+	
+run: TMapper
+	./TMapper
 	
 TMapper: $(O_FILES)
 	$(CC) $(CCFLAGS_L) -o TMapper $(O_FILES)

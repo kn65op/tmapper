@@ -481,8 +481,13 @@ void MainWindow::drawKML()
   model = GTK_TREE_MODEL(treestore);
   gtk_tree_view_set_model(GTK_TREE_VIEW(tree), model);
   g_object_unref(model);
-  gtk_tree_view_expand_all(GTK_TREE_VIEW(tree)); //TODO coś jednak innego
-
+  if (strpath != "")
+  {
+    GtkTreePath *p;
+    p = gtk_tree_path_new_from_string(strpath.c_str());
+    gtk_tree_view_expand_to_path(GTK_TREE_VIEW(tree), p);
+    gtk_tree_path_free(p);
+  }
   cairo_t *cr = gdk_cairo_create(canvas->window);
   cairo_set_source_rgb(cr, 1, 1, 1);
   cairo_paint(cr);
@@ -652,7 +657,7 @@ void MainWindow::canvas_button_press(GtkWidget* widget, GdkEventButton* event, g
       gtk_statusbar_pop(GTK_STATUSBAR(mw->status_bar), STATUS_ERR_CONT);
       gtk_statusbar_pop(GTK_STATUSBAR(mw->status_bar), STATUS_POZ_CONT);
       gchar *str;
-      str = g_strdup_printf("W tym punkcie jest więcej niż jeden punkt, wciśnij prawy przycisk myszy, by wybrać.");
+      str = g_strdup_printf("W tym miejscu jest więcej niż jeden punkt, wciśnij prawy przycisk myszy, by wybrać.");
       gtk_statusbar_push(GTK_STATUSBAR(mw->status_bar), STATUS_ERR_CONT, str);
     }
     else
@@ -822,14 +827,6 @@ void MainWindow::showEditNode(node* n)
 
   /*przyciski*/
   GtkWidget *button_ok, *button_cancel, *button_apply, *button_remove, *button_add;
-  button_ok = gtk_button_new_with_label("OK");
-  button_cancel = gtk_button_new_with_label("Anuluj");
-  button_apply = gtk_button_new_with_label("Zastosuj");
-
-  //button_add = gtk_button_new_with_label("Dodaj");
-  g_signal_connect(G_OBJECT(button_apply), "clicked", G_CALLBACK(editButtonApply), this);
-  g_signal_connect(G_OBJECT(button_ok), "clicked", G_CALLBACK(editButtonOk), this);
-  g_signal_connect(G_OBJECT(button_cancel), "clicked", G_CALLBACK(editButtonCancel), this);
 
   if (n->ifRemove())
   {
@@ -838,11 +835,19 @@ void MainWindow::showEditNode(node* n)
     gtk_box_pack_start(GTK_BOX(hbox), button_remove, TRUE, TRUE, 5);
   }
 
-  /*ustawienie*/
+  button_cancel = gtk_button_new_with_label("Anuluj");
 
+  g_signal_connect(G_OBJECT(button_cancel), "clicked", G_CALLBACK(editButtonCancel), this);
   gtk_box_pack_start(GTK_BOX(hbox), button_cancel, TRUE, TRUE, 5);
-  gtk_box_pack_start(GTK_BOX(hbox), button_apply, TRUE, TRUE, 5);
-  gtk_box_pack_start(GTK_BOX(hbox), button_ok, TRUE, TRUE, 5);
+  if (!n->ifRemoveOlny())
+  {
+    button_ok = gtk_button_new_with_label("OK");
+    button_apply = gtk_button_new_with_label("Zastosuj");
+    g_signal_connect(G_OBJECT(button_apply), "clicked", G_CALLBACK(editButtonApply), this);
+    g_signal_connect(G_OBJECT(button_ok), "clicked", G_CALLBACK(editButtonOk), this);
+    gtk_box_pack_start(GTK_BOX(hbox), button_apply, TRUE, TRUE, 5);
+    gtk_box_pack_start(GTK_BOX(hbox), button_ok, TRUE, TRUE, 5);
+  }
 
   gtk_widget_show_all(edit);
 }
@@ -876,7 +881,13 @@ void MainWindow::editButtonRemove(GtkWidget* widget, gpointer data)
 {
   MainWindow *mw = static_cast<MainWindow*> (data);
   mw->can_edit = true;
+  if (dynamic_cast<Document*>(node_edit))
+  {
+    gtk_widget_set_sensitive(mw->document, TRUE);
+  }
+  mw->setAllInactive();
   node_edit->GetParent()->RemoveChild(node_edit);
+  node_edit = 0;
   mw->getAnaliser()->GetKML()->connectStyles();
   gtk_widget_destroy(widget->parent->parent->parent);
   mw->drawKMLwithMap();
@@ -891,6 +902,8 @@ void MainWindow::tree_row_selected(GtkTreeView* tree_view, gpointer data)
   gchar *p;
   p = gtk_tree_path_to_string(path);
   std::string spath(p);
+  gtk_tree_path_free(path);
+  mw->strpath = spath;
   g_free(p);
   MainWindow::node_add = mw->getAnaliser()->GetKML()->findFromTreeView(spath);
   mw->setPosobilities(node_add->getPosibilities());
@@ -1002,6 +1015,8 @@ void MainWindow::addDocument(GtkWidget* widget, gpointer data)
 {
   MainWindow *mw = static_cast<MainWindow*> (data);
   mw->getAnaliser()->GetKML()->AddChild(new Document());
+  mw->drawKMLwithMap();
+  gtk_widget_set_sensitive(mw->document, FALSE);
 }
 
 void MainWindow::addFolder(GtkWidget* widget, gpointer data)
@@ -1208,7 +1223,7 @@ void MainWindow::exportPng(GtkWidget* widget, gpointer data)
 
 void MainWindow::matchScale(GtkWidget* widget, gpointer data)
 {
-  
+
   MainWindow *mw = static_cast<MainWindow*> (data);
   mw->zoom_auto = true;
   mw->drawKMLwithMap();

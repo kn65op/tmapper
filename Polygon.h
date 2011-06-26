@@ -19,6 +19,8 @@ public:
   Polygon(std::string *s);
   Polygon(const Polygon& orig);
   virtual ~Polygon();
+  
+  bool ifRemoveOlny();
 
   std::list<std::string>* getPosibilities();
   

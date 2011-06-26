@@ -53,6 +53,16 @@ double* Color::getColor()
   }
   int col[4];
   textnode *tn = dynamic_cast<textnode*> (children.front());
+  if (tn->getText().size() < 8)
+  {
+    std::string tmp = tn->getText();
+    int i = tn->getText().size();
+    while (i++ < 8)
+    {
+      tmp += "0";
+    }
+    tn->setText(tmp);
+  }
   for (int i = 0; i < 4; i++)
   {
     std::stringstream ss;

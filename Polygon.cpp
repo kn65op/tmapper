@@ -77,3 +77,8 @@ std::list<std::string>* Polygon::getPosibilities()
   tmp->push_back("OuterBoundaryIs");
   return tmp;
 }
+
+bool Polygon::ifRemoveOlny()
+{
+  return true;
+}

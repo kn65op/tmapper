@@ -43,6 +43,7 @@ public:
   virtual std::list<std::string>* getPosibilities();
   virtual bool ifRemove();
   virtual bool ifShow();
+  virtual bool ifRemoveOlny();
 
   std::string getSubName();
   void setSubName(std::string n);

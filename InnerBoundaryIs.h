@@ -20,7 +20,7 @@ public:
   InnerBoundaryIs(const InnerBoundaryIs& orig);
   virtual ~InnerBoundaryIs();
   
-  bool ifShow();
+  bool ifRemoveOlny();
   
 private:
   void init();

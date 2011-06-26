@@ -4,6 +4,21 @@ pytanie o zapis
 
 wywalanie się przy błedzie parsera
 
+wskazówki od konrada:
+zmiana wartości boolean
+ścieżka do ikon
+usuwanie dokumentu
+
+ewentualnie:
+zmniejszenie wyskakujących okien
+dodanie obsługi x przy edycji
+fajka przy przybżenia, by wiedzieć jakie jest
+podwójne buforowainie
+niewidocznosć i przesuwanie
+
+bardzo ewentualnie:
+rolka
+
 Usuwanie:
 usunięcie scale - na razie tylko w icon jest jeszcze label
 labelki

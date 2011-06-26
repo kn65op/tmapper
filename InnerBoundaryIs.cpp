@@ -38,7 +38,7 @@ void InnerBoundaryIs::init()
   name = "innerBoundaryIs";
 }
 
-bool InnerBoundaryIs::ifShow()
+bool InnerBoundaryIs::ifRemoveOlny()
 {
-  return false;
+  return true;
 }

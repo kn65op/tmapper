@@ -198,6 +198,8 @@ private:
   static node* node_edit;
   bool can_edit;
   
+  std::string strpath;
+  
   /* zoom */
   bool zoom_auto;
   bool zoom_can;
