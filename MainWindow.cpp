@@ -300,6 +300,7 @@ void MainWindow::build()
   gtk_widget_set_sensitive(closer, FALSE);
   gtk_widget_set_sensitive(further, FALSE);
   gtk_widget_set_sensitive(match, FALSE);
+  gtk_widget_set_sensitive(z_auto, FALSE);
   setAllInactive();
 
   //boxowanie
@@ -1149,6 +1150,8 @@ void MainWindow::setAutoZoom(GtkWidget* widget, gpointer data)
   gtk_widget_set_sensitive(mw->closer, FALSE);
   gtk_widget_set_sensitive(mw->further, FALSE);
   gtk_widget_set_sensitive(mw->match, FALSE);
+  gtk_widget_set_sensitive(mw->z_auto, FALSE);
+  gtk_widget_set_sensitive(mw->z_man, TRUE);
 }
 
 void MainWindow::setManualZoom(GtkWidget* widget, gpointer data)
@@ -1160,6 +1163,8 @@ void MainWindow::setManualZoom(GtkWidget* widget, gpointer data)
   gtk_widget_set_sensitive(mw->closer, TRUE);
   gtk_widget_set_sensitive(mw->further, TRUE);
   gtk_widget_set_sensitive(mw->match, TRUE);
+  gtk_widget_set_sensitive(mw->z_auto, TRUE);
+  gtk_widget_set_sensitive(mw->z_man, FALSE);
 }
 
 void MainWindow::setCloser(GtkWidget* widget, gpointer data)

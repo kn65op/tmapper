@@ -1,16 +1,14 @@
-obsługa błedów - język
 poprawić zapis do pliku
-pytanie o zapis
+//pytanie o zapis
 
 //wywalanie się przy błedzie parsera
 
 wskazówki od konrada:
-zmiana wartości boolean
+//zmiana wartości boolean
 
 ewentualnie:
-zmniejszenie wyskakujących okien
-dodanie obsługi x przy edycji
-fajka przy przybżenia, by wiedzieć jakie jest
+//zmniejszenie wyskakujących okien
+//dodanie obsługi x przy edycji
 podwójne buforowainie
 niewidocznosć i przesuwanie
 ścieżka do ikon
