@@ -33,5 +33,16 @@ Multigeometry::~Multigeometry()
 
 void Multigeometry::init()
 {
-  name = "Multigeometry";
+  name = "MultiGeometry";
+}
+
+std::list<std::string>* Multigeometry::getPosibilities()
+{
+  std::list<std::string> *tmp = new std::list<std::string>();
+  tmp->push_back("LinearRing");
+  tmp->push_back("LineString");
+  tmp->push_back("Multigeometry");
+  tmp->push_back("Point");
+  tmp->push_back("Polygon");
+  return tmp;
 }

@@ -56,54 +56,60 @@ void Point::draw(cairo_t* cr, double a_x, double b_x, double a_y, double b_y, do
   IconStyle *is = dynamic_cast<Placemark*> (tmp)->getIconstyle();
 
   double *cor = (dynamic_cast<Coordinates*> (children.front()))->getCoordinates(0);
-  bool no_ic =true;
+  bool no_ic = true;
 
   if (is) //jest ikona do pokazania
   {
-    cairo_surface_t *image;
-    gint width, height;
-    image = cairo_image_surface_create_from_png(is->getImage().c_str());
-    if (cairo_surface_status(image) != CAIRO_STATUS_FILE_NOT_FOUND)
+    if (is->getImage() == "")
     {
-      no_ic = false;
-      width = cairo_image_surface_get_width(image);
-      height = cairo_image_surface_get_height(image);
-      double x, y;
-      x = a_x * (cor[0] - b_x);
-      y = a_y * (cor[1] - b_y);
-      if (is->getXunits() == "\"fraction\"")
-      {
-        x -= (int) ((double) width * is->getX());
-      }
-      else if (is->getXunits() == "\"insetPixels\"")
-      {
-        x += (int) is->getX() + width;
-      }
-      else if (is->getXunits() == "\"pixels\"")
-      {
-        x += (int) is->getX();
-      }
-      if (is->getYunits() == "\"fraction\"")
-      {
-        y -= (int) ((double) height * is->getY());
-      }
-      else if (is->getYunits() == "\"insetPixels\"")
-      {
-        y += (int) is->getY() + height;
-      }
-      else if (is->getYunits() == "\"pixels\"")
-      {
-        y += (int) is->getY();
-      }
-      cairo_set_source_surface(cr, image, x, y);
-      cairo_paint(cr);
-      cairo_surface_destroy(image);
+      no_ic = true;
     }
     else
     {
-      
-      no_ic = true;
+      cairo_surface_t *image;
+      gint width, height;
+      image = cairo_image_surface_create_from_png(is->getImage().c_str());
+      if (cairo_surface_status(image) != CAIRO_STATUS_FILE_NOT_FOUND)
+      {
+        no_ic = false;
+        width = cairo_image_surface_get_width(image);
+        height = cairo_image_surface_get_height(image);
+        double x, y;
+        x = a_x * (cor[0] - b_x);
+        y = a_y * (cor[1] - b_y);
+        if (is->getXunits() == "\"fraction\"")
+        {
+          x -= (int) ((double) width * is->getX());
+        }
+        else if (is->getXunits() == "\"insetPixels\"")
+        {
+          x += (int) is->getX() + width;
+        }
+        else if (is->getXunits() == "\"pixels\"")
+        {
+          x += (int) is->getX();
+        }
+        if (is->getYunits() == "\"fraction\"")
+        {
+          y -= (int) ((double) height * is->getY());
+        }
+        else if (is->getYunits() == "\"insetPixels\"")
+        {
+          y += (int) is->getY() + height;
+        }
+        else if (is->getYunits() == "\"pixels\"")
+        {
+          y += (int) is->getY();
+        }
+        cairo_set_source_surface(cr, image, x, y);
+        cairo_paint(cr);
+        cairo_surface_destroy(image);
+      }
     }
+  }
+  else
+  {
+    no_ic = true;
   }
   if (no_ic)
   {

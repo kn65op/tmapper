@@ -49,6 +49,7 @@ std::string IconStyle::getImage()
       return dynamic_cast<Icon*> (*it)->getImage();
     }
   }
+  return "";
 }
 
 double IconStyle::getX()

@@ -43,4 +43,4 @@ TAG_END '/'
 COMMA ',' 
 BOOLEAN_VAL boolean
 EQ '='
-SYM_NOT_VALID incorrect
+SYM_NOT_VALID incorrect_tag

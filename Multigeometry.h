@@ -9,6 +9,7 @@
 #define	MULTIGEOMETRY_H
 
 #include <string>
+#include <list>
 
 #include "node.h"
 
@@ -19,6 +20,9 @@ public:
   Multigeometry(std::string *s);
   Multigeometry(const Multigeometry& orig);
   virtual ~Multigeometry();
+  
+  std::list<std::string>* getPosibilities();
+  
 private:
   void init();
 };
