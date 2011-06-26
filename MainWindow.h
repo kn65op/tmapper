@@ -144,6 +144,7 @@ private:
   static void exportPng(GtkWidget *widget, gpointer data);
   static void exportPdf(GtkWidget *widget, gpointer data);
   static void matchScale(GtkWidget *widget, gpointer data);
+  static void voidFunction(GtkWidget *widget, gpointer data);
 
   static void tree_row_selected(GtkTreeView *tree_view, gpointer data);
 
@@ -170,6 +171,7 @@ private:
   static void addPolyStyle(GtkWidget *widget, gpointer data);
   static void addStyle(GtkWidget *widget, gpointer data);
 
+  bool printAsk();
   /* do błędów*/
   static void convertToPolish(std::string &s);
   /*zmienne do do map*/
@@ -210,6 +212,7 @@ private:
   
   int old_x;
   int old_y;
+  bool edited;
 
   /* Funkcje inne*/
   void drawKML();

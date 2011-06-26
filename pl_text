@@ -1,13 +1,8 @@
-syntax składniowy
-error bład
-unexpected nie_powinno_być
-expecting powinno_być
-or lub
-$end końca_linii
+$end line_end
 KML_SYM kml
 ID_SYM id
-STRING napis
-TEXT tekst
+STRING string
+TEXT text
 DOCUMENT_SYM Document
 PLACEMARK_SYM Placemark
 NAME_SYM name
@@ -46,6 +41,6 @@ TAG_OPEN '<'
 TAG_CLOSE '>'
 TAG_END '/'
 COMMA ',' 
-BOOLEAN_VAL wartość_logiczna(0lub1)
+BOOLEAN_VAL boolean
 EQ '='
-SYM_NOT_VALID nieprawidłowy_znacznik
+SYM_NOT_VALID incorrect

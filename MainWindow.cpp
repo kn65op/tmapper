@@ -78,6 +78,7 @@ void MainWindow::init(int argc, char** argv)
   act = 0;
   can_edit = true;
   zoom_auto = true;
+  edited = false;
 }
 
 void MainWindow::build()
@@ -340,6 +341,13 @@ gboolean MainWindow::delete_event(GtkWidget *widget, GdkEvent *event, gpointer d
 
 void MainWindow::destroy(GtkWidget *widget, gpointer data)
 {
+  std::cout << "1234\n";
+  MainWindow *mw = static_cast<MainWindow*> (data);
+  if (mw->edited && !mw->printAsk())
+  {
+    std::cout << "1234\n";
+    return;
+  }
   gtk_main_quit();
 }
 
@@ -423,6 +431,10 @@ void MainWindow::showInfo(GtkWidget *widget, gpointer data)
 void MainWindow::openFile(GtkWidget* widget, gpointer data)
 {
   MainWindow *mw = static_cast<MainWindow*> (data);
+  if (mw->edited && !mw->printAsk())
+  {
+    return;
+  }
   GtkWidget *chooser = gtk_file_chooser_dialog_new("Otwórz plik",
           GTK_WINDOW(mw->map),
           GTK_FILE_CHOOSER_ACTION_OPEN,
@@ -450,6 +462,7 @@ void MainWindow::openFile(GtkWidget* widget, gpointer data)
   }
   gtk_widget_destroy(chooser);
   MainWindow::paint(widget, 0, data);
+  mw->edited = false;
 }
 
 void MainWindow::saveFile(GtkWidget* widget, gpointer data)
@@ -683,6 +696,7 @@ void MainWindow::canvas_button_release(GtkWidget* widget, GdkEventButton* event,
     mw->act = 0;
     mw->drawKMLwithMap();
     move_ok = false;
+    mw->edited = true;
   }
   else if (mw->zoom_can)
   {
@@ -814,6 +828,7 @@ void MainWindow::showEditNode(node* n)
   gtk_window_set_title(GTK_WINDOW(edit), window_name.c_str());
   gtk_widget_set_size_request(edit, 800, 400);
   gtk_window_set_deletable(GTK_WINDOW(edit), FALSE);
+  g_signal_connect(G_OBJECT(map), "destroy", G_CALLBACK(voidFunction), this);
 
 
   /* ustawienie 1*/
@@ -875,13 +890,14 @@ void MainWindow::editButtonOk(GtkWidget* widget, gpointer data)
   mw->getAnaliser()->GetKML()->connectStyles();
   gtk_widget_destroy(widget->parent->parent->parent);
   mw->drawKMLwithMap();
+  mw->edited = true;
 }
 
 void MainWindow::editButtonRemove(GtkWidget* widget, gpointer data)
 {
   MainWindow *mw = static_cast<MainWindow*> (data);
   mw->can_edit = true;
-  if (dynamic_cast<Document*>(node_edit))
+  if (dynamic_cast<Document*> (node_edit))
   {
     gtk_widget_set_sensitive(mw->document, TRUE);
   }
@@ -1113,11 +1129,16 @@ void MainWindow::addStyle(GtkWidget* widget, gpointer data)
 void MainWindow::createKML(GtkWidget* widget, gpointer data)
 {
   MainWindow *mw = static_cast<MainWindow*> (data);
+  if (mw->edited && !mw->printAsk())
+  {
+    return;
+  }
   mw->getAnaliser()->createKML();
   gtk_widget_set_sensitive(mw->document, TRUE);
   std::string ff = "TMapper (nowy plik)";
   gtk_window_set_title(GTK_WINDOW(mw->map), ff.c_str());
   mw->drawKMLwithMap();
+  mw->edited = false;
 }
 
 void MainWindow::setAutoZoom(GtkWidget* widget, gpointer data)
@@ -1228,4 +1249,26 @@ void MainWindow::matchScale(GtkWidget* widget, gpointer data)
   mw->zoom_auto = true;
   mw->drawKMLwithMap();
   mw->zoom_auto = false;
+}
+
+bool MainWindow::printAsk()
+{
+  
+  bool tmp = true;
+  GtkWidget *error = gtk_message_dialog_new(GTK_WINDOW(map), GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_ERROR, GTK_BUTTONS_YES_NO,
+          "Czy chcesz utracić zmiany?");
+  gtk_window_set_title(GTK_WINDOW(error), "Dokonano zmian");
+  gint response = gtk_dialog_run(GTK_DIALOG(error));
+  if (response == GTK_RESPONSE_NO)
+  {
+    tmp = false;
+  }
+  gtk_widget_destroy(error);
+  return tmp;
+}
+
+
+void MainWindow::voidFunction(GtkWidget* widget, gpointer data)
+{
+  
 }

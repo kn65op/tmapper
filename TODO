@@ -2,12 +2,10 @@ obsługa błedów - język
 poprawić zapis do pliku
 pytanie o zapis
 
-wywalanie się przy błedzie parsera
+//wywalanie się przy błedzie parsera
 
 wskazówki od konrada:
 zmiana wartości boolean
-ścieżka do ikon
-usuwanie dokumentu
 
 ewentualnie:
 zmniejszenie wyskakujących okien
@@ -15,6 +13,7 @@ dodanie obsługi x przy edycji
 fajka przy przybżenia, by wiedzieć jakie jest
 podwójne buforowainie
 niewidocznosć i przesuwanie
+ścieżka do ikon
 
 bardzo ewentualnie:
 rolka

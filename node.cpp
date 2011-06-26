@@ -402,7 +402,7 @@ void node::paintVisibility(GtkWidget* box)
   }
   GtkWidget *hbox = gtk_hbox_new(GTK_ORIENTATION_VERTICAL, 1);
   gtk_box_pack_start(GTK_BOX(box), hbox, 1, 1, 2);
-  GtkWidget *label = gtk_label_new("Visibility: ");
+  GtkWidget *label = gtk_label_new("Visibility (wartość bool): ");
   gtk_box_pack_start(GTK_BOX(hbox), label, 1, 1, 2);
   GtkWidget *entry = gtk_entry_new();
   if (visibility)
@@ -444,7 +444,7 @@ void node::paintStyleUrl(GtkWidget* box)
   }
   else
   {
-    gtk_entry_set_text(GTK_ENTRY(entry), "");
+    gtk_entry_set_text(GTK_ENTRY(entry), "#");
   }
   gtk_box_pack_end(GTK_BOX(hbox), entry, 1, 1, 2);
   return;
@@ -594,7 +594,7 @@ void node::paintColor(GtkWidget* box)
   }
   GtkWidget *hbox = gtk_hbox_new(GTK_ORIENTATION_VERTICAL, 1);
   gtk_box_pack_start(GTK_BOX(box), hbox, 1, 1, 2);
-  GtkWidget *label = gtk_label_new("Color: ");
+  GtkWidget *label = gtk_label_new("Color (aabbggrr): ");
   gtk_box_pack_start(GTK_BOX(hbox), label, 1, 1, 2);
   GtkWidget *entry = gtk_entry_new();
   if (color)
@@ -625,7 +625,7 @@ void node::paintIcon(GtkWidget* box)
   }
   GtkWidget *hbox = gtk_hbox_new(GTK_ORIENTATION_VERTICAL, 1);
   gtk_box_pack_start(GTK_BOX(box), hbox, 1, 1, 2);
-  GtkWidget *label = gtk_label_new("Icon: ");
+  GtkWidget *label = gtk_label_new("Icon (ścieżka do pliku): ");
   gtk_box_pack_start(GTK_BOX(hbox), label, 1, 1, 2);
   GtkWidget *entry = gtk_entry_new();
   if (icon)
@@ -875,7 +875,7 @@ void node::paintOutline(GtkWidget* box)
   }
   GtkWidget *hbox = gtk_hbox_new(GTK_ORIENTATION_VERTICAL, 1);
   gtk_box_pack_start(GTK_BOX(box), hbox, 1, 1, 2);
-  GtkWidget *label = gtk_label_new("Outline: ");
+  GtkWidget *label = gtk_label_new("Outline (wartość bool) : ");
   gtk_box_pack_start(GTK_BOX(hbox), label, 1, 1, 2);
   GtkWidget *entry = gtk_entry_new();
   if (outline)
@@ -908,7 +908,7 @@ void node::paintFill(GtkWidget* box)
   }
   GtkWidget *hbox = gtk_hbox_new(GTK_ORIENTATION_VERTICAL, 1);
   gtk_box_pack_start(GTK_BOX(box), hbox, 1, 1, 2);
-  GtkWidget *label = gtk_label_new("Fill: ");
+  GtkWidget *label = gtk_label_new("Fill (wartość bool) : ");
   gtk_box_pack_start(GTK_BOX(hbox), label, 1, 1, 2);
   GtkWidget *entry = gtk_entry_new();
   if (fill)
